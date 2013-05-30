@@ -1,9 +1,16 @@
-package com.tanyoo.teroka;
+package com.tanyoo.teroka.activities;
 
+import com.tanyoo.teroka.AnimasiTask;
+import com.tanyoo.teroka.GameActivity;
+import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.R.menu;
+import com.tanyoo.teroka.entities.EButton;
+import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,19 +18,20 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class MainActivity extends Activity implements OnTouchListener{
+public class MainActivity extends GameActivity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	private MenuUtama mu;
+	public MenuUtama mu;
 	
 	// task
 	public AnimasiTask at;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		
 		//hilangkan title bar
@@ -33,6 +41,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		//inisialisasi thread
 		at = new AnimasiTask();
+		
 		
 		//inisiaslisi graphic view
 		mu = new MenuUtama(this);
@@ -49,13 +58,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		at.setPlay(true);
 		at.gv = mu;
 		at.execute();
-	}
-	
-	/**
-	 * Mengganti view
-	 */
-	public void changeView(GameView gv) {
-		this.at.gv = gv; 
+		
 	}
 
 	@Override
@@ -67,17 +70,22 @@ public class MainActivity extends Activity implements OnTouchListener{
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
+		//passing posisi ke graphicsview
 		int action = event.getAction();
 		switch (action) {
 		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
-				//passing posisi ke graphicsview
-			    gv.posX = event.getX();  
-				gv.posY = event.getY();
-				gv.invalidate(); //draw ulang
+			  	 gv.posX = event.getX();  
+			  	 gv.posY = event.getY();
+			  	
+				gv.onDown();
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
+			   gv.onMove();
 			   break;
 		  case MotionEvent.ACTION_UP:  //diangkat
+			  	gv.posX = event.getX();  
+			  	gv.posY = event.getY();
+			   gv.onUp();
 			   break;
 		  case MotionEvent.ACTION_CANCEL: //batal
 			   break;
@@ -85,7 +93,16 @@ public class MainActivity extends Activity implements OnTouchListener{
 			   break;
 			
 		}
+		gv.invalidate(); //draw ulang
 		return true;
 	}
 
+	/**
+	 * Tombol about diklik
+	 */
+	public void tombolAbout(){
+		Intent iAbout = new Intent(getApplicationContext(), AboutActivity.class);
+		startActivity(iAbout);
+	}
+	
 }

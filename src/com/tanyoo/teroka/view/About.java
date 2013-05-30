@@ -1,6 +1,6 @@
 package com.tanyoo.teroka.view;
 
-import com.tanyoo.teroka.activities.MainActivity;
+import com.tanyoo.teroka.activities.AboutActivity;
 import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.lib.GameView;
 
@@ -9,25 +9,24 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class MenuUtama extends GameView {
+public class About extends GameView {
 
 	private Paint cat = new Paint();
 	
 	// entities
-	EButton eb;
+	EButton eb = new EButton(getResources());
 	
-	public MenuUtama(Context context) {
+	public About(Context context) {
 		super(context);
-		
-		//entities
-		eb = new EButton(getResources());
+		// TODO Auto-generated constructor stub
+		eb.setPosition(40, 20);
 	}
 
 	@Override
 	protected void onDraw(Canvas c) {
 		// TODO Auto-generated method stub
 		
-		cat.setColor(Color.RED);
+		cat.setColor(Color.WHITE);
 		//buat background
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
@@ -36,12 +35,10 @@ public class MenuUtama extends GameView {
 		
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
-		c.drawText("Ini menu utama", 30, 50, cat);
+		c.drawText("Ini about", 30, 50, cat);
+		//c.drawRect(0, 0, 100, 100, cat);
 		
-		//draw entities
 		eb.draw(c, cat);
-		
-		
 		
 		super.onDraw(c);
 	}
@@ -51,8 +48,6 @@ public class MenuUtama extends GameView {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
-		
 		
 	}
 
@@ -66,7 +61,7 @@ public class MenuUtama extends GameView {
 	public void onDown() {
 		// TODO Auto-generated method stub
 		if (eb.isHit(posX, posY)) {
-			((MainActivity)(this.context)).tombolAbout();
+			((AboutActivity)(this.context)).tombolKembali();
 		}
 	}
 

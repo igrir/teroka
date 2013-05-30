@@ -3,6 +3,8 @@ package com.tanyoo.teroka;
 import android.R.bool;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
 public class AnimasiTask extends AsyncTask<Void, Void, Void> {
@@ -15,6 +17,9 @@ public class AnimasiTask extends AsyncTask<Void, Void, Void> {
 		// TODO Auto-generated method stub
 		
 		while (this.play){
+			
+			// jalankan game
+			gv.run();
 			
 			publishProgress();
 			
