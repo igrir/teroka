@@ -25,6 +25,11 @@ public class Entity {
 		c.drawBitmap(bmp, this.x, this.y, p);
 	}
 	
+	public void resizeImage(int width, int height){
+		bmp = Bitmap.createScaledBitmap(bmp, width, height, false);
+		this.width = width;
+		this.height = height;
+	}
 	
 	public void setPosition(float x, float y){
 		this.x = x;

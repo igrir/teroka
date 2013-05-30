@@ -2,6 +2,8 @@ package com.tanyoo.teroka.view;
 
 import com.tanyoo.teroka.activities.MainActivity;
 import com.tanyoo.teroka.entities.EButton;
+import com.tanyoo.teroka.entities.EKarakter;
+import com.tanyoo.teroka.entities.ELogo;
 import com.tanyoo.teroka.lib.GameView;
 
 import android.content.Context;
@@ -14,15 +16,44 @@ public class MenuUtama extends GameView {
 	private Paint cat = new Paint();
 	
 	// entities
-	EButton eb;
+	ELogo elogo;
+	EButton eButtonPetualangan;
+	EButton eButtonBertarung;
+	EButton eButtonAbout;
+	EKarakter eKarakter;
 	
 	public MenuUtama(Context context) {
 		super(context);
 		
 		//entities
-		eb = new EButton(getResources());
+		elogo = new ELogo(getResources());
+		eButtonPetualangan = new EButton(getResources());
+		eButtonBertarung = new EButton(getResources());
+		eButtonAbout = new EButton(getResources());
+		eKarakter = new EKarakter(getResources());
+		
 	}
 
+	@Override
+	public void onWindowFocusChanged(boolean hasWindowFocus) {
+		// TODO Auto-generated method stub
+		super.onWindowFocusChanged(hasWindowFocus);
+		
+		// resize gambar
+		elogo.resizeImage((int)getPercentWidth(62), (int)getPercentHeight(19));
+		eButtonPetualangan.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
+		eButtonBertarung.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
+		eButtonAbout.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
+		eKarakter.resizeImage((int)getPercentWidth(32), (int)getPercentHeight(25));
+		
+		//set posisi
+		elogo.setPosition(getPercentWidth(19), getPercentHeight(2));
+		eButtonPetualangan.setPosition(getPercentWidth(53), getPercentHeight(30));
+		eButtonBertarung.setPosition(getPercentWidth(53), getPercentHeight(41));
+		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(52));
+		eKarakter.setPosition(getPercentWidth(6), getPercentHeight(70));
+	}
+	
 	@Override
 	protected void onDraw(Canvas c) {
 		// TODO Auto-generated method stub
@@ -38,10 +69,13 @@ public class MenuUtama extends GameView {
 		c.drawText(posisi, 30, 30, cat);
 		c.drawText("Ini menu utama", 30, 50, cat);
 		
+		
 		//draw entities
-		eb.draw(c, cat);
-		
-		
+		elogo.draw(c, cat);
+		eButtonBertarung.draw(c,cat);
+		eButtonPetualangan.draw(c,cat);
+		eButtonAbout.draw(c, cat);
+		eKarakter.draw(c,cat);
 		
 		super.onDraw(c);
 	}
@@ -65,7 +99,7 @@ public class MenuUtama extends GameView {
 	@Override
 	public void onDown() {
 		// TODO Auto-generated method stub
-		if (eb.isHit(posX, posY)) {
+		if (eButtonAbout.isHit(posX, posY)) {
 			((MainActivity)(this.context)).tombolAbout();
 		}
 	}

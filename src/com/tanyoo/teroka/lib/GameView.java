@@ -17,6 +17,7 @@ import android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Canvas;
 import android.view.View;
 
 public abstract class GameView extends View {
@@ -58,4 +59,20 @@ public abstract class GameView extends View {
 	 * Aksi ketika cursor dilepas
 	 */
 	public abstract void onUp();
+	
+	
+	/**
+	 * Mendapatkan persen dari width penuh
+	 */
+	public float getPercentWidth(int percent){
+		return (float)((float)((float)percent/(float)100)*(float)getWidth());
+	}
+	
+	
+	/**
+	 * Mendapatkan persen dari height penuh
+	 */
+	public float getPercentHeight(int percent){
+		return (float)((float)((float)percent/(float)100)*(float)getHeight());
+	}
 }
