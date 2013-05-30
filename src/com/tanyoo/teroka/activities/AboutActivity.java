@@ -1,7 +1,6 @@
 package com.tanyoo.teroka.activities;
 
 import com.tanyoo.teroka.AnimasiTask;
-import com.tanyoo.teroka.GameActivity;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.R.menu;
 import com.tanyoo.teroka.entities.EButton;
@@ -18,7 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class AboutActivity extends GameActivity implements OnTouchListener{
+public class AboutActivity extends Activity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;

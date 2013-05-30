@@ -11,10 +11,10 @@ package com.tanyoo.teroka.lib;
  * dengan view
  */
 
-import com.tanyoo.teroka.GameActivity;
 import com.tanyoo.teroka.activities.MainActivity;
 
 import android.R;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
@@ -26,11 +26,11 @@ public abstract class GameView extends View {
 	public float posY=-1;	//cursorY
 	public int offset=25;
 	
-	protected GameActivity context;
+	protected Activity context;
 	
 	public GameView(Context context) {
 		super(context);
-		this.context = (GameActivity)context;
+		this.context = (Activity)context;
 		
 		
 		// TODO Auto-generated constructor stub
