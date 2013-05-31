@@ -106,6 +106,8 @@ public class MenuUtama extends GameView {
 		}else{
 			eKarakter.setSprite("karakter2");
 		}
+		
+		System.out.println("Jalan");
 	
 		
 	}
@@ -129,5 +131,6 @@ public class MenuUtama extends GameView {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

@@ -75,4 +75,19 @@ public abstract class GameView extends View {
 	public float getPercentHeight(int percent){
 		return (float)((float)((float)percent/(float)100)*(float)getHeight());
 	}
+	
+	/**
+	 * Mendapatkan font berdasarkan rasio width
+	 * @param percent
+	 * @return
+	 */
+	public float getPercentFontSize(float percent){
+		float width = getWidth();
+		
+		float ratio = width/20;
+		
+		float result = (percent/100)*ratio;
+		
+		return result; 
+	}
 }

@@ -104,4 +104,19 @@ public class MainActivity extends Activity implements OnTouchListener{
 		startActivity(iAbout);
 	}
 	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+		// pause thread yang dijalankan
+		System.out.println("PANGGIL ON PAUSE");
+		System.out.println("PANGGIL ON PAUSE");
+		System.out.println("PANGGIL ON PAUSE");
+		System.out.println("PANGGIL ON PAUSE");
+		System.out.println("PANGGIL ON PAUSE");
+		System.out.println("PANGGIL ON PAUSE");
+		at.cancel(true);
+	}
+	
 }
