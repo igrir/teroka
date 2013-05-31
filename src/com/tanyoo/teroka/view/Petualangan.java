@@ -6,16 +6,49 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.tanyoo.teroka.activities.MainActivity;
+import com.tanyoo.teroka.entities.EBarDistance;
+import com.tanyoo.teroka.entities.EBarHealth;
+import com.tanyoo.teroka.entities.ECalore;
+import com.tanyoo.teroka.entities.EDistance;
+import com.tanyoo.teroka.entities.EGameView;
+import com.tanyoo.teroka.entities.EHealthPoint;
 import com.tanyoo.teroka.entities.EInfobar;
+import com.tanyoo.teroka.entities.ELevel;
+import com.tanyoo.teroka.entities.EPotion;
+import com.tanyoo.teroka.entities.EShop;
+import com.tanyoo.teroka.entities.EStars;
+import com.tanyoo.teroka.entities.ESteps;
 import com.tanyoo.teroka.lib.GameView;
 
 public class Petualangan extends GameView {
 	private Paint cat = new Paint();
 	EInfobar einfo;
+	EBarDistance ebardistance;
+	EDistance edistance;
+	EHealthPoint ehealthpoint;
+	EBarHealth ebarhealth;
+	EGameView egameview;
+	EStars estars;
+	ESteps esteps;
+	EShop eshop;
+	EPotion epotion;
+	ELevel elevel;
+	ECalore ecalore;
 	public Petualangan(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		einfo = new EInfobar(getResources());
+		ebardistance = new EBarDistance(getResources());
+		edistance = new EDistance(getResources());
+		ehealthpoint = new EHealthPoint(getResources());
+		ebarhealth = new EBarHealth(getResources());
+		egameview = new EGameView(getResources());
+		estars = new EStars(getResources());
+		esteps = new ESteps(getResources());
+		eshop = new EShop(getResources());
+		epotion = new EPotion(getResources());
+		elevel = new ELevel(getResources());
+		ecalore = new ECalore(getResources());
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
@@ -25,10 +58,36 @@ public class Petualangan extends GameView {
 		
 		// resize gambar
 		einfo.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
+		ebardistance.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
+		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
+		ecalore.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
+		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
+		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(25));
+		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
+		elevel.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
+		epotion.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
+		eshop.resizeImage((int)getPercentWidth(40),(int)getPercentHeight(12));
+		estars.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
+		esteps.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		
 		
 		// set posisi
 		einfo.setPosition(getPercentWidth(0), getPercentHeight(0));
+		egameview.setPosition(getPercentWidth(0), getPercentHeight(10));
+		ehealthpoint.setPosition(getPercentWidth(8), getPercentHeight(36));
+		edistance.setPosition(getPercentWidth(8), getPercentHeight(46));
+		ebarhealth.setPosition(getPercentWidth(27), getPercentHeight(36));
+		ebardistance.setPosition(getPercentWidth(27), getPercentHeight(46));
+		elevel.setPosition(getPercentWidth(0), getPercentHeight(56));
+
+		estars.setPosition(getPercentWidth(20), getPercentHeight(56));
+
+		esteps.setPosition(getPercentWidth(40), getPercentHeight(56));
+
+		epotion.setPosition(getPercentWidth(60), getPercentHeight(56));
+		ecalore.setPosition(getPercentWidth(80), getPercentHeight(56));
+
+		eshop.setPosition(getPercentWidth(30), getPercentHeight(83));
 	}
 	@Override
 	public void onDraw(Canvas c)
@@ -43,6 +102,17 @@ public class Petualangan extends GameView {
 		c.drawText(posisi, 30, 30, cat);
 		c.drawText("Ini menu utama", 30, 50, cat);
 		einfo.draw(c, cat);
+		egameview.draw(c, cat);
+		edistance.draw(c, cat);
+		ehealthpoint.draw(c, cat);
+		ebardistance.draw(c, cat);
+		ebarhealth.draw(c, cat);
+		estars.draw(c, cat);
+		esteps.draw(c, cat);
+		eshop.draw(c, cat);
+		ecalore.draw(c, cat);
+		epotion.draw(c, cat);
+		elevel.draw(c, cat);
 		super.onDraw(c);
 	}
 	@Override
