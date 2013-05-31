@@ -44,19 +44,23 @@ public class MenuUtama extends GameView {
 		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasWindowFocus);
 		
+		eKarakter.createSprites((int)getPercentWidth(32), (int)getPercentHeight(25));
+		
 		// resize gambar
 		elogo.resizeImage((int)getPercentWidth(62), (int)getPercentHeight(19));
 		eButtonPetualangan.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
 		eButtonBertarung.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
 		eButtonAbout.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
-		eKarakter.resizeImage((int)getPercentWidth(32), (int)getPercentHeight(25));
+
 		
-		//set posisi
+		// set posisi
 		elogo.setPosition(getPercentWidth(19), getPercentHeight(2));
 		eButtonPetualangan.setPosition(getPercentWidth(53), getPercentHeight(30));
 		eButtonBertarung.setPosition(getPercentWidth(53), getPercentHeight(41));
 		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(52));
 		eKarakter.setPosition(getPercentWidth(6), getPercentHeight(70));
+		
+		
 	}
 	
 	@Override
@@ -98,9 +102,9 @@ public class MenuUtama extends GameView {
 		}
 		
 		if (timeElapsed == 1) {
-			eKarakter.setBitmap(getResources(), R.drawable.karakter2);
+			eKarakter.setSprite("karakter1");
 		}else{
-			eKarakter.setBitmap(getResources(), R.drawable.karakter);
+			eKarakter.setSprite("karakter2");
 		}
 	
 		

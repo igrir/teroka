@@ -9,7 +9,14 @@ public class EKarakter extends Entity{
 
 	public EKarakter(Resources res) {
 		//tentukan apa nama buttonnya
-		super(res, R.drawable.karakter);
+		super(res);
+		
+	}
+	
+	public void createSprites(int width, int height){
+		addScaledSprite(R.drawable.karakter, "karakter1", width, height);
+		addScaledSprite(R.drawable.karakter2, "karakter2", width, height);
+		setSprite("karakter1");
 	}
 	
 }

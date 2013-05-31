@@ -20,6 +20,9 @@ public class About extends GameView {
 		super(context);
 		// TODO Auto-generated constructor stub
 		eb.setPosition(40, 20);
+		
+		// set button
+		eb.setHitBox(40, 20);
 	}
 
 	@Override
@@ -60,7 +63,11 @@ public class About extends GameView {
 	@Override
 	public void onDown() {
 		// TODO Auto-generated method stub
+		System.out.println("KELUAR");
+		System.out.println("HIT?? : " + eb.isHit(posX, posY));
+		System.out.println("posX : " + posX + " dan posY : " + posY);
 		if (eb.isHit(posX, posY)) {
+			
 			((AboutActivity)(this.context)).tombolKembali();
 		}
 	}
