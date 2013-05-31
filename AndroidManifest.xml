@@ -29,7 +29,10 @@
             		android:label="about activity">
             	
         </activity>
-        
+        <activity
+            android:name="com.tanyoo.teroka.activities.StatistikActivity"
+            android:label="@string/app_name" >
+ 		</activity>       
     </application>
 
 </manifest>

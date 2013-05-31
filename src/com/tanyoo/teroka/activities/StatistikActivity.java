@@ -1,29 +1,27 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.AnimasiTask;
-import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.R.menu;
-import com.tanyoo.teroka.entities.EButton;
-import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.view.*;
-
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
 
-public class MainActivity extends Activity implements OnTouchListener{
+import com.tanyoo.teroka.AnimasiTask;
+import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.GameView;
+import com.tanyoo.teroka.view.About;
+import com.tanyoo.teroka.view.Statistik;
+
+public class StatistikActivity extends Activity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public MenuUtama mu;
+	public Statistik mu;
 	
 	// task
 	public AnimasiTask at;
@@ -43,7 +41,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		
 		//inisiaslisi graphic view
-		mu = new MenuUtama(this);
+		mu = new Statistik(this);
 			
 		gv = mu;
 		
@@ -75,7 +73,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
 			  	 gv.posX = event.getX();  
 			  	 gv.posY = event.getY();
-			  	
 				gv.onDown();
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
@@ -97,11 +94,10 @@ public class MainActivity extends Activity implements OnTouchListener{
 	}
 
 	/**
-	 * Tombol about diklik
+	 * Tombol kembali diklik
 	 */
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), StatistikActivity.class);
-		startActivity(iAbout);
+	public void tombolKembali(){
+		finish();
 	}
 	
 }
