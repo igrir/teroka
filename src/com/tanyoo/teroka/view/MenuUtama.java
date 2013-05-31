@@ -101,7 +101,8 @@ public class MenuUtama extends GameView {
 			eKarakter.setBitmap(getResources(), R.drawable.karakter2);
 		}else{
 			eKarakter.setBitmap(getResources(), R.drawable.karakter);
-		}		
+		}
+	
 		
 	}
 
