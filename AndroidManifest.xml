@@ -29,8 +29,13 @@
             		android:label="about activity">
             	
         </activity>
+
+        <activity android:name="com.tanyoo.teroka.activities.HelpActivity"
+            		android:label="help activity">
+		 </activity>
         <activity android:name="com.tanyoo.teroka.activities.PetualanganActivity"
             		android:label="petualanan activity">
+
             	
         </activity>
         

@@ -9,7 +9,8 @@ public class EPreviewGame extends Entity{
 
 	public EPreviewGame(Resources res) {
 		//tentukan apa namanya
-		super(res, R.drawable.previewbg);
+		super(res);
+		addSprite(R.drawable.previewbg, "previewbg");
+		setSprite("previewbg");
 	}
-	
 }

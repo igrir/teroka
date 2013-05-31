@@ -47,14 +47,14 @@ public class MenuUtama extends GameView {
 		eKarakter.createSprites((int)getPercentWidth(32), (int)getPercentHeight(25));
 		
 		// resize gambar
-		elogo.resizeImage((int)getPercentWidth(62), (int)getPercentHeight(19));
+		elogo.resizeImage((int)getPercentWidth(75), (int)getPercentHeight(19));
 		eButtonPetualangan.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
 		eButtonBertarung.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
 		eButtonAbout.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
 
 		
 		// set posisi
-		elogo.setPosition(getPercentWidth(19), getPercentHeight(2));
+		elogo.setPosition(getPercentWidth(10), getPercentHeight(2));
 		eButtonPetualangan.setPosition(getPercentWidth(53), getPercentHeight(30));
 		eButtonBertarung.setPosition(getPercentWidth(53), getPercentHeight(41));
 		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(52));
@@ -67,7 +67,7 @@ public class MenuUtama extends GameView {
 	protected void onDraw(Canvas c) {
 		// TODO Auto-generated method stub
 		
-		cat.setColor(Color.RED);
+		cat.setColor(Color.WHITE);
 		//buat background
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
@@ -117,6 +117,7 @@ public class MenuUtama extends GameView {
 	}
 
 	@Override
+	
 	public void onDown() {
 		// TODO Auto-generated method stub
 		if (eButtonAbout.isHit(posX, posY)) {
