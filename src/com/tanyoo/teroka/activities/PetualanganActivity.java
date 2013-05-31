@@ -17,13 +17,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class MainActivity extends Activity implements OnTouchListener{
+public class PetualanganActivity extends Activity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public MenuUtama mu;
+	public Petualangan mu;
 	
 	// task
 	public AnimasiTask at;
@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		
 		//inisiaslisi graphic view
-		mu = new MenuUtama(this);
+		mu = new Petualangan(this);
 			
 		gv = mu;
 		
@@ -75,7 +75,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
 			  	 gv.posX = event.getX();  
 			  	 gv.posY = event.getY();
-			  	
 				gv.onDown();
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
@@ -97,15 +96,10 @@ public class MainActivity extends Activity implements OnTouchListener{
 	}
 
 	/**
-	 * Tombol about diklik
+	 * Tombol kembali diklik
 	 */
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), AboutActivity.class);
-		startActivity(iAbout);
-	}
-	public void tombolPetualangan(){
-		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
-		startActivity(iAbout);
+	public void tombolKembali(){
+		finish();
 	}
 	
 }
