@@ -1,5 +1,6 @@
 package com.tanyoo.teroka.view;
 
+import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.activities.MainActivity;
 import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.entities.EKarakter;
@@ -7,6 +8,7 @@ import com.tanyoo.teroka.entities.ELogo;
 import com.tanyoo.teroka.lib.GameView;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,6 +16,9 @@ import android.graphics.Paint;
 public class MenuUtama extends GameView {
 
 	private Paint cat = new Paint();
+	
+	// angka ticks buat animasi
+	private int timeElapsed = 0;
 	
 	// entities
 	ELogo elogo;
@@ -86,7 +91,17 @@ public class MenuUtama extends GameView {
 	public void run() {
 		// TODO Auto-generated method stub
 		
+		if (timeElapsed > 0) {
+			timeElapsed = 0;
+		}else{
+			timeElapsed++;
+		}
 		
+		if (timeElapsed == 1) {
+			eKarakter.setBitmap(getResources(), R.drawable.karakter2);
+		}else{
+			eKarakter.setBitmap(getResources(), R.drawable.karakter);
+		}		
 		
 	}
 

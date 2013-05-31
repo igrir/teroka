@@ -31,6 +31,11 @@ public class Entity {
 		this.height = height;
 	}
 	
+	public void setBitmap(Resources res, int id){
+		bmp = BitmapFactory.decodeResource(res, id);
+		resizeImage((int)width, (int)height);
+	}
+	
 	public void setPosition(float x, float y){
 		this.x = x;
 		this.y = y;
