@@ -102,4 +102,13 @@ public class AboutActivity extends Activity implements OnTouchListener{
 		finish();
 	}
 	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+		//jalankan garbage collector
+		System.gc();
+	}
+	
 }

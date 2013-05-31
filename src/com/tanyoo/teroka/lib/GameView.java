@@ -11,6 +11,8 @@ package com.tanyoo.teroka.lib;
  * dengan view
  */
 
+import java.util.Vector;
+
 import com.tanyoo.teroka.activities.MainActivity;
 
 import android.R;
@@ -18,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.view.View;
 
 public abstract class GameView extends View {
@@ -29,10 +32,12 @@ public abstract class GameView extends View {
 	
 	protected Activity context;
 	
+	public Vector<Entity> entityCollection;
+	
 	public GameView(Context context) {
 		super(context);
 		this.context = (Activity)context;
-		
+		entityCollection = new Vector<Entity>();
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -76,6 +81,7 @@ public abstract class GameView extends View {
 		return (float)((float)((float)percent/(float)100)*(float)getHeight());
 	}
 	
+	
 	/**
 	 * Mendapatkan font berdasarkan rasio width
 	 * @param percent
@@ -89,5 +95,40 @@ public abstract class GameView extends View {
 		float result = (percent/100)*ratio;
 		
 		return result; 
+	}
+	
+	
+	/**
+	 * Menggambar kumpulan entity
+	 * @param c
+	 * @param p
+	 */
+	public void drawEntityCollection(Canvas c, Paint p){
+		for (int i=0; i < entityCollection.size(); i++) {
+			Entity _entity = (Entity)entityCollection.get(i);
+			_entity.draw(c, p);
+		}
+	}
+	
+	
+	/**
+	 * Menambahkan list entity yang mau ditampilkan
+	 * @param e
+	 */
+	public void addEntity(Entity... e){
+		for (Entity entity : e) {
+			entityCollection.add(entity);
+		}
+	}
+	
+	
+	/**
+	 * Membebaskan memori dari bitmap entity yang sudah di draw
+	 */
+	public void recycleEntityCollection(){
+		for (int i=0; i < entityCollection.size(); i++) {
+			Entity _entity = (Entity)entityCollection.get(i);
+			_entity.recycle();
+		}
 	}
 }

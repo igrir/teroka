@@ -3,13 +3,26 @@ package com.tanyoo.teroka.activities;
 import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.R.menu;
+import com.tanyoo.teroka.entities.EBarDistance;
+import com.tanyoo.teroka.entities.EBarHealth;
 import com.tanyoo.teroka.entities.EButton;
+import com.tanyoo.teroka.entities.ECalore;
+import com.tanyoo.teroka.entities.EDistance;
+import com.tanyoo.teroka.entities.EGameView;
+import com.tanyoo.teroka.entities.EHealthPoint;
+import com.tanyoo.teroka.entities.EInfobar;
+import com.tanyoo.teroka.entities.ELevel;
+import com.tanyoo.teroka.entities.EPotion;
+import com.tanyoo.teroka.entities.EShop;
+import com.tanyoo.teroka.entities.EStars;
+import com.tanyoo.teroka.entities.ESteps;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,6 +73,7 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 		
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -99,7 +113,51 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 	 * Tombol kembali diklik
 	 */
 	public void tombolKembali(){
+		
+		
+		
 		finish();
+	}
+	
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		
+//		mu.ebardistance.recycle();		
+//		mu.einfo.recycle();
+//		mu.ebardistance.recycle();
+//		mu.edistance.recycle();
+//		mu.ehealthpoint.recycle();
+//		mu.ebarhealth.recycle();
+//		mu.egameview.recycle();
+//		mu.estars.recycle();
+//		mu.esteps.recycle();
+//		mu.eshop.recycle();
+//		mu.epotion.recycle();
+//		mu.elevel.recycle();
+//		mu.ecalore.recycle();
+		//membebaskan memori
+		mu.recycleEntityCollection();
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+		//stop concurrent
+		at.cancel(true);
+		
+		//jalankan garbage collector
+		System.gc();
+		
+		finish();
+		
+		
+		
+		
 	}
 	
 }

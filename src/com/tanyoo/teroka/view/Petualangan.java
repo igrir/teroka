@@ -1,6 +1,7 @@
 package com.tanyoo.teroka.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -20,20 +21,25 @@ import com.tanyoo.teroka.entities.EStars;
 import com.tanyoo.teroka.entities.ESteps;
 import com.tanyoo.teroka.lib.GameView;
 
+
 public class Petualangan extends GameView {
+	
+	
 	private Paint cat = new Paint();
-	EInfobar einfo;
-	EBarDistance ebardistance;
-	EDistance edistance;
-	EHealthPoint ehealthpoint;
-	EBarHealth ebarhealth;
-	EGameView egameview;
-	EStars estars;
-	ESteps esteps;
-	EShop eshop;
-	EPotion epotion;
-	ELevel elevel;
-	ECalore ecalore;
+	
+	public EInfobar einfo;
+	public EBarDistance ebardistance;
+	public EDistance edistance;
+	public EHealthPoint ehealthpoint;
+	public EBarHealth ebarhealth;
+	public EGameView egameview;
+	public EStars estars;
+	public ESteps esteps;
+	public EShop eshop;
+	public EPotion epotion;
+	public ELevel elevel;
+	public ECalore ecalore;
+	
 	public Petualangan(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
@@ -49,6 +55,10 @@ public class Petualangan extends GameView {
 		epotion = new EPotion(getResources());
 		elevel = new ELevel(getResources());
 		ecalore = new ECalore(getResources());
+		
+		addEntity(einfo, ebardistance, edistance,
+				 ehealthpoint, ebarhealth, egameview,
+				 estars, esteps, eshop, epotion, elevel, ecalore);
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
@@ -101,24 +111,28 @@ public class Petualangan extends GameView {
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
 		c.drawText("Ini menu utama", 30, 50, cat);
-		einfo.draw(c, cat);
-		egameview.draw(c, cat);
-		edistance.draw(c, cat);
-		ehealthpoint.draw(c, cat);
-		ebardistance.draw(c, cat);
-		ebarhealth.draw(c, cat);
-		estars.draw(c, cat);
-		esteps.draw(c, cat);
-		eshop.draw(c, cat);
-		ecalore.draw(c, cat);
-		epotion.draw(c, cat);
-		elevel.draw(c, cat);
+		
+		//		einfo.draw(c, cat);
+		//		egameview.draw(c, cat);
+		//		edistance.draw(c, cat);
+		//		ehealthpoint.draw(c, cat);
+		//		ebardistance.draw(c, cat);
+		//		ebarhealth.draw(c, cat);
+		//		estars.draw(c, cat);
+		//		esteps.draw(c, cat);
+		//		eshop.draw(c, cat);
+		//		ecalore.draw(c, cat);
+		//		epotion.draw(c, cat);
+		//		elevel.draw(c, cat);
+		drawEntityCollection(c, cat);
+		
+		
 		super.onDraw(c);
 	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-
+		System.out.println("PETUALANGAAAAAAANNNNNNNN");
 	}
 
 	@Override
@@ -139,7 +153,6 @@ public class Petualangan extends GameView {
 	@Override
 	public void onUp() {
 		// TODO Auto-generated method stub
-
 	}
 
 }

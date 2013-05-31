@@ -21,11 +21,11 @@ public class MenuUtama extends GameView {
 	private int timeElapsed = 0;
 	
 	// entities
-	ELogo elogo;
-	EButton eButtonPetualangan;
-	EButton eButtonBertarung;
-	EButton eButtonAbout;
-	EKarakter eKarakter;
+	public ELogo elogo;
+	public EButton eButtonPetualangan;
+	public EButton eButtonBertarung;
+	public EButton eButtonAbout;
+	public EKarakter eKarakter;
 	
 	public MenuUtama(Context context) {
 		super(context);
@@ -107,7 +107,6 @@ public class MenuUtama extends GameView {
 			eKarakter.setSprite("karakter2");
 		}
 		
-		System.out.println("Jalan");
 	
 		
 	}

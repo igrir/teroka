@@ -29,6 +29,8 @@ public class Help extends GameView {
 		eButtonStatistik = new EButton(getResources());
 		ePreviewGame = new EPreviewGame(getResources());
 		
+		addEntity(elogo, eButtonStatistik, ePreviewGame);
+		
 	}
 
 	@Override
@@ -65,9 +67,11 @@ public class Help extends GameView {
 		
 		
 		//draw entities
-		elogo.draw(c, cat);
-		eButtonStatistik.draw(c,cat);
-		ePreviewGame.draw(c,cat);
+//		elogo.draw(c, cat);
+//		eButtonStatistik.draw(c,cat);
+//		ePreviewGame.draw(c,cat);
+		
+		drawEntityCollection(c, cat);
 		
 		super.onDraw(c);
 	}

@@ -102,4 +102,20 @@ public class HelpActivity extends Activity implements OnTouchListener{
 		finish();
 	}
 	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+		
+		System.gc();
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		mu.recycleEntityCollection();
+	}
+	
 }

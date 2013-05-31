@@ -4,6 +4,8 @@ import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.R.menu;
 import com.tanyoo.teroka.entities.EButton;
+import com.tanyoo.teroka.entities.EKarakter;
+import com.tanyoo.teroka.entities.ELogo;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
@@ -28,11 +30,28 @@ public class MainActivity extends Activity implements OnTouchListener{
 	// task
 	public AnimasiTask at;
 	
+	public MainActivity() {
+		//inisiaslisi graphic view
+		
+		
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		System.out.println("Garbage collector");
+		//jalankan garbage collector
+		System.gc();
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
+		System.out.println("MainActivity create");
 		//hilangkan title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
@@ -40,11 +59,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		//inisialisasi thread
 		at = new AnimasiTask();
-		
-		
-		//inisiaslisi graphic view
 		mu = new MenuUtama(this);
-			
 		gv = mu;
 		
 		//set aksi yang dilakukan oleh touch dilakukan siapa
@@ -99,15 +114,14 @@ public class MainActivity extends Activity implements OnTouchListener{
 	/**
 	 * Tombol about diklik
 	 */
-//	public void tombolAbout(){
-//		Intent iAbout = new Intent(getApplicationContext(), AboutActivity.class);
-//		startActivity(iAbout);
-//	}
-	
 	public void tombolAbout(){
 		Intent iAbout = new Intent(getApplicationContext(), HelpActivity.class);
 		startActivity(iAbout);
 	}
+	
+	/**
+	 * Tombol petualangan
+	 */
 	public void tombolPetualangan(){
 		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
 		startActivity(iAbout);
@@ -120,12 +134,11 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		// pause thread yang dijalankan
 		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
 		at.cancel(true);
+		
+		
+		//jalankan garbage collector
+		System.gc();
 	}
 	
 }
