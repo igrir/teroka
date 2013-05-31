@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="8"
         android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
@@ -27,6 +27,15 @@
         
         <activity android:name="com.tanyoo.teroka.activities.AboutActivity"
             		android:label="about activity">
+            	
+        </activity>
+
+        <activity android:name="com.tanyoo.teroka.activities.HelpActivity"
+            		android:label="help activity">
+		 </activity>
+        <activity android:name="com.tanyoo.teroka.activities.PetualanganActivity"
+            		android:label="petualanan activity">
+
             	
         </activity>
         

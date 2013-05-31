@@ -38,7 +38,7 @@ public class Help extends GameView {
 		
 		// resize gambar
 		elogo.resizeImage((int)getPercentWidth(62), (int)getPercentHeight(19));
-		ePreviewGame.resizeImage((int)getPercentWidth(56), (int)getPercentHeight(100));
+		ePreviewGame.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(56));
 		eButtonStatistik.resizeImage((int)getPercentWidth(42), (int)getPercentHeight(10));
 
 		
@@ -61,7 +61,7 @@ public class Help extends GameView {
 		
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
-		c.drawText("Ini menu utama", 30, 50, cat);
+		c.drawText("Ini help", 30, 50, cat);
 		
 		
 		//draw entities

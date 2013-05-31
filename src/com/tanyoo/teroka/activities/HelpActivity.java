@@ -17,13 +17,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class MainActivity extends Activity implements OnTouchListener{
+public class HelpActivity extends Activity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public MenuUtama mu;
+	public Help mu;
 	
 	// task
 	public AnimasiTask at;
@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		
 		//inisiaslisi graphic view
-		mu = new MenuUtama(this);
+		mu = new Help(this);
 			
 		gv = mu;
 		
@@ -75,7 +75,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
 			  	 gv.posX = event.getX();  
 			  	 gv.posY = event.getY();
-			  	
 				gv.onDown();
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
@@ -97,35 +96,10 @@ public class MainActivity extends Activity implements OnTouchListener{
 	}
 
 	/**
-	 * Tombol about diklik
+	 * Tombol kembali diklik
 	 */
-//	public void tombolAbout(){
-//		Intent iAbout = new Intent(getApplicationContext(), AboutActivity.class);
-//		startActivity(iAbout);
-//	}
-	
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), HelpActivity.class);
-		startActivity(iAbout);
-	}
-	public void tombolPetualangan(){
-		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
-		startActivity(iAbout);
-	}
-	
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		
-		// pause thread yang dijalankan
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		System.out.println("PANGGIL ON PAUSE");
-		at.cancel(true);
+	public void tombolKembali(){
+		finish();
 	}
 	
 }
