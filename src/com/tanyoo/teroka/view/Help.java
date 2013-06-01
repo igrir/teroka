@@ -1,5 +1,6 @@
 package com.tanyoo.teroka.view;
 
+import com.tanyoo.teroka.activities.HelpActivity;
 import com.tanyoo.teroka.activities.MainActivity;
 import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.entities.EKarakter;
@@ -98,7 +99,7 @@ public class Help extends GameView {
 	public void onDown() {
 		// TODO Auto-generated method stub
 		if (eButtonStatistik.isHit(posXDown, posYDown)) {
-			//((MainActivity)(this.context)).tombolStatistik();
+			((HelpActivity)(this.context)).tombolStatistik();
 		}
 	}
 

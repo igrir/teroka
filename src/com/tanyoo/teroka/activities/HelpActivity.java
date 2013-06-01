@@ -67,10 +67,10 @@ public class HelpActivity extends Activity implements OnTouchListener{
 		return true;
 	}
 	
-//	public void tombolPetualangan(){
-//		Intent iAbout = new Intent(getApplicationContext(), StatistikActivity.class);
-//		startActivity(iAbout);
-//	}
+	public void tombolStatistik(){
+		Intent iAbout = new Intent(getApplicationContext(), StatistikActivity.class);
+		startActivity(iAbout);
+	}
 
 	/**
 	 * Tombol kembali diklik
