@@ -3,6 +3,8 @@ package com.tanyoo.teroka.lib;
 
 import java.util.ArrayList;
 
+import util.DataList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

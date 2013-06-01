@@ -17,13 +17,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class AboutActivity extends Activity implements OnTouchListener{
+public class HelpActivity extends Activity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public About mu;
+	public Help mu;
 	
 	// task
 	public AnimasiTask at;
@@ -43,7 +43,7 @@ public class AboutActivity extends Activity implements OnTouchListener{
 		
 		
 		//inisiaslisi graphic view
-		mu = new About(this);
+		mu = new Help(this);
 			
 		gv = mu;
 		
@@ -67,22 +67,48 @@ public class AboutActivity extends Activity implements OnTouchListener{
 		return true;
 	}
 
+
+	/**
+	 * Tombol kembali diklik
+	 */
+	public void tombolKembali(){
+		finish();
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+		
+		System.gc();
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		mu.recycleEntityCollection();
+	}
+
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		//passing posisi ke graphicsview
 		int action = event.getAction();
 		switch (action) {
 		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
-			  	 gv.posX = event.getX();  
-			  	 gv.posY = event.getY();
+			  	 gv.posXDown = event.getX();  
+			  	 gv.posYDown = event.getY();
 				gv.onDown();
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
+			  	gv.posXMove = event.getX();  
+			  	gv.posYMove = event.getY();
 			   gv.onMove();
 			   break;
 		  case MotionEvent.ACTION_UP:  //diangkat
-			  	gv.posX = event.getX();  
-			  	gv.posY = event.getY();
+			  	gv.posXUp = event.getX();  
+			  	gv.posYUp = event.getY();
 			   gv.onUp();
 			   break;
 		  case MotionEvent.ACTION_CANCEL: //batal
@@ -94,12 +120,4 @@ public class AboutActivity extends Activity implements OnTouchListener{
 		gv.invalidate(); //draw ulang
 		return true;
 	}
-
-	/**
-	 * Tombol kembali diklik
-	 */
-	public void tombolKembali(){
-		finish();
-	}
-	
 }

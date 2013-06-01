@@ -18,6 +18,10 @@ public class AnimasiTask extends AsyncTask<Void, Void, Void> {
 		
 		while (this.play){
 			
+			if(isCancelled()){
+				return null;
+			}
+			
 			// jalankan game
 			gv.run();
 			
@@ -25,11 +29,14 @@ public class AnimasiTask extends AsyncTask<Void, Void, Void> {
 			
 			try {
 				Thread.sleep((long)(1000*0.1));
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
-				Log.e("gp", "error saat mau tidur "+e.getMessage());
+				Log.e("gp", "error saat mau tidur ");
+				e.printStackTrace();
 			}
+			
+			
 		}
 
 		return null;

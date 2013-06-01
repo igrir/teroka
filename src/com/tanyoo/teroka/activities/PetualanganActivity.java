@@ -2,10 +2,6 @@ package com.tanyoo.teroka.activities;
 
 import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.R.menu;
-import com.tanyoo.teroka.entities.EButton;
-import com.tanyoo.teroka.entities.EKarakter;
-import com.tanyoo.teroka.entities.ELogo;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
@@ -19,39 +15,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class MainActivity extends Activity implements OnTouchListener{
+public class PetualanganActivity extends Activity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public MenuUtama mu;
+	public Petualangan mu;
 	
 	// task
 	public AnimasiTask at;
-	
-	public MainActivity() {
-		//inisiaslisi graphic view
-		
-		
-	}
-	
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		
-		System.out.println("Garbage collector");
-		//jalankan garbage collector
-		System.gc();
-	}
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		System.out.println("MainActivity create");
+		
 		//hilangkan title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
@@ -59,7 +38,11 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		//inisialisasi thread
 		at = new AnimasiTask();
-		mu = new MenuUtama(this);
+		
+		
+		//inisiaslisi graphic view
+		mu = new Petualangan(this);
+			
 		gv = mu;
 		
 		//set aksi yang dilakukan oleh touch dilakukan siapa
@@ -75,6 +58,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -84,19 +68,36 @@ public class MainActivity extends Activity implements OnTouchListener{
 
 
 	/**
-	 * Tombol about diklik
+	 * Tombol kembali diklik
 	 */
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), HelpActivity.class);
-		startActivity(iAbout);
+	public void tombolKembali(){
+		
+		
+		
+		finish();
 	}
 	
-	/**
-	 * Tombol petualangan
-	 */
-	public void tombolPetualangan(){
-		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
-		startActivity(iAbout);
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		
+//		mu.ebardistance.recycle();		
+//		mu.einfo.recycle();
+//		mu.ebardistance.recycle();
+//		mu.edistance.recycle();
+//		mu.ehealthpoint.recycle();
+//		mu.ebarhealth.recycle();
+//		mu.egameview.recycle();
+//		mu.estars.recycle();
+//		mu.esteps.recycle();
+//		mu.eshop.recycle();
+//		mu.epotion.recycle();
+//		mu.elevel.recycle();
+//		mu.ecalore.recycle();
+		//membebaskan memori
+		mu.recycleEntityCollection();
 	}
 	
 	@Override
@@ -104,13 +105,17 @@ public class MainActivity extends Activity implements OnTouchListener{
 		// TODO Auto-generated method stub
 		super.onPause();
 		
-		// pause thread yang dijalankan
-		System.out.println("PANGGIL ON PAUSE");
+		//stop concurrent
 		at.cancel(true);
-		
 		
 		//jalankan garbage collector
 		System.gc();
+		
+		finish();
+		
+		
+		
+		
 	}
 	
 	@Override
@@ -142,16 +147,11 @@ public class MainActivity extends Activity implements OnTouchListener{
 		gv.invalidate(); //draw ulang
 		return true;
 	}
-<<<<<<< HEAD
-
-	/**
-	 * Tombol about diklik
-	 */
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), StatistikActivity.class);
-		startActivity(iAbout);
+	
+	
+	public void tombolToko(){
+		Intent iToko = new Intent(getApplicationContext(), TokoActivity.class);
+		startActivity(iToko);
 	}
-=======
->>>>>>> 2dcad773f8a271bdf529aae0c6c055ee5e6e3af9
 	
 }

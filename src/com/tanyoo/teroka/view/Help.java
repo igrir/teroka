@@ -11,6 +11,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.SurfaceHolder;
 
 public class Help extends GameView {
 
@@ -29,6 +30,8 @@ public class Help extends GameView {
 		eButtonStatistik = new EButton(getResources());
 		ePreviewGame = new EPreviewGame(getResources());
 		
+		addEntity(elogo, eButtonStatistik, ePreviewGame);
+		
 	}
 
 	@Override
@@ -38,7 +41,7 @@ public class Help extends GameView {
 		
 		// resize gambar
 		elogo.resizeImage((int)getPercentWidth(62), (int)getPercentHeight(19));
-		ePreviewGame.resizeImage((int)getPercentWidth(56), (int)getPercentHeight(100));
+		ePreviewGame.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(56));
 		eButtonStatistik.resizeImage((int)getPercentWidth(42), (int)getPercentHeight(10));
 
 		
@@ -57,17 +60,19 @@ public class Help extends GameView {
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
 		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posX) + " , y:" + String.valueOf(posY);
+		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
 		
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
-		c.drawText("Ini menu utama", 30, 50, cat);
+		c.drawText("Ini help", 30, 50, cat);
 		
 		
 		//draw entities
-		elogo.draw(c, cat);
-		eButtonStatistik.draw(c,cat);
-		ePreviewGame.draw(c,cat);
+//		elogo.draw(c, cat);
+//		eButtonStatistik.draw(c,cat);
+//		ePreviewGame.draw(c,cat);
+		
+		drawEntityCollection(c, cat);
 		
 		super.onDraw(c);
 	}
@@ -91,7 +96,7 @@ public class Help extends GameView {
 	@Override
 	public void onDown() {
 		// TODO Auto-generated method stub
-		if (eButtonStatistik.isHit(posX, posY)) {
+		if (eButtonStatistik.isHit(posXDown, posYDown)) {
 			//((MainActivity)(this.context)).tombolAbout();
 		}
 	}
@@ -101,5 +106,6 @@ public class Help extends GameView {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

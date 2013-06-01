@@ -1,4 +1,4 @@
-package com.tanyoo.teroka.lib;
+package util;
 
 public class DataList {
 	
