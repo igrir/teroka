@@ -5,6 +5,7 @@ import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.entities.EKarakter;
 import com.tanyoo.teroka.entities.ELogo;
 import com.tanyoo.teroka.entities.EPreviewGame;
+import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.lib.GameView;
 
 import android.content.Context;
@@ -21,6 +22,8 @@ public class Help extends GameView {
 	ELogo elogo;
 	EButton eButtonStatistik;
 	EPreviewGame ePreviewGame;
+	public EBackground eBackground;
+	
 	
 	public Help(Context context) {
 		super(context);
@@ -29,7 +32,7 @@ public class Help extends GameView {
 		elogo = new ELogo(getResources());
 		eButtonStatistik = new EButton(getResources());
 		ePreviewGame = new EPreviewGame(getResources());
-		
+		eBackground = new EBackground(getResources());
 		addEntity(elogo, eButtonStatistik, ePreviewGame);
 		
 	}
@@ -40,24 +43,22 @@ public class Help extends GameView {
 		super.onWindowFocusChanged(hasWindowFocus);
 		
 		// resize gambar
-		elogo.resizeImage((int)getPercentWidth(62), (int)getPercentHeight(19));
+		elogo.resizeImage((int)getPercentWidth(65), (int)getPercentHeight(19));
 		ePreviewGame.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(56));
-		eButtonStatistik.resizeImage((int)getPercentWidth(42), (int)getPercentHeight(10));
-
+		eButtonStatistik.EbuttonStat((int)getPercentWidth(42), (int)getPercentHeight(10));
+		eBackground.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(100));
 		
 		//set posisi
-		elogo.setPosition(getPercentWidth(19), getPercentHeight(2));
-		ePreviewGame.setPosition(getPercentWidth(0), getPercentHeight(30));
+		elogo.setPosition(getPercentWidth(17), getPercentHeight(2));
+		ePreviewGame.setPosition(getPercentWidth(0), getPercentHeight(25));
 		eButtonStatistik.setPosition(getPercentWidth(29), getPercentHeight(88));
+		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
 	}
 	
 	@Override
 	protected void onDraw(Canvas c) {
 		// TODO Auto-generated method stub
 		
-		cat.setColor(Color.RED);
-		//buat background
-		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
 		// teks posisi kursor
 		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
@@ -65,7 +66,7 @@ public class Help extends GameView {
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
 		c.drawText("Ini help", 30, 50, cat);
-		
+		eBackground.draw(c, cat);
 		
 		//draw entities
 //		elogo.draw(c, cat);
@@ -97,7 +98,7 @@ public class Help extends GameView {
 	public void onDown() {
 		// TODO Auto-generated method stub
 		if (eButtonStatistik.isHit(posXDown, posYDown)) {
-			//((MainActivity)(this.context)).tombolAbout();
+			//((MainActivity)(this.context)).tombolStatistik();
 		}
 	}
 

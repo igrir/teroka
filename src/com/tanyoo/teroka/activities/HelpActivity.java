@@ -66,7 +66,11 @@ public class HelpActivity extends Activity implements OnTouchListener{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
+//	public void tombolPetualangan(){
+//		Intent iAbout = new Intent(getApplicationContext(), StatistikActivity.class);
+//		startActivity(iAbout);
+//	}
 
 	/**
 	 * Tombol kembali diklik
