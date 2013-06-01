@@ -21,10 +21,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 
-public abstract class GameView extends View {
+public abstract class GameView extends View{
 
+	
 	//posisi sentuh
 	public float posX=-1;	//cursorX
 	public float posY=-1;	//cursorY
@@ -38,6 +42,8 @@ public abstract class GameView extends View {
 		super(context);
 		this.context = (Activity)context;
 		entityCollection = new Vector<Entity>();
+		
+		setFocusable(true);
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -131,4 +137,6 @@ public abstract class GameView extends View {
 			_entity.recycle();
 		}
 	}
+
+	
 }

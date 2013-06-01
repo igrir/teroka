@@ -11,6 +11,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.SurfaceHolder;
 
 public class Help extends GameView {
 
@@ -105,5 +106,6 @@ public class Help extends GameView {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }
