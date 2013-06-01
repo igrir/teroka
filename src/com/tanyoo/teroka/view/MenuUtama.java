@@ -47,6 +47,15 @@ public class MenuUtama extends GameView {
 		eBackground = new EBackground(getResources());
 		ePlatform = new EPlatform(getResources());
 		
+		addEntityCollection(eBackground,
+							ePlatform,	
+							elogo,
+							eButtonPetualangan,
+							eButtonBertarung,
+							eButtonAbout,
+							eKarakter
+							);
+		
 	}
 
 	@Override
@@ -74,7 +83,7 @@ public class MenuUtama extends GameView {
 		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(52));
 		eKarakter.setPosition(getPercentWidth(6), getPercentHeight(65));
 		
-		
+		ready = true;
 	}
 	
 	@Override
@@ -82,28 +91,7 @@ public class MenuUtama extends GameView {
 		// TODO Auto-generated method stub
 
 		
-//		cat.setColor(Color.WHITE);
-//		//buat background
-//		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 
-		
-		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
-		
-		cat.setColor(Color.BLACK);
-		
-		c.drawText(posisi, 30, 30, cat);
-		c.drawText("Ini menu utama", 30, 50, cat);
-		
-		
-		//draw entities
-		eBackground.draw(c, cat);
-		ePlatform.draw(c, cat);
-		elogo.draw(c, cat);
-		eButtonBertarung.draw(c,cat);
-		eButtonPetualangan.draw(c,cat);
-		eButtonAbout.draw(c, cat);
-		eKarakter.draw(c,cat);
 		
 		
 		super.onDraw(c);
@@ -155,6 +143,34 @@ public class MenuUtama extends GameView {
 	public void onUp() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void draw(Canvas c, Paint cat) {
+		// TODO Auto-generated method stub
+//		cat.setColor(Color.WHITE);
+//		//buat background
+//		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
+
+		
+		// teks posisi kursor
+		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
+		
+		cat.setColor(Color.BLACK);
+		
+		c.drawText(posisi, 30, 30, cat);
+		c.drawText("Ini menu utama", 30, 50, cat);
+		
+		
+		//draw entities
+//		eBackground.draw(c, cat);
+//		ePlatform.draw(c, cat);
+//		elogo.draw(c, cat);
+//		eButtonBertarung.draw(c,cat);
+//		eButtonPetualangan.draw(c,cat);
+//		eButtonAbout.draw(c, cat);
+//		eKarakter.draw(c,cat);
+		drawEntityCollection(c, cat);
 	}
 
 }

@@ -2,7 +2,7 @@ package util;
 
 import java.util.ArrayList;
 
-
+import com.tanyoo.teroka.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ public class DataAdapter extends ArrayAdapter<DataList> {
 		this.alData = alData;
 	}
 	
-	/*
+	
 	public View getView(int pos, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {
@@ -29,14 +29,14 @@ public class DataAdapter extends ArrayAdapter<DataList> {
 		}
 		DataList dl = alData.get(pos);
 		if (dl != null) {
-			TextView tvNama = (TextView) v.findViewById(R.id.tvNamaSenjata);
-			TextView tvAtt = (TextView) v.findViewById(R.id.tvAtt);
+			TextView tvNama = (TextView) v.findViewById(R.id.tvJudul);
+			TextView tvAtt = (TextView) v.findViewById(R.id.tvKeterangan);
 			
 			tvNama.setText(dl.getNama());
-			tvAtt.setText(dl.getSaratStep());
+			tvAtt.setText(dl.getHarga());
 
 		}
 		return v;
-	}*/
+	}
 
 }

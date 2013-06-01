@@ -1,14 +1,27 @@
 package util;
 
-public class DataList {
+import java.io.Serializable;
+
+public class DataList implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5021083514275598722L;
 	public String nama;
 	public String status;
 	public String harga;
-	public String sarat_step;
+	public String syarat_step;
+	
+	public DataList(String nama, String status, String harga, String syarat){
+		this.nama = nama;
+		this.status = status;
+		this.harga = harga;
+		this.syarat_step = syarat;
+	}
 	
 	public DataList(){
-
+		
 	}
 	
 	public String getNama(){
@@ -36,11 +49,11 @@ public class DataList {
 	}
 	
 	public String getSaratStep(){
-		return sarat_step;
+		return syarat_step;
 	}
 	
 	public void setSaratStep(String sarat_step){
-		this.sarat_step= sarat_step;
+		this.syarat_step= sarat_step;
 	}
 	
 
