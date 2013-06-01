@@ -158,6 +158,7 @@ public class Petualangan extends GameView {
 		// TODO Auto-generated method stub
 		
 		//parallax di game
+		
 		if (egameview.x < -(egameview.width/2)) {
 			egameview.x = 0;
 		}else{
@@ -178,9 +179,7 @@ public class Petualangan extends GameView {
 	public void onDown() {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-				if (einfo.isHit(posX, posY)) {
-					((MainActivity)(this.context)).tombolAbout();
-				}
+
 	}
 
 	@Override
