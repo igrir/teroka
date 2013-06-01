@@ -1,5 +1,5 @@
 package com.tanyoo.teroka.activities;
-
+//import import
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
