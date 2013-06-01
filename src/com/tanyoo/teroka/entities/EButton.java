@@ -27,4 +27,9 @@ public class EButton extends Entity{
 		addScaledSprite(R.drawable.btn_about, "btn_about", width, height);
 		setSprite("btn_about");
 	}
+	
+	public void EbuttonStat(int width, int height){
+		addScaledSprite(R.drawable.btn_stat, "btn_stat", width, height);
+		setSprite("btn_stat");
+	}
 }
