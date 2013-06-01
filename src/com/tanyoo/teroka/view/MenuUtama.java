@@ -5,6 +5,8 @@ import com.tanyoo.teroka.activities.MainActivity;
 import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.entities.EKarakter;
 import com.tanyoo.teroka.entities.ELogo;
+import com.tanyoo.teroka.entities.EBackground;
+import com.tanyoo.teroka.entities.EPlatform;
 import com.tanyoo.teroka.lib.GameView;
 
 import android.content.Context;
@@ -29,6 +31,9 @@ public class MenuUtama extends GameView {
 	public EButton eButtonBertarung;
 	public EButton eButtonAbout;
 	public EKarakter eKarakter;
+	public EBackground eBackground;
+	public EPlatform ePlatform;
+	
 	
 	public MenuUtama(Context context) {
 		super(context);
@@ -39,6 +44,8 @@ public class MenuUtama extends GameView {
 		eButtonBertarung = new EButton(getResources());
 		eButtonAbout = new EButton(getResources());
 		eKarakter = new EKarakter(getResources());
+		eBackground = new EBackground(getResources());
+		ePlatform = new EPlatform(getResources());
 		
 	}
 
@@ -47,21 +54,25 @@ public class MenuUtama extends GameView {
 		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasWindowFocus);
 		
-		eKarakter.createSprites((int)getPercentWidth(32), (int)getPercentHeight(25));
+		eKarakter.createSprites((int)getPercentWidth(45), (int)getPercentHeight(30));
 		
 		// resize gambar
-		elogo.resizeImage((int)getPercentWidth(75), (int)getPercentHeight(19));
-		eButtonPetualangan.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
-		eButtonBertarung.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
-		eButtonAbout.resizeImage((int)getPercentWidth(41), (int)getPercentHeight(9));
+		ePlatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(10));
+		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
+		elogo.resizeImage((int)getPercentWidth(80), (int)getPercentHeight(20));
+		eButtonPetualangan.EbuttonPlay((int)getPercentWidth(41), (int)getPercentHeight(9));
+		eButtonBertarung.EbuttonBattle((int)getPercentWidth(41), (int)getPercentHeight(9));
+		eButtonAbout.EbuttonAbout((int)getPercentWidth(41), (int)getPercentHeight(9));
 
 		
 		// set posisi
-		elogo.setPosition(getPercentWidth(10), getPercentHeight(2));
+		ePlatform.setPosition(getPercentWidth(0), getPercentHeight(90));
+		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
+		elogo.setPosition(getPercentWidth(8), getPercentHeight(2));
 		eButtonPetualangan.setPosition(getPercentWidth(53), getPercentHeight(30));
 		eButtonBertarung.setPosition(getPercentWidth(53), getPercentHeight(41));
 		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(52));
-		eKarakter.setPosition(getPercentWidth(6), getPercentHeight(70));
+		eKarakter.setPosition(getPercentWidth(6), getPercentHeight(65));
 		
 		
 	}
@@ -69,9 +80,12 @@ public class MenuUtama extends GameView {
 	@Override
 	protected void onDraw(Canvas c) {
 		// TODO Auto-generated method stub
-		cat.setColor(Color.WHITE);
-		//buat background
-		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
+
+		
+//		cat.setColor(Color.WHITE);
+//		//buat background
+//		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
+
 		
 		// teks posisi kursor
 		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
@@ -83,6 +97,8 @@ public class MenuUtama extends GameView {
 		
 		
 		//draw entities
+		eBackground.draw(c, cat);
+		ePlatform.draw(c, cat);
 		elogo.draw(c, cat);
 		eButtonBertarung.draw(c,cat);
 		eButtonPetualangan.draw(c,cat);
@@ -108,7 +124,7 @@ public class MenuUtama extends GameView {
 		if (timeElapsed == 1) {
 			eKarakter.setSprite("karakter1");
 		}else{
-			eKarakter.setSprite("karakter2");
+			//eKarakter.setSprite("karakter2");
 		}
 		
 	
