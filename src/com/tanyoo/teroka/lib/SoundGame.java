@@ -1,4 +1,4 @@
-package com.tanyoo.teroka.activities;
+package com.tanyoo.teroka.lib;
 
 import java.io.IOException;
 
