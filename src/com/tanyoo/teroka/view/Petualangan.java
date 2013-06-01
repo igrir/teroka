@@ -91,7 +91,7 @@ public class Petualangan extends GameView {
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ecalore.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
-		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(25));
+		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(25));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		elevel.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		epotion.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
@@ -157,7 +157,8 @@ public class Petualangan extends GameView {
 	public void run() {
 		// TODO Auto-generated method stub
 		
-		if (egameview.x < -egameview.width) {
+		//parallax di game
+		if (egameview.x < -(egameview.width/2)) {
 			egameview.x = 0;
 		}else{
 			egameview.x -= 10;
