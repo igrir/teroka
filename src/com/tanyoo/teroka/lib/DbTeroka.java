@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class DbTeroka {
 	
-	public static class Teroka{
+	public static class DataTeroka{
 		public String nama;
 		public String level;
 		public String j_bintang;
@@ -73,9 +73,9 @@ public class DbTeroka {
 		return db.insert("DATA_SENJATA", null, newValues);
 	}
 	
-	public Teroka getTeroka(String nama){
+	public DataTeroka getTeroka(String nama){
 		Cursor cur = null;
-		Teroka T = new Teroka();
+		DataTeroka T = new DataTeroka();
 
 		String[] COLS = new String[] {"ID", "NAMA", "LEVEL", "J_BINTANG", "J_STEP", "J_KALORI", "MAX_STEP", "NOW_ARMOR"};
 		

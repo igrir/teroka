@@ -142,16 +142,5 @@ public class MainActivity extends Activity implements OnTouchListener{
 		gv.invalidate(); //draw ulang
 		return true;
 	}
-<<<<<<< HEAD
 
-	/**
-	 * Tombol about diklik
-	 */
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), StatistikActivity.class);
-		startActivity(iAbout);
-	}
-=======
->>>>>>> 2dcad773f8a271bdf529aae0c6c055ee5e6e3af9
-	
 }

@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.view.About;
 import com.tanyoo.teroka.view.Statistik;
 
 public class StatistikActivity extends Activity implements OnTouchListener{
@@ -71,16 +70,16 @@ public class StatistikActivity extends Activity implements OnTouchListener{
 		int action = event.getAction();
 		switch (action) {
 		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
-			  	 gv.posX = event.getX();  
-			  	 gv.posY = event.getY();
+			  	 gv.posXDown = event.getX();  
+			  	 gv.posYDown = event.getY();
 				gv.onDown();
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
 			   gv.onMove();
 			   break;
 		  case MotionEvent.ACTION_UP:  //diangkat
-			  	gv.posX = event.getX();  
-			  	gv.posY = event.getY();
+			  	gv.posXUp = event.getX();  
+			  	gv.posYUp = event.getY();
 			   gv.onUp();
 			   break;
 		  case MotionEvent.ACTION_CANCEL: //batal

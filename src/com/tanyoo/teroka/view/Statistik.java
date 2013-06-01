@@ -108,7 +108,7 @@ public class Statistik extends GameView {
 	@Override
 	public void onDown() {
 		// TODO Auto-generated method stub
-		if (ebuttonback.isHit(posX, posY)) {
+		if (ebuttonback.isHit(posXDown, posYDown)) {
 			((StatistikActivity)(this.context)).tombolKembali();
 		}
 		
