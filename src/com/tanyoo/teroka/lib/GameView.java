@@ -30,8 +30,13 @@ public abstract class GameView extends View{
 
 	
 	//posisi sentuh
-	public float posX=-1;	//cursorX
-	public float posY=-1;	//cursorY
+	public float posXDown=-1;
+	public float posYDown=-1;
+	public float posXMove=-1;
+	public float posYMove=-1;
+	public float posXUp=-1;
+	public float posYUp=-1;
+	
 	public int offset=25;
 	
 	protected Activity context;

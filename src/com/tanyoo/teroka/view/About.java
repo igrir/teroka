@@ -35,7 +35,7 @@ public class About extends GameView {
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
 		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posX) + " , y:" + String.valueOf(posY);
+		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
 		
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
@@ -65,9 +65,9 @@ public class About extends GameView {
 	public void onDown() {
 		// TODO Auto-generated method stub
 		System.out.println("KELUAR");
-		System.out.println("HIT?? : " + eb.isHit(posX, posY));
-		System.out.println("posX : " + posX + " dan posY : " + posY);
-		if (eb.isHit(posX, posY)) {
+		System.out.println("HIT?? : " + eb.isHit(posXDown, posYDown));
+		System.out.println("posX : " + posXDown + " dan posY : " + posYDown);
+		if (eb.isHit(posXDown, posYDown)) {
 			
 			((AboutActivity)(this.context)).tombolKembali();
 		}

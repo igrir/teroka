@@ -128,7 +128,7 @@ public class Petualangan extends GameView {
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
 		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posX) + " , y:" + String.valueOf(posY);
+		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
 		
 		
 		cat.setTextSize(getPercentFontSize(100));

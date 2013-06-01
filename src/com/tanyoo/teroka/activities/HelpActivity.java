@@ -4,6 +4,7 @@ import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.R.menu;
 import com.tanyoo.teroka.entities.EButton;
+import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
@@ -17,7 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class HelpActivity extends Activity implements OnTouchListener{
+public class HelpActivity extends GameActivity{
 	
 	// mesin
 	private GameView gv;
@@ -67,33 +68,6 @@ public class HelpActivity extends Activity implements OnTouchListener{
 		return true;
 	}
 
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		//passing posisi ke graphicsview
-		int action = event.getAction();
-		switch (action) {
-		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
-			  	 gv.posX = event.getX();  
-			  	 gv.posY = event.getY();
-				gv.onDown();
-				break;
-		  case MotionEvent.ACTION_MOVE:  //bergerak
-			   gv.onMove();
-			   break;
-		  case MotionEvent.ACTION_UP:  //diangkat
-			  	gv.posX = event.getX();  
-			  	gv.posY = event.getY();
-			   gv.onUp();
-			   break;
-		  case MotionEvent.ACTION_CANCEL: //batal
-			   break;
-		  default:
-			   break;
-			
-		}
-		gv.invalidate(); //draw ulang
-		return true;
-	}
 
 	/**
 	 * Tombol kembali diklik

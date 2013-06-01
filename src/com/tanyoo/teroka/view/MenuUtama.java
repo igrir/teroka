@@ -74,7 +74,7 @@ public class MenuUtama extends GameView {
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
 		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posX) + " , y:" + String.valueOf(posY);
+		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
 		
 		cat.setColor(Color.BLACK);
 		
@@ -125,10 +125,10 @@ public class MenuUtama extends GameView {
 	
 	public void onDown() {
 		// TODO Auto-generated method stub
-		if (eButtonAbout.isHit(posX, posY)) {
+		if (eButtonAbout.isHit(posXDown, posYDown)) {
 			((MainActivity)(this.context)).tombolAbout();
 		}
-		if (eButtonPetualangan.isHit(posX, posY)) {
+		if (eButtonPetualangan.isHit(posXDown, posYDown)) {
 			((MainActivity)(this.context)).tombolPetualangan();
 		}
 	}

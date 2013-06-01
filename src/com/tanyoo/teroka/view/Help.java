@@ -60,7 +60,7 @@ public class Help extends GameView {
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
 		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posX) + " , y:" + String.valueOf(posY);
+		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
 		
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
@@ -96,7 +96,7 @@ public class Help extends GameView {
 	@Override
 	public void onDown() {
 		// TODO Auto-generated method stub
-		if (eButtonStatistik.isHit(posX, posY)) {
+		if (eButtonStatistik.isHit(posXDown, posYDown)) {
 			//((MainActivity)(this.context)).tombolAbout();
 		}
 	}
