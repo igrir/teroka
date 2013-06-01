@@ -109,7 +109,7 @@ public class Entity {
 	public void draw(Canvas c, Paint p){
 		c.drawBitmap(bmp, this.x, this.y, p);
 	}
-	
+		
 	public void resizeImage(int width, int height){
 		bmp = Bitmap.createScaledBitmap(bmp, width, height, false);
 		this.width = width;

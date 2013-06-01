@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.SurfaceHolder;
 
 import com.tanyoo.teroka.activities.MainActivity;
 import com.tanyoo.teroka.entities.EBarDistance;
@@ -14,6 +15,7 @@ import com.tanyoo.teroka.entities.EDistance;
 import com.tanyoo.teroka.entities.EGameView;
 import com.tanyoo.teroka.entities.EHealthPoint;
 import com.tanyoo.teroka.entities.EInfobar;
+import com.tanyoo.teroka.entities.EKarakter;
 import com.tanyoo.teroka.entities.ELevel;
 import com.tanyoo.teroka.entities.EPotion;
 import com.tanyoo.teroka.entities.EShop;
@@ -27,6 +29,7 @@ public class Petualangan extends GameView {
 	
 	private Paint cat = new Paint();
 	
+	// HUD
 	public EInfobar einfo;
 	public EBarDistance ebardistance;
 	public EDistance edistance;
@@ -39,6 +42,9 @@ public class Petualangan extends GameView {
 	public EPotion epotion;
 	public ELevel elevel;
 	public ECalore ecalore;
+	
+	// Games
+	public EKarakter ekarakter;
 	
 	public Petualangan(Context context) {
 		super(context);
@@ -55,10 +61,21 @@ public class Petualangan extends GameView {
 		epotion = new EPotion(getResources());
 		elevel = new ELevel(getResources());
 		ecalore = new ECalore(getResources());
+		ekarakter = new EKarakter(getResources());
 		
-		addEntity(einfo, ebardistance, edistance,
-				 ehealthpoint, ebarhealth, egameview,
-				 estars, esteps, eshop, epotion, elevel, ecalore);
+		addEntity(einfo,
+				  ebardistance,
+				  edistance,
+				  ehealthpoint,
+				  ebarhealth,
+				  egameview,
+				  estars,
+				  esteps,
+				  eshop,
+				  epotion,
+				  elevel,
+				  ecalore,
+				  ekarakter);
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
@@ -67,12 +84,14 @@ public class Petualangan extends GameView {
 		
 		
 		// resize gambar
+		
+		//HUD
 		einfo.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		ebardistance.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ecalore.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
-		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(25));
+		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(25));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		elevel.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		epotion.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
@@ -80,8 +99,12 @@ public class Petualangan extends GameView {
 		estars.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		esteps.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		
+		//game
+		ekarakter.createSprites((int)getPercentWidth(10),(int)getPercentHeight(10));
 		
 		// set posisi
+		
+		//HUD
 		einfo.setPosition(getPercentWidth(0), getPercentHeight(0));
 		egameview.setPosition(getPercentWidth(0), getPercentHeight(10));
 		ehealthpoint.setPosition(getPercentWidth(8), getPercentHeight(36));
@@ -89,25 +112,26 @@ public class Petualangan extends GameView {
 		ebarhealth.setPosition(getPercentWidth(27), getPercentHeight(36));
 		ebardistance.setPosition(getPercentWidth(27), getPercentHeight(46));
 		elevel.setPosition(getPercentWidth(0), getPercentHeight(56));
-
 		estars.setPosition(getPercentWidth(20), getPercentHeight(56));
-
 		esteps.setPosition(getPercentWidth(40), getPercentHeight(56));
-
 		epotion.setPosition(getPercentWidth(60), getPercentHeight(56));
 		ecalore.setPosition(getPercentWidth(80), getPercentHeight(56));
-
 		eshop.setPosition(getPercentWidth(30), getPercentHeight(83));
+		
+		//game
+		ekarakter.setPosition(getPercentWidth(10), getPercentHeight(20));
 	}
 	@Override
 	public void onDraw(Canvas c)
 	{
-		cat.setColor(Color.RED);
+		cat.setColor(Color.WHITE);
 		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
 		
 		// teks posisi kursor
 		String posisi = "x: " + String.valueOf(posX) + " , y:" + String.valueOf(posY);
 		
+		
+		cat.setTextSize(getPercentFontSize(100));
 		cat.setColor(Color.BLACK);
 		c.drawText(posisi, 30, 30, cat);
 		c.drawText("Ini menu utama", 30, 50, cat);
@@ -132,6 +156,16 @@ public class Petualangan extends GameView {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		
+		//parallax di game
+		
+		if (egameview.x < -(egameview.width/2)) {
+			egameview.x = 0;
+		}else{
+			egameview.x -= 10;
+		}
+		
+		
 		System.out.println("PETUALANGAAAAAAANNNNNNNN");
 	}
 
@@ -145,14 +179,13 @@ public class Petualangan extends GameView {
 	public void onDown() {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-				if (einfo.isHit(posX, posY)) {
-					((MainActivity)(this.context)).tombolAbout();
-				}
+
 	}
 
 	@Override
 	public void onUp() {
 		// TODO Auto-generated method stub
 	}
+
 
 }

@@ -14,10 +14,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.SurfaceHolder;
 
 public class MenuUtama extends GameView {
 
 	private Paint cat = new Paint();
+
+	
 	
 	// angka ticks buat animasi
 	private int timeElapsed = 0;
@@ -34,7 +37,7 @@ public class MenuUtama extends GameView {
 	
 	public MenuUtama(Context context) {
 		super(context);
-		
+				
 		//entities
 		elogo = new ELogo(getResources());
 		eButtonPetualangan = new EButton(getResources());
@@ -77,15 +80,18 @@ public class MenuUtama extends GameView {
 	@Override
 	protected void onDraw(Canvas c) {
 		// TODO Auto-generated method stub
+
 		
 //		cat.setColor(Color.WHITE);
 //		//buat background
 //		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
+
 		
 		// teks posisi kursor
 		String posisi = "x: " + String.valueOf(posX) + " , y:" + String.valueOf(posY);
 		
 		cat.setColor(Color.BLACK);
+		
 		c.drawText(posisi, 30, 30, cat);
 		c.drawText("Ini menu utama", 30, 50, cat);
 		
@@ -98,6 +104,7 @@ public class MenuUtama extends GameView {
 		eButtonPetualangan.draw(c,cat);
 		eButtonAbout.draw(c, cat);
 		eKarakter.draw(c,cat);
+		
 		
 		super.onDraw(c);
 	}
@@ -147,6 +154,5 @@ public class MenuUtama extends GameView {
 		// TODO Auto-generated method stub
 		
 	}
-	
 
 }
