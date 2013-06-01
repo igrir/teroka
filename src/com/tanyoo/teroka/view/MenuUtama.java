@@ -141,10 +141,12 @@ public class MenuUtama extends GameView {
 	
 	public void onDown() {
 		// TODO Auto-generated method stub
+		System.out.println("Ishit? ISSHIT!" + eButtonAbout.isHit(posXDown, posYDown));
+		System.out.println("x :" + eButtonAbout.x + " +width : " + (eButtonAbout.width+eButtonAbout.x));
+		System.out.println("curr x :" + posXDown);
 		if (eButtonAbout.isHit(posXDown, posYDown)) {
 			((MainActivity)(this.context)).tombolAbout();
-		}
-		if (eButtonPetualangan.isHit(posXDown, posYDown)) {
+		}else if (eButtonPetualangan.isHit(posXDown, posYDown)) {
 			((MainActivity)(this.context)).tombolPetualangan();
 		}
 	}

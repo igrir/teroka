@@ -3,7 +3,7 @@ package com.tanyoo.teroka.activities;
 import com.tanyoo.teroka.R;
 import android.app.Activity;
 
-public class Toko extends Activity {
+public class TokoActivity extends Activity {
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub

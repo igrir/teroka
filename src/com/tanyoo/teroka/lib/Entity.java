@@ -20,9 +20,6 @@ public class Entity {
 	public float width;
 	public float height;
 	
-	public float hitWidth;
-	public float hitHeight;
-	
 	public Bitmap bmp;
 	Resources res;
 	
@@ -96,6 +93,10 @@ public class Entity {
 			bmp = getBitmap(id);
 			bmp = Bitmap.createScaledBitmap(bmp, (int)width, (int)height, false);
 			spriteSheet.put(key, bmp);
+			
+			this.width = width;
+			this.height = height;
+					
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,11 +121,7 @@ public class Entity {
 		bmp = BitmapFactory.decodeResource(res, id);
 		resizeImage((int)width, (int)height);
 	}
-	
-	public void setHitBox(float width, float height){
-		this.hitWidth = width;
-		this.hitHeight = height;
-	}
+
 	
 	public void setPosition(float x, float y){
 		this.x = x;

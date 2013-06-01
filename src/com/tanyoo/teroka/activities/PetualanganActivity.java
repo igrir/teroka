@@ -7,6 +7,7 @@ import com.tanyoo.teroka.view.*;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -145,6 +146,12 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 		}
 		gv.invalidate(); //draw ulang
 		return true;
+	}
+	
+	
+	public void tombolToko(){
+		Intent iToko = new Intent(getApplicationContext(), TokoActivity.class);
+		startActivity(iToko);
 	}
 	
 }

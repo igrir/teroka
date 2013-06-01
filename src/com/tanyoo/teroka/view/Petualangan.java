@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
 import com.tanyoo.teroka.activities.MainActivity;
+import com.tanyoo.teroka.activities.PetualanganActivity;
 import com.tanyoo.teroka.entities.EBarDistance;
 import com.tanyoo.teroka.entities.EBarHealth;
 import com.tanyoo.teroka.entities.ECalore;
@@ -185,6 +186,9 @@ public class Petualangan extends GameView {
 	@Override
 	public void onUp() {
 		// TODO Auto-generated method stub
+		if (eshop.isHit(posXUp, posYUp)) {
+			((PetualanganActivity)(this.context)).tombolToko();
+		}
 	}
 
 
