@@ -2,28 +2,11 @@ package com.tanyoo.teroka.activities;
 
 import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.R.menu;
-import com.tanyoo.teroka.entities.EBarDistance;
-import com.tanyoo.teroka.entities.EBarHealth;
-import com.tanyoo.teroka.entities.EButton;
-import com.tanyoo.teroka.entities.ECalore;
-import com.tanyoo.teroka.entities.EDistance;
-import com.tanyoo.teroka.entities.EGameView;
-import com.tanyoo.teroka.entities.EHealthPoint;
-import com.tanyoo.teroka.entities.EInfobar;
-import com.tanyoo.teroka.entities.ELevel;
-import com.tanyoo.teroka.entities.EPotion;
-import com.tanyoo.teroka.entities.EShop;
-import com.tanyoo.teroka.entities.EStars;
-import com.tanyoo.teroka.entities.ESteps;
-import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,7 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class PetualanganActivity extends GameActivity{
+public class PetualanganActivity extends Activity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
@@ -132,6 +115,36 @@ public class PetualanganActivity extends GameActivity{
 		
 		
 		
+	}
+	
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		//passing posisi ke graphicsview
+		int action = event.getAction();
+		switch (action) {
+		  case MotionEvent.ACTION_DOWN: //jari menyentuh layar
+			  	 gv.posXDown = event.getX();  
+			  	 gv.posYDown = event.getY();
+				gv.onDown();
+				break;
+		  case MotionEvent.ACTION_MOVE:  //bergerak
+			  	gv.posXMove = event.getX();  
+			  	gv.posYMove = event.getY();
+			   gv.onMove();
+			   break;
+		  case MotionEvent.ACTION_UP:  //diangkat
+			  	gv.posXUp = event.getX();  
+			  	gv.posYUp = event.getY();
+			   gv.onUp();
+			   break;
+		  case MotionEvent.ACTION_CANCEL: //batal
+			   break;
+		  default:
+			   break;
+			
+		}
+		gv.invalidate(); //draw ulang
+		return true;
 	}
 	
 }
