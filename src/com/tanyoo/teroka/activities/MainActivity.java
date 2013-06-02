@@ -99,6 +99,11 @@ public class MainActivity extends Activity implements OnTouchListener{
 		startActivity(iAbout);
 	}
 	
+	public void tombolBattle(){
+		Intent iBattle = new Intent(getApplicationContext(), ListPlayerActivity.class);
+		startActivity(iBattle);
+	}
+	
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
