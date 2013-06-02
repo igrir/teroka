@@ -13,9 +13,11 @@ package com.tanyoo.teroka.lib;
 
 import java.util.Vector;
 
+import com.tanyoo.teroka.GameRunnable;
 import com.tanyoo.teroka.activities.MainActivity;
 
 import android.R;
+import android.R.bool;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -26,8 +28,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-public abstract class GameView extends View{
+public abstract class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
+	
+	public Thread gameThread;
+	public GameRunnable gr;
+	
+	public boolean ready = false;
+	
 	
 	//posisi sentuh
 	public float posXDown=-1;
@@ -44,13 +52,18 @@ public abstract class GameView extends View{
 	public Vector<Entity> entityCollection;
 	
 	public GameView(Context context) {
+		
 		super(context);
 		this.context = (Activity)context;
 		entityCollection = new Vector<Entity>();
 		
 		setFocusable(true);
 		
+		SurfaceHolder holder = getHolder();
+		holder.addCallback(this);
+		gr = new GameRunnable(holder, context, this);
 		// TODO Auto-generated constructor stub
+		
 	}
 	
 	/**
@@ -58,6 +71,7 @@ public abstract class GameView extends View{
 	 */
 	public abstract void run();
 	
+	public abstract void draw(Canvas c, Paint cat);
 	
 	/**
 	 * Aksi ketika cursor bergerak
@@ -126,7 +140,7 @@ public abstract class GameView extends View{
 	 * Menambahkan list entity yang mau ditampilkan
 	 * @param e
 	 */
-	public void addEntity(Entity... e){
+	public void addEntityCollection(Entity... e){
 		for (Entity entity : e) {
 			entityCollection.add(entity);
 		}
@@ -143,5 +157,60 @@ public abstract class GameView extends View{
 		}
 	}
 
+	
+	public void startThread(){
+		if (gr.threadRun == false) {
+			gameThread = new Thread(gr);
+			gr.setRunning(true);
+			gameThread.start();
+		}
+		
+	}
+	
+	public void shutDownThread(){
+		Log.i("terokaThread", "START matikan thread");
+		
+		boolean retry = true;
+		gr.setRunning(false);
+		
+		while (retry) {
+			try{
+				gameThread.join();
+				retry = false;
+			}catch (InterruptedException e) {
+				// TODO: handle exception
+			}
+		}
+		
+		Log.i("terokaThread", "END matikan thread");
+	}
+	
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		Log.i("terokaThread", "Jalankan thread");
+		startThread();
+	}
+	
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		//shutDownThread();
+	}
+	
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean getReady(){
+		return ready;
+	}
+	
+	public void setReady(boolean b){
+		this.ready = b;
+	}
 	
 }

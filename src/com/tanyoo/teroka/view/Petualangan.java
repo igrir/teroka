@@ -64,7 +64,7 @@ public class Petualangan extends GameView {
 		ecalore = new ECalore(getResources());
 		ekarakter = new EKarakter(getResources());
 		
-		addEntity(einfo,
+		addEntityCollection(einfo,
 				  ebardistance,
 				  edistance,
 				  ehealthpoint,
@@ -121,37 +121,12 @@ public class Petualangan extends GameView {
 		
 		//game
 		ekarakter.setPosition(getPercentWidth(10), getPercentHeight(20));
+		
+		ready = true;
 	}
 	@Override
 	public void onDraw(Canvas c)
-	{
-		cat.setColor(Color.WHITE);
-		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
-		
-		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
-		
-		
-		cat.setTextSize(getPercentFontSize(100));
-		cat.setColor(Color.BLACK);
-		c.drawText(posisi, 30, 30, cat);
-		c.drawText("Ini menu utama", 30, 50, cat);
-		
-		//		einfo.draw(c, cat);
-		//		egameview.draw(c, cat);
-		//		edistance.draw(c, cat);
-		//		ehealthpoint.draw(c, cat);
-		//		ebardistance.draw(c, cat);
-		//		ebarhealth.draw(c, cat);
-		//		estars.draw(c, cat);
-		//		esteps.draw(c, cat);
-		//		eshop.draw(c, cat);
-		//		ecalore.draw(c, cat);
-		//		epotion.draw(c, cat);
-		//		elevel.draw(c, cat);
-		drawEntityCollection(c, cat);
-		
-		
+	{		
 		super.onDraw(c);
 	}
 	@Override
@@ -189,6 +164,35 @@ public class Petualangan extends GameView {
 		if (eshop.isHit(posXUp, posYUp)) {
 			((PetualanganActivity)(this.context)).tombolToko();
 		}
+	}
+	@Override
+	public void draw(Canvas c, Paint cat) {
+		// TODO Auto-generated method stub
+		cat.setColor(Color.WHITE);
+		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
+		
+		// teks posisi kursor
+		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
+		
+		
+		cat.setTextSize(getPercentFontSize(100));
+		cat.setColor(Color.BLACK);
+		c.drawText(posisi, 30, 30, cat);
+		c.drawText("Ini menu utama", 30, 50, cat);
+		
+		//		einfo.draw(c, cat);
+		//		egameview.draw(c, cat);
+		//		edistance.draw(c, cat);
+		//		ehealthpoint.draw(c, cat);
+		//		ebardistance.draw(c, cat);
+		//		ebarhealth.draw(c, cat);
+		//		estars.draw(c, cat);
+		//		esteps.draw(c, cat);
+		//		eshop.draw(c, cat);
+		//		ecalore.draw(c, cat);
+		//		epotion.draw(c, cat);
+		//		elevel.draw(c, cat);
+		drawEntityCollection(c, cat);
 	}
 
 

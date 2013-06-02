@@ -8,6 +8,7 @@ import com.tanyoo.teroka.view.*;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,20 +25,22 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 	public Petualangan mu;
 	
 	// task
-	public AnimasiTask at;
+//	public AnimasiTask at;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		
+		//orientasi
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		//hilangkan title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		//inisialisasi thread
-		at = new AnimasiTask();
+//		at = new AnimasiTask();
 		
 		
 		//inisiaslisi graphic view
@@ -52,9 +55,9 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 		setContentView(gv);
 		
 		//jalankan program
-		at.setPlay(true);
-		at.gv = mu;
-		at.execute();
+//		at.setPlay(true);
+//		at.gv = mu;
+//		at.execute();
 		
 	}
 
@@ -79,25 +82,15 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 	
 	
 	@Override
-	protected void onStop() {
+	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		super.onStop();
-		
-//		mu.ebardistance.recycle();		
-//		mu.einfo.recycle();
-//		mu.ebardistance.recycle();
-//		mu.edistance.recycle();
-//		mu.ehealthpoint.recycle();
-//		mu.ebarhealth.recycle();
-//		mu.egameview.recycle();
-//		mu.estars.recycle();
-//		mu.esteps.recycle();
-//		mu.eshop.recycle();
-//		mu.epotion.recycle();
-//		mu.elevel.recycle();
-//		mu.ecalore.recycle();
-		//membebaskan memori
+		super.onDestroy();
 		mu.recycleEntityCollection();
+		System.out.println("DESTROY THE BITMAPS");
+		System.gc();
+		mu.shutDownThread();
+		//stop concurent
+//		at.cancel(true);
 	}
 	
 	@Override
@@ -106,12 +99,12 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 		super.onPause();
 		
 		//stop concurrent
-		at.cancel(true);
-		
+//		at.cancel(true);
+		gv.setReady(false);
 		//jalankan garbage collector
 		System.gc();
 		
-		finish();
+//		finish();
 		
 		
 		

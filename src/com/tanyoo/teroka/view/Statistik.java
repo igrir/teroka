@@ -36,6 +36,15 @@ public class Statistik extends GameView {
 		logo4 = new ELogoInfoStatistik(getResources());
 		logo5 = new ELogoInfoStatistik(getResources());
 		logo6 = new ELogoInfoStatistik(getResources());
+		
+		addEntityCollection(estatistikbar,
+							ebuttonback,
+							logo1,
+							logo2,
+							logo3,
+							logo4,
+							logo5,
+							logo6);
 	}
 
 	@Override
@@ -70,25 +79,13 @@ public class Statistik extends GameView {
 		logo5.setSprite("logo5");
 		logo6.setSprite("logo6");
 		
+		ready = true;
+		
 	}
 	
 	@Override
 	protected void onDraw(Canvas c) {
-		// TODO Auto-generated method stub
 		
-		cat.setColor(Color.WHITE);
-		//buat background
-		c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
-		
-		//draw entities
-		ebuttonback.draw(c, cat);
-		estatistikbar.draw(c, cat);
-		logo1.draw(c, cat);
-		logo2.draw(c, cat);
-		logo3.draw(c, cat);
-		logo4.draw(c, cat);
-		logo5.draw(c, cat);
-		logo6.draw(c, cat);
 		
 		super.onDraw(c);
 	}
@@ -118,6 +115,27 @@ public class Statistik extends GameView {
 	public void onUp() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void draw(Canvas c, Paint cat) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		
+				cat.setColor(Color.WHITE);
+				//buat background
+				c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
+				
+				//draw entities
+//				ebuttonback.draw(c, cat);
+//				estatistikbar.draw(c, cat);
+//				logo1.draw(c, cat);
+//				logo2.draw(c, cat);
+//				logo3.draw(c, cat);
+//				logo4.draw(c, cat);
+//				logo5.draw(c, cat);
+//				logo6.draw(c, cat);
+				drawEntityCollection(c, cat);
 	}
 
 }

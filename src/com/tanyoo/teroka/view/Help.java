@@ -34,7 +34,10 @@ public class Help extends GameView {
 		eButtonStatistik = new EButton(getResources());
 		ePreviewGame = new EPreviewGame(getResources());
 		eBackground = new EBackground(getResources());
-		addEntity(elogo, eButtonStatistik, ePreviewGame);
+		addEntityCollection(eBackground,
+				elogo,
+				eButtonStatistik,
+				ePreviewGame);
 		
 	}
 
@@ -54,6 +57,8 @@ public class Help extends GameView {
 		ePreviewGame.setPosition(getPercentWidth(0), getPercentHeight(25));
 		eButtonStatistik.setPosition(getPercentWidth(29), getPercentHeight(88));
 		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
+		
+		ready = true;
 	}
 	
 	@Override
@@ -61,20 +66,7 @@ public class Help extends GameView {
 		// TODO Auto-generated method stub
 		
 		
-		// teks posisi kursor
-		String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
 		
-		cat.setColor(Color.BLACK);
-		c.drawText(posisi, 30, 30, cat);
-		c.drawText("Ini help", 30, 50, cat);
-		eBackground.draw(c, cat);
-		
-		//draw entities
-//		elogo.draw(c, cat);
-//		eButtonStatistik.draw(c,cat);
-//		ePreviewGame.draw(c,cat);
-		
-		drawEntityCollection(c, cat);
 		
 		super.onDraw(c);
 	}
@@ -107,6 +99,24 @@ public class Help extends GameView {
 	public void onUp() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void draw(Canvas c, Paint cat) {
+		// TODO Auto-generated method stub
+		// teks posisi kursor
+				String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
+				
+				cat.setColor(Color.BLACK);
+				c.drawText(posisi, 30, 30, cat);
+				c.drawText("Ini help", 30, 50, cat);
+				//draw entities
+//				eBackground.draw(c, cat);
+//				elogo.draw(c, cat);
+//				eButtonStatistik.draw(c,cat);
+//				ePreviewGame.draw(c,cat);
+				
+				drawEntityCollection(c, cat);
 	}
 
 
