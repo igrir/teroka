@@ -12,6 +12,7 @@ import com.tanyoo.teroka.view.*;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +29,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 	public MenuUtama mu;
 	
 	// task
-	public AnimasiTask at;
+//	public AnimasiTask at;
 	
 	public MainActivity() {
 		//inisiaslisi graphic view
@@ -44,6 +45,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		System.out.println("Garbage collector");
 		//jalankan garbage collector
 		System.gc();
+		mu.shutDownThread();
 	}
 	
 	
@@ -52,13 +54,16 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		super.onCreate(savedInstanceState);
 		System.out.println("MainActivity create");
+	
+		//orientasi
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		//hilangkan title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		//inisialisasi thread
-		at = new AnimasiTask();
+//		at = new AnimasiTask();
 		mu = new MenuUtama(this);
 		gv = mu;
 		
@@ -69,9 +74,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 		setContentView(gv);
 		
 		//jalankan program
-		at.setPlay(true);
-		at.gv = mu;
-		at.execute();
+//		at.setPlay(true);
+//		at.gv = mu;
+//		at.execute();
 		
 	}
 
@@ -111,9 +116,9 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		// pause thread yang dijalankan
 		System.out.println("PANGGIL ON PAUSE");
-		at.cancel(true);
+//		at.cancel(true);
 		
-		
+		gv.setReady(false);
 		//jalankan garbage collector
 		System.gc();
 	}
