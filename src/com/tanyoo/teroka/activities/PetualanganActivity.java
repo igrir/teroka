@@ -67,7 +67,7 @@ public class PetualanganActivity extends Activity implements OnTouchListener, Lo
 		
 		Location lastKnownLocation = locMgr.getLastKnownLocation(locProvider);
 		
-		minTime = 5*1000;
+		minTime = 1*1000;
 		minDistance = 1;
 		
 		//cek dulu apakah menggunakan provider network

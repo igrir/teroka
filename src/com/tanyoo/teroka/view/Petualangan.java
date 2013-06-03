@@ -47,6 +47,14 @@ public class Petualangan extends GameView {
 	// Games
 	public EKarakter ekarakter;
 	
+	// Variabel
+	public int txtSteps=0;
+	public int txtLevel=0;
+	public int txtPotion=0;
+	public int txtCalorie=0;
+	public int txtStars=0;
+	
+	
 	public Petualangan(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
@@ -189,6 +197,41 @@ public class Petualangan extends GameView {
 		//		epotion.draw(c, cat);
 		//		elevel.draw(c, cat);
 		drawEntityCollection(c, cat);
+		
+		
+		//-------------- Teks-------------- 
+		cat.setColor(Color.BLACK);
+		
+		//level
+		cat.setTextSize(getPercentFontSize(100));
+		c.drawText("Level", elevel.x, elevel.y+getPercentFontSize(100), cat);
+		cat.setTextSize(getPercentFontSize(300));
+		c.drawText(String.valueOf(txtLevel), elevel.x, elevel.y+getPercentFontSize(330), cat);
+		
+		//calorie
+		cat.setTextSize(getPercentFontSize(100));
+		c.drawText("Calorie", ecalore.x, ecalore.y+getPercentFontSize(100), cat);
+		cat.setTextSize(getPercentFontSize(300));
+		c.drawText(String.valueOf(txtCalorie), ecalore.x, ecalore.y+getPercentFontSize(330), cat);
+		
+		//potion
+		cat.setTextSize(getPercentFontSize(100));
+		c.drawText("Potion", epotion.x, epotion.y+getPercentFontSize(100), cat);
+		cat.setTextSize(getPercentFontSize(300));
+		c.drawText(String.valueOf(txtPotion), epotion.x, epotion.y+getPercentFontSize(330), cat);
+		
+		//stars
+		cat.setTextSize(getPercentFontSize(100));
+		c.drawText("Stars", estars.x, estars.y+getPercentFontSize(100), cat);
+		cat.setTextSize(getPercentFontSize(300));
+		c.drawText(String.valueOf(txtStars), estars.x, estars.y+getPercentFontSize(330), cat);
+		
+		//step
+		cat.setTextSize(getPercentFontSize(100));
+		c.drawText("Steps", esteps.x, esteps.y+getPercentFontSize(100), cat);
+		cat.setTextSize(getPercentFontSize(300));
+		c.drawText(String.valueOf(txtSteps), esteps.x, esteps.y+getPercentFontSize(330), cat);
+		
 	}
 
 	

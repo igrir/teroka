@@ -10,7 +10,7 @@ public class ECalore extends Entity {
 	public ECalore(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.logo, "logo");
+		addSprite(R.drawable.dummy, "logo");
 		setSprite("logo");
 	}
 
