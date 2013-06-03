@@ -8,10 +8,11 @@ import util.DataList;
 
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.DbTeroka.DataTeroka;
+import com.tanyoo.teroka.lib.GameActivity;
 
 import android.app.Activity;
 
-public class ListPlayerActivity extends Activity {
+public class ListPlayerActivity extends GameActivity {
 	
 	public ArrayList<DataList> alDataLists = new ArrayList<DataList>();
 	

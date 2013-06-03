@@ -47,14 +47,14 @@ public abstract class GameView extends SurfaceView implements SurfaceHolder.Call
 	
 	public int offset=25;
 	
-	protected Activity context;
+	protected GameActivity context;
 	
 	public Vector<Entity> entityCollection;
 	
 	public GameView(Context context) {
 		
 		super(context);
-		this.context = (Activity)context;
+		this.context = (GameActivity)context;
 		entityCollection = new Vector<Entity>();
 		
 		setFocusable(true);

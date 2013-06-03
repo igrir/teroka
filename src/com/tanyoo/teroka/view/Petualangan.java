@@ -5,10 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.tanyoo.teroka.activities.MainActivity;
 import com.tanyoo.teroka.activities.PetualanganActivity;
+import com.tanyoo.teroka.activities.PetualanganActivity.PetualanganModel;
 import com.tanyoo.teroka.entities.EBarDistance;
 import com.tanyoo.teroka.entities.EBarHealth;
 import com.tanyoo.teroka.entities.ECalore;
@@ -18,6 +20,7 @@ import com.tanyoo.teroka.entities.EHealthPoint;
 import com.tanyoo.teroka.entities.EInfobar;
 import com.tanyoo.teroka.entities.EKarakter;
 import com.tanyoo.teroka.entities.ELevel;
+import com.tanyoo.teroka.entities.EMonster;
 import com.tanyoo.teroka.entities.EPotion;
 import com.tanyoo.teroka.entities.EShop;
 import com.tanyoo.teroka.entities.EStars;
@@ -43,6 +46,7 @@ public class Petualangan extends GameView {
 	public EPotion epotion;
 	public ELevel elevel;
 	public ECalore ecalore;
+	public EMonster emonster;
 	
 	// Games
 	public EKarakter ekarakter;
@@ -53,6 +57,9 @@ public class Petualangan extends GameView {
 	public int txtPotion=0;
 	public int txtCalorie=0;
 	public int txtStars=0;
+	public float egameViewX = 0;
+	public float emonsterX = 0;
+	public PetualanganModel pm;
 	
 	
 	public Petualangan(Context context) {
@@ -71,6 +78,7 @@ public class Petualangan extends GameView {
 		elevel = new ELevel(getResources());
 		ecalore = new ECalore(getResources());
 		ekarakter = new EKarakter(getResources());
+		emonster = new EMonster(getResources());
 		
 		addEntityCollection(einfo,
 				  ebardistance,
@@ -84,7 +92,11 @@ public class Petualangan extends GameView {
 				  epotion,
 				  elevel,
 				  ecalore,
+				  emonster,
 				  ekarakter);
+		
+		pm = ((PetualanganActivity)(this.context)).petualanganModel;
+		Log.i("PM: ", String.valueOf(pm.monsterShow));
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
@@ -108,8 +120,10 @@ public class Petualangan extends GameView {
 		estars.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		esteps.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		
+		
 		//game
 		ekarakter.createSprites((int)getPercentWidth(10),(int)getPercentHeight(10));
+		emonster.resizeImage((int)getPercentWidth(10), (int)getPercentHeight(10));
 		
 		// set posisi
 		
@@ -129,6 +143,9 @@ public class Petualangan extends GameView {
 		
 		//game
 		ekarakter.setPosition(getPercentWidth(10), getPercentHeight(20));
+		emonster.setPosition(getPercentWidth(100), getPercentHeight(20));
+		
+		emonsterX = getPercentWidth(100);
 		
 		ready = true;
 	}
@@ -140,13 +157,12 @@ public class Petualangan extends GameView {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+
+		//run di controller
+		this.context.run();
 		
 		//parallax di game
-		
-		
-		
-		
-		System.out.println("PETUALANGAAAAAAANNNNNNNN");
+		moveTween();
 	}
 
 	@Override
@@ -240,11 +256,60 @@ public class Petualangan extends GameView {
 	 * @param speed
 	 */
 	public void walk(int speed){
-		if (egameview.x < -(egameview.width/2)) {
+		if (egameViewX < -(egameview.width/2)) {
+			egameViewX = 0;
+		}else{
+			egameViewX -= speed;
+		}
+	}
+	
+	/**
+	 * Jalankan tokoh dengan animasi tween
+	 * @param speed
+	 */
+	public void moveTween(){
+		
+		//background
+		if (egameViewX == 0) {
 			egameview.x = 0;
 		}else{
-			egameview.x -= speed;
+			egameview.x = egameview.x-(egameview.x-egameViewX)/10;
 		}
+		
+		System.out.println(this.emonster.x);
+		
+		//monster
+		emonster.x = emonster.x-(emonster.x-emonsterX)/10;
+		
+	}
+	
+	public void moveMonster(int speed){
+		
+		if (this.pm.monsterShow == true) {
+			if (this.emonsterX > 0) {
+				this.emonsterX -= speed;
+			}else{
+				//reset posisi monster
+				emonster.x = getPercentWidth(100);
+				this.emonsterX = emonster.x = getPercentWidth(100);
+			}
+		}
+	}
+	
+	/**
+	 * Animasi yang dilakukan untuk testing
+	 */
+	public void testAnimate(){
+		if (this.pm.monsterShow == true) {
+			moveMonster(35);
+		}
+		
+//		//gerakan monster muncul
+//		if (pm.monsterShow == true) {
+//			
+//		}else{
+//			emonster.x = getPercentWidth(50);
+//		}
 	}
 	
 }

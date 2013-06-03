@@ -1,6 +1,7 @@
 package com.tanyoo.teroka.activities;
 
 import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
@@ -15,7 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class HelpActivity extends Activity implements OnTouchListener{
+public class HelpActivity extends GameActivity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;

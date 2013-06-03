@@ -8,6 +8,7 @@ import util.DataList;
 
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.DbTeroka.DataTeroka;
+import com.tanyoo.teroka.lib.GameActivity;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -17,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TokoActivity extends Activity {
+public class TokoActivity extends GameActivity {
 	
 	public ArrayList<DataList> alDataLists = new ArrayList<DataList>();
 	

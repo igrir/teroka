@@ -49,7 +49,7 @@ public class GameRunnable implements Runnable{
 		
 		while (threadRun) {
 			try {
-				Thread.sleep((long)(1000*0.1));
+				Thread.sleep((long)(1000*0.01));
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

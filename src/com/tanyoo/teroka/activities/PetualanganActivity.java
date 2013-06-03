@@ -1,6 +1,7 @@
 package com.tanyoo.teroka.activities;
 
 import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
@@ -21,7 +22,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class PetualanganActivity extends Activity implements OnTouchListener, LocationListener{
+public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener{
 	
 	// mesin
 	private GameView gv;
@@ -38,6 +39,13 @@ public class PetualanganActivity extends Activity implements OnTouchListener, Lo
 	LocationManager locMgr;
 	long minTime;
 	float minDistance;
+
+	/**
+	 * Variabel game
+	 */
+	public PetualanganModel petualanganModel = new PetualanganModel();
+	public int delay = 20;
+	public int time = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -192,7 +200,8 @@ public class PetualanganActivity extends Activity implements OnTouchListener, Lo
 		lng = location.getLongitude();
 		
 		//cek perubahan untuk maju
-		((Petualangan)gv).walk(10);
+		//comment saat debug, uncomment saat publish
+		//((Petualangan)gv).walk(10);
 		
 	}
 
@@ -214,6 +223,38 @@ public class PetualanganActivity extends Activity implements OnTouchListener, Lo
 	@Override
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void run() {
+		super.run();
+
+		if (this.time < delay) {
+			this.time++;
+		}else{
+			this.time = 0;
+			
+			//untuk testing. Comment walk saat publish
+			((Petualangan)gv).walk(20);
+			
+			((Petualangan)gv).testAnimate();	
+		}
+		
+		
+		
+		
+	}
+	
+	
+	public class PetualanganModel{
+		
+		public int currentStep = 0;	//langkah yang diambil
+		public boolean monsterShow = true;
+		
+		public void setMonsterShow(boolean show){
+			this.monsterShow = show;
+		}
 		
 	}
 	

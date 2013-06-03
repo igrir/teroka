@@ -11,10 +11,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.Statistik;
 
-public class StatistikActivity extends Activity implements OnTouchListener{
+public class StatistikActivity extends GameActivity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
