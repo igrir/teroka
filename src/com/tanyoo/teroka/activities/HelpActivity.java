@@ -1,9 +1,6 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.R.menu;
-import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
@@ -26,9 +23,6 @@ public class HelpActivity extends Activity implements OnTouchListener{
 	// views
 	public Help mu;
 	
-	// task
-//	public AnimasiTask at;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -40,11 +34,7 @@ public class HelpActivity extends Activity implements OnTouchListener{
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-		//inisialisasi thread
-//		at = new AnimasiTask();
-		
-		
+
 		//inisiaslisi graphic view
 		mu = new Help(this);
 			
@@ -56,10 +46,6 @@ public class HelpActivity extends Activity implements OnTouchListener{
 		//set tampilan yang muncul
 		setContentView(gv);
 		
-		//jalankan program
-//		at.setPlay(true);
-//		at.gv = mu;
-//		at.execute();
 		mu.startThread();
 		
 	}

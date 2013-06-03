@@ -5,11 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -39,12 +39,8 @@
             		android:label="help activity">
 		 </activity>
         <activity android:name="com.tanyoo.teroka.activities.PetualanganActivity"
-            		android:label="petualanan activity">
-
-            	
+            		android:label="petualangan activity">
         </activity>
-        
->>>>>>> 2dcad773f8a271bdf529aae0c6c055ee5e6e3af9
     </application>
 
 </manifest>

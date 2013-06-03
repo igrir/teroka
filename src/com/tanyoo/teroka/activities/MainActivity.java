@@ -1,11 +1,6 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.R.menu;
-import com.tanyoo.teroka.entities.EButton;
-import com.tanyoo.teroka.entities.EKarakter;
-import com.tanyoo.teroka.entities.ELogo;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
@@ -27,10 +22,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 	
 	// views
 	public MenuUtama mu;
-	
-	// task
-//	public AnimasiTask at;
-	
+
 	public MainActivity() {
 		//inisiaslisi graphic view
 		
@@ -63,7 +55,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		//inisialisasi thread
-//		at = new AnimasiTask();
 		mu = new MenuUtama(this);
 		gv = mu;
 		
@@ -74,10 +65,7 @@ public class MainActivity extends Activity implements OnTouchListener{
 		setContentView(gv);
 		
 		//jalankan program
-//		at.setPlay(true);
-//		at.gv = mu;
-//		at.execute();
-		
+
 	}
 
 	@Override
@@ -111,7 +99,6 @@ public class MainActivity extends Activity implements OnTouchListener{
 		
 		// pause thread yang dijalankan
 		System.out.println("PANGGIL ON PAUSE");
-//		at.cancel(true);
 		
 		gv.setReady(false);
 		//jalankan garbage collector

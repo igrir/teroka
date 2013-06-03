@@ -10,7 +10,6 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.Statistik;
@@ -22,9 +21,6 @@ public class StatistikActivity extends Activity implements OnTouchListener{
 	
 	// views
 	public Statistik mu;
-	
-	// task
-//	public AnimasiTask at;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +34,6 @@ public class StatistikActivity extends Activity implements OnTouchListener{
 		//hilangkan notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-		//inisialisasi thread
-//		at = new AnimasiTask();
-		
-		
 		//inisiaslisi graphic view
 		mu = new Statistik(this);
 			
@@ -52,12 +44,6 @@ public class StatistikActivity extends Activity implements OnTouchListener{
 
 		//set tampilan yang muncul
 		setContentView(gv);
-		
-		//jalankan program
-//		at.setPlay(true);
-//		at.gv = mu;
-//		at.execute();
-		
 	}
 
 	@Override

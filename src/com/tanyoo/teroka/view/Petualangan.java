@@ -135,11 +135,7 @@ public class Petualangan extends GameView {
 		
 		//parallax di game
 		
-		if (egameview.x < -(egameview.width/2)) {
-			egameview.x = 0;
-		}else{
-			egameview.x -= 10;
-		}
+		
 		
 		
 		System.out.println("PETUALANGAAAAAAANNNNNNNN");
@@ -195,5 +191,17 @@ public class Petualangan extends GameView {
 		drawEntityCollection(c, cat);
 	}
 
-
+	
+	/**
+	 * Jalankan tokoh
+	 * @param speed
+	 */
+	public void walk(int speed){
+		if (egameview.x < -(egameview.width/2)) {
+			egameview.x = 0;
+		}else{
+			egameview.x -= speed;
+		}
+	}
+	
 }

@@ -1,12 +1,17 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.AnimasiTask;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
+import android.hardware.SensorManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.Menu;
@@ -16,16 +21,23 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class PetualanganActivity extends Activity implements OnTouchListener{
+public class PetualanganActivity extends Activity implements OnTouchListener, LocationListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
 	public Petualangan mu;
-	
-	// task
-//	public AnimasiTask at;
+
+	/**
+	 * Properties untuk GPS
+	 */
+	double lat, latLama;
+	double lng, lngLama;
+	String locProvider;
+	LocationManager locMgr;
+	long minTime;
+	float minDistance;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,27 +49,39 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 		//hilangkan title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-		//inisialisasi thread
-//		at = new AnimasiTask();
-		
+//		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		//inisiaslisi graphic view
 		mu = new Petualangan(this);
-			
 		gv = mu;
-		
 		//set aksi yang dilakukan oleh touch dilakukan siapa
 		gv.setOnTouchListener(this);
 
-		//set tampilan yang muncul
+		// Set tampilan yang muncul
 		setContentView(gv);
 		
-		//jalankan program
-//		at.setPlay(true);
-//		at.gv = mu;
-//		at.execute();
+		// Inisialisasi GPS
+		locMgr = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		//ambil lokasi terakhir dengan network
+		locProvider = LocationManager.NETWORK_PROVIDER;
+		
+		Location lastKnownLocation = locMgr.getLastKnownLocation(locProvider);
+		
+		minTime = 5*1000;
+		minDistance = 1;
+		
+		//cek dulu apakah menggunakan provider network
+		//siapa tahu penggunanya sedang tidak menggunakan
+		//kartu sim
+		if (lastKnownLocation != null) {
+			System.out.println("LATITUDE " + lastKnownLocation.getLatitude());
+			lat = lastKnownLocation.getLatitude();
+			lng = lastKnownLocation.getLongitude();
+		}
+		
+		Criteria cr = new Criteria();
+		cr.setAccuracy(Criteria.ACCURACY_FINE);
+		locProvider = locMgr.getBestProvider(cr, false);
 		
 	}
 
@@ -101,6 +125,8 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 		//stop concurrent
 //		at.cancel(true);
 		gv.setReady(false);
+		locMgr.removeUpdates(this);
+		
 		//jalankan garbage collector
 		System.gc();
 		
@@ -110,6 +136,14 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 		
 		
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		locMgr.requestLocationUpdates(locProvider, minTime, minDistance, this);
+	}
+	
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -145,6 +179,42 @@ public class PetualanganActivity extends Activity implements OnTouchListener{
 	public void tombolToko(){
 		Intent iToko = new Intent(getApplicationContext(), TokoActivity.class);
 		startActivity(iToko);
+	}
+
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		latLama = lat;
+		lngLama = lng;
+		
+		lat = location.getLatitude();
+		lng = location.getLongitude();
+		
+		//cek perubahan untuk maju
+		((Petualangan)gv).walk(10);
+		
+	}
+
+
+	@Override
+	public void onProviderDisabled(String arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onProviderEnabled(String arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

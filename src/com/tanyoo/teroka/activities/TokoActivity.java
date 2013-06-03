@@ -7,7 +7,6 @@ import util.DataAdapter;
 import util.DataList;
 
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.R.id;
 import com.tanyoo.teroka.lib.DbTeroka.DataTeroka;
 
 import android.app.Activity;
