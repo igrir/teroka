@@ -136,6 +136,9 @@ public class MenuUtama extends GameView {
 			((MainActivity)(this.context)).tombolAbout();
 		}else if (eButtonPetualangan.isHit(posXDown, posYDown)) {
 			((MainActivity)(this.context)).tombolPetualangan();
+		}else if (eButtonBertarung.isHit(posXDown, posYDown)){
+			((MainActivity)(this.context)).tombolBattle();
+			
 		}
 	}
 
