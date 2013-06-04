@@ -31,6 +31,7 @@ public class MenuUtama extends GameView {
 	public EButton eButtonBertarung;
 	public EButton eButtonAbout;
 	public EKarakter eKarakter;
+	public EKarakter eKarakter2;
 	public EBackground eBackground;
 	public EPlatform ePlatform;
 	
@@ -44,6 +45,7 @@ public class MenuUtama extends GameView {
 		eButtonBertarung = new EButton(getResources());
 		eButtonAbout = new EButton(getResources());
 		eKarakter = new EKarakter(getResources());
+		eKarakter2 = new EKarakter(getResources());
 		eBackground = new EBackground(getResources());
 		ePlatform = new EPlatform(getResources());
 		
@@ -53,7 +55,8 @@ public class MenuUtama extends GameView {
 							eButtonPetualangan,
 							eButtonBertarung,
 							eButtonAbout,
-							eKarakter
+							eKarakter,
+							eKarakter2
 							);
 		
 	}
@@ -64,7 +67,8 @@ public class MenuUtama extends GameView {
 		super.onWindowFocusChanged(hasWindowFocus);
 		
 		eKarakter.createSprites((int)getPercentWidth(45), (int)getPercentHeight(30));
-		
+		eKarakter2.karakter2((int)getPercentWidth(30), (int)getPercentHeight(26));
+
 		// resize gambar
 		ePlatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(10));
 		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
@@ -78,10 +82,11 @@ public class MenuUtama extends GameView {
 		ePlatform.setPosition(getPercentWidth(0), getPercentHeight(90));
 		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
 		elogo.setPosition(getPercentWidth(8), getPercentHeight(2));
-		eButtonPetualangan.setPosition(getPercentWidth(53), getPercentHeight(30));
-		eButtonBertarung.setPosition(getPercentWidth(53), getPercentHeight(41));
-		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(52));
-		eKarakter.setPosition(getPercentWidth(6), getPercentHeight(65));
+		eButtonPetualangan.setPosition(getPercentWidth(53), getPercentHeight(28));
+		eButtonBertarung.setPosition(getPercentWidth(53), getPercentHeight(39));
+		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(50));
+		eKarakter.setPosition(getPercentWidth(3), getPercentHeight(63));
+		eKarakter2.setPosition(getPercentWidth(40), getPercentHeight(66));
 		
 		ready = true;
 	}

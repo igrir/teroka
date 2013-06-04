@@ -19,4 +19,8 @@ public class EKarakter extends Entity{
 		setSprite("karakter1");
 	}
 	
+	public void karakter2(int width, int height){
+		addScaledSprite(R.drawable.karakter2, "karakter2", width, height);
+		setSprite("karakter2");
+	}
 }
