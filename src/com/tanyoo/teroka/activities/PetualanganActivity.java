@@ -58,7 +58,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//hilangkan title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
-//		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		//inisiaslisi graphic view
 		mu = new Petualangan(this);
@@ -243,7 +243,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			
 			//random munculnya monster
 			if (petualanganModel.monsterShow == false) {
-				if (Math.random()*100 < 50) {
+				int muncul =(int)(Math.random()*1000)%1000;
+				Log.i("randomMonster", String.valueOf(muncul));
+				if (muncul < 50 ) {
 					petualanganModel.monsterShow = true;
 				}
 			}
@@ -273,12 +275,17 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				}
 				
 			}else{
-				if (petualanganModel.getMonsterShow()) {
+				
+				//cek  monster nggak kena
+				if (petualanganModel.battle == false) {
 					//untuk testing. Comment walk saat publish. Walk dijalankan saat update
 					((Petualangan)gv).walk(20);
-					//kena monster
-					gv.moveMonster(10);
-				}				
+					if (petualanganModel.getMonsterShow()) {
+						//kena monster
+						gv.moveMonster(10);
+					}		
+				}
+						
 			}
 			
 		}	
