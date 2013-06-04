@@ -9,8 +9,14 @@ import util.DataList;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.DbTeroka.DataTeroka;
 import com.tanyoo.teroka.lib.GameActivity;
+import com.tanyoo.teroka.lib.GameView;
+import com.tanyoo.teroka.view.Bertarung;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class ListPlayerActivity extends GameActivity {
 	
