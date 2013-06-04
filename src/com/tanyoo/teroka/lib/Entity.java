@@ -122,7 +122,11 @@ public class Entity {
 		resizeImage((int)width, (int)height);
 	}
 
-	
+	/**
+	 * Set posisi dari entity
+	 * @param x posisi X
+	 * @param y posisi Y
+	 */
 	public void setPosition(float x, float y){
 		this.x = x;
 		this.y = y;
@@ -139,7 +143,7 @@ public class Entity {
 	}
 	
 	/**
-	 * Jika kena dengan objek 
+	 * Jika kena dengan posisi kursor
 	 */
 	public boolean isHit(float cursorX, float cursorY){
 		if (cursorX > this.x &&
@@ -147,6 +151,26 @@ public class Entity {
 			cursorY > this.y &&
 			cursorY < this.y+this.height
 			) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Kena dengan entity lain, menggunakan bounding box
+	 * @param e
+	 * @return
+	 */
+	public boolean isHit(Entity e){
+		
+		boolean kenaKanan = (e.x < this.x+this.width) && (e.x+e.width > this.x );
+		boolean kenaKiri  = (e.x+e.width > this.x) && (e.x < this.x );
+		boolean kenaAtas  = (e.y+e.height > this.y) && (e.y < this.y );
+		boolean kenaBawah = (e.y < this.y+this.height) && (e.y+e.height > this.y );
+		
+		if ( (kenaKiri||kenaKanan) &&
+			 (kenaAtas||kenaBawah)) {
 			return true;
 		}else{
 			return false;

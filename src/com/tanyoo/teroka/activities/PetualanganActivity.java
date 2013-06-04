@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +26,7 @@ import android.view.View.OnTouchListener;
 public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener{
 	
 	// mesin
-	private GameView gv;
+	private Petualangan gv;
 	
 	// views
 	public Petualangan mu;
@@ -162,6 +163,11 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			  	 gv.posXDown = event.getX();  
 			  	 gv.posYDown = event.getY();
 				gv.onDown();
+				
+				//hapus ini saat publis. Contoh serang monster dengan touch
+				//harusnya nanti di accelerometer
+				serangMonster();
+				
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
 			  	gv.posXMove = event.getX();  
@@ -235,26 +241,97 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		}else{
 			this.time = 0;
 			
-			//untuk testing. Comment walk saat publish
-			((Petualangan)gv).walk(20);
+			//random munculnya monster
+			if (petualanganModel.monsterShow == false) {
+				if (Math.random()*100 < 50) {
+					petualanganModel.monsterShow = true;
+				}
+			}
 			
-			((Petualangan)gv).testAnimate();	
-		}
+			Log.i("battle", String.valueOf(petualanganModel.battle));
+			Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
+			
+			//cek kena monster
+			if (gv.emonster.isHit(gv.ekarakter) && petualanganModel.monsterShow == true) {
+				
+				petualanganModel.battle = true;
+			}
+			
+			//cek kalau karakter ketemu monster
+			if (petualanganModel.battle == true) {
+				
+				//cek kalau monster sudah mati 
+				if (petualanganModel.getCurrentMonsterHealth() <= 0) {
+					petualanganModel.battle = false;
+					petualanganModel.monsterShow = false;
+					
+					Log.i("monsterHit", "mati");
+					
+					
+					//kembalikan darah monster untuk selanjutnya
+					petualanganModel.setCurrentMonsterHealth(petualanganModel.monsterHealth);
+				}
+				
+			}else{
+				if (petualanganModel.getMonsterShow()) {
+					//untuk testing. Comment walk saat publish. Walk dijalankan saat update
+					((Petualangan)gv).walk(20);
+					//kena monster
+					gv.moveMonster(10);
+				}				
+			}
+			
+		}	
 		
-		
-		
-		
+		((Petualangan)gv).animatePetualangan();
 	}
 	
+	
+	public void serangMonster(){
+		
+		if (petualanganModel.battle == true) {
+			int monsterHealth = this.petualanganModel.getCurrentMonsterHealth();
+			int attack = 10;
+			Log.i("serang", "atk:"+attack+" monsterHealth:"+monsterHealth);
+			
+			this.petualanganModel.setCurrentMonsterHealth(monsterHealth-attack);		
+		}
+	}
 	
 	public class PetualanganModel{
 		
 		public int currentStep = 0;	//langkah yang diambil
 		public boolean monsterShow = true;
+		public boolean battle = false;	//saat encounter monster
+		
+		public int monsterHealth = 100; //Health monster naik 10 setiap selesai nyerang monster lain
+		public int currentMonsterHealth = 100; //monster yang sedang bertarung sekarang 	
 		
 		public void setMonsterShow(boolean show){
 			this.monsterShow = show;
 		}
+		
+		public boolean getMonsterShow(){
+			return this.monsterShow;
+		}
+		
+		public void setMonsterHealth(int monsterHealth){
+			this.monsterHealth = monsterHealth;
+		}
+		
+		public int getMonsterHealth(){
+			return this.monsterHealth;
+		}
+		
+		public void setCurrentMonsterHealth(int health){
+			this.currentMonsterHealth = health;
+		}
+		
+		public int getCurrentMonsterHealth(){
+			return this.currentMonsterHealth;
+		}
+		
+		
 		
 	}
 	

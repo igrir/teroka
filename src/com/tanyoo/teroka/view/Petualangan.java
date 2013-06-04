@@ -142,7 +142,7 @@ public class Petualangan extends GameView {
 		eshop.setPosition(getPercentWidth(30), getPercentHeight(83));
 		
 		//game
-		ekarakter.setPosition(getPercentWidth(10), getPercentHeight(20));
+		ekarakter.setPosition(getPercentWidth(40), getPercentHeight(20));
 		emonster.setPosition(getPercentWidth(100), getPercentHeight(20));
 		
 		emonsterX = getPercentWidth(100);
@@ -160,6 +160,7 @@ public class Petualangan extends GameView {
 
 		//run di controller
 		this.context.run();
+		
 		
 		//parallax di game
 		moveTween();
@@ -276,8 +277,6 @@ public class Petualangan extends GameView {
 			egameview.x = egameview.x-(egameview.x-egameViewX)/10;
 		}
 		
-		System.out.println(this.emonster.x);
-		
 		//monster
 		emonster.x = emonster.x-(emonster.x-emonsterX)/10;
 		
@@ -285,31 +284,27 @@ public class Petualangan extends GameView {
 	
 	public void moveMonster(int speed){
 		
-		if (this.pm.monsterShow == true) {
+			//monster gerak ke kiri
 			if (this.emonsterX > 0) {
 				this.emonsterX -= speed;
 			}else{
 				//reset posisi monster
 				emonster.x = getPercentWidth(100);
-				this.emonsterX = emonster.x = getPercentWidth(100);
+				this.emonsterX = getPercentWidth(100);
 			}
-		}
 	}
+	
 	
 	/**
 	 * Animasi yang dilakukan untuk testing
 	 */
-	public void testAnimate(){
-		if (this.pm.monsterShow == true) {
-			moveMonster(35);
+	public void animatePetualangan(){
+		//pindah monster ke luar layar paling kanan 
+		//agar bisa dikeluarkan lagi nanti
+		if (this.pm.getMonsterShow() == false) {
+			this.emonster.x = getPercentWidth(100);
+			this.emonsterX = getPercentWidth(100);
 		}
-		
-//		//gerakan monster muncul
-//		if (pm.monsterShow == true) {
-//			
-//		}else{
-//			emonster.x = getPercentWidth(50);
-//		}
 	}
 	
 }
