@@ -25,6 +25,7 @@ import com.tanyoo.teroka.entities.EPotion;
 import com.tanyoo.teroka.entities.EShop;
 import com.tanyoo.teroka.entities.EStars;
 import com.tanyoo.teroka.entities.ESteps;
+import com.tanyoo.teroka.entities.EPlatform;
 import com.tanyoo.teroka.lib.GameView;
 
 
@@ -47,6 +48,7 @@ public class Petualangan extends GameView {
 	public ELevel elevel;
 	public ECalore ecalore;
 	public EMonster emonster;
+	public EPlatform eplatform;
 	
 	// Games
 	public EKarakter ekarakter;
@@ -79,6 +81,7 @@ public class Petualangan extends GameView {
 		ecalore = new ECalore(getResources());
 		ekarakter = new EKarakter(getResources());
 		emonster = new EMonster(getResources());
+		eplatform = new EPlatform(getResources());
 		
 		addEntityCollection(einfo,
 				  ebardistance,
@@ -86,6 +89,7 @@ public class Petualangan extends GameView {
 				  ehealthpoint,
 				  ebarhealth,
 				  egameview,
+				  eplatform,
 				  estars,
 				  esteps,
 				  eshop,
@@ -112,7 +116,8 @@ public class Petualangan extends GameView {
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ecalore.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
-		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(25));
+		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(20));
+		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		elevel.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		epotion.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
@@ -130,6 +135,7 @@ public class Petualangan extends GameView {
 		//HUD
 		einfo.setPosition(getPercentWidth(0), getPercentHeight(0));
 		egameview.setPosition(getPercentWidth(0), getPercentHeight(10));
+		eplatform.setPosition(getPercentWidth(0), getPercentHeight(30));
 		ehealthpoint.setPosition(getPercentWidth(8), getPercentHeight(36));
 		edistance.setPosition(getPercentWidth(8), getPercentHeight(46));
 		ebarhealth.setPosition(getPercentWidth(27), getPercentHeight(36));
