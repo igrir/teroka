@@ -41,7 +41,9 @@
         <activity android:name="com.tanyoo.teroka.activities.PetualanganActivity"
             		android:label="petualangan activity">
         </activity>
-        
+        <activity android:name="com.tanyoo.teroka.activities.ListPlayerActivity"
+            		android:label="List player activity">
+        </activity>
         <activity android:name="com.tanyoo.teroka.activities.TokoActivity"
             		android:label="petualangan activity">
         </activity>
