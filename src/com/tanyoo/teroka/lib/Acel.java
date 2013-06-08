@@ -17,7 +17,7 @@ public class Acel extends Activity {
 //			mLastZ = az;		
 			mInitialized = true;			
 		} else {
-			float deltaX = (float)(mLastX - ax);
+			float deltaX = (float)(Math.abs(mLastX) - Math.abs(ax));
 //			float deltaY = (float)(mLastY - ay);
 //			float deltaZ = (float)(mLastZ - az);
 			if (deltaX < NOISE) deltaX = (float)0.0;

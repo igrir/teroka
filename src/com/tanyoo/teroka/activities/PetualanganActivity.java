@@ -1,10 +1,14 @@
 package com.tanyoo.teroka.activities;
 
 import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.Acel;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.*;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -23,14 +27,20 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener{
+public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener, SensorEventListener{
 	
 	// mesin
 	private Petualangan gv;
 	
 	// views
 	public Petualangan mu;
-
+	
+	// kontrol accelerometer 
+	private SensorManager mSensorManager;
+	private Sensor mSensor;
+	private Acel acel;
+	
+	
 	/**
 	 * Properties untuk GPS
 	 */
@@ -92,6 +102,15 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		cr.setAccuracy(Criteria.ACCURACY_FINE);
 		locProvider = locMgr.getBestProvider(cr, false);
 		
+		
+		//Sensor
+		this.acel = new Acel();
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+			mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+			mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME);
+			
+		}
 	}
 
 	
@@ -340,6 +359,31 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		
 		
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		// TODO Auto-generated method stub
+		
+		double ax=0,ay=0,az=0;
+		
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+			ax = event.values[0];
+			ay = event.values[1];
+			az = event.values[2];
+		}
+		
+		//cek attack
+		if (acel.attack(ax)){
+			serangMonster();
+		}
 	}
 	
 }
