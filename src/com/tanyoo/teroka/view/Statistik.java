@@ -39,12 +39,13 @@ public class Statistik extends GameView {
 		
 		addEntityCollection(estatistikbar,
 							ebuttonback,
-							logo1,
-							logo2,
-							logo3,
-							logo4,
-							logo5,
-							logo6);
+							logo1
+//							logo2,
+//							logo3,
+//							logo4,
+//							logo5,
+//							logo6);
+				);
 	}
 
 	@Override
@@ -53,11 +54,11 @@ public class Statistik extends GameView {
 		super.onWindowFocusChanged(hasWindowFocus);
 		
 		logo1.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-		logo2.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-		logo3.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-		logo4.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-		logo5.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-		logo6.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
+//		logo2.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
+//		logo3.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
+//		logo4.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
+//		logo5.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
+//		logo6.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
 		
 		// resize gambar
 		ebuttonback.resizeImage((int)getPercentWidth(17), (int)getPercentHeight(13));
@@ -67,17 +68,17 @@ public class Statistik extends GameView {
 		ebuttonback.setPosition(getPercentWidth(0), getPercentHeight(0));
 		estatistikbar.setPosition(getPercentWidth(17), getPercentHeight(0));
 		logo1.setPosition(getPercentWidth(9), getPercentHeight(16));
-		logo2.setPosition(getPercentWidth(9), getPercentHeight(30));
-		logo3.setPosition(getPercentWidth(9), getPercentHeight(44));
-		logo4.setPosition(getPercentWidth(9), getPercentHeight(58));
-		logo5.setPosition(getPercentWidth(9), getPercentHeight(72));
-		logo6.setPosition(getPercentWidth(9), getPercentHeight(86));
+//		logo2.setPosition(getPercentWidth(9), getPercentHeight(30));
+//		logo3.setPosition(getPercentWidth(9), getPercentHeight(44));
+//		logo4.setPosition(getPercentWidth(9), getPercentHeight(58));
+//		logo5.setPosition(getPercentWidth(9), getPercentHeight(72));
+//		logo6.setPosition(getPercentWidth(9), getPercentHeight(86));
 		logo1.setSprite("logo1");
-		logo2.setSprite("logo2");
-		logo3.setSprite("logo3");
-		logo4.setSprite("logo4");
-		logo5.setSprite("logo5");
-		logo6.setSprite("logo6");
+//		logo2.setSprite("logo2");
+//		logo3.setSprite("logo3");
+//		logo4.setSprite("logo4");
+//		logo5.setSprite("logo5");
+//		logo6.setSprite("logo6");
 		
 		ready = true;
 		

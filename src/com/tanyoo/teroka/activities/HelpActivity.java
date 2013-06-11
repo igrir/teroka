@@ -76,7 +76,7 @@ public class HelpActivity extends GameActivity implements OnTouchListener{
 		super.onPause();
 		
 		gv.setReady(false);
-		System.gc();
+		
 	}
 	
 	@Override

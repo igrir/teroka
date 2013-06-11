@@ -46,7 +46,7 @@ public class StatistikActivity extends GameActivity implements OnTouchListener{
 		//set tampilan yang muncul
 		setContentView(gv);
 		
-		mu.startThread();
+//		mu.startThread();
 	}
 
 	@Override
@@ -106,6 +106,7 @@ public class StatistikActivity extends GameActivity implements OnTouchListener{
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		mu.recycleEntityCollection();
+		System.gc();
 		mu.shutDownThread();
 	}
 	
