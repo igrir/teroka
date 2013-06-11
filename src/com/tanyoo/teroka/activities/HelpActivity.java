@@ -92,7 +92,7 @@ public class HelpActivity extends GameActivity implements OnTouchListener{
 		super.onDestroy();
 		mu.recycleEntityCollection();
 		System.out.println("DESTROY THE BITMAPS");
-		System.gc();
+//		System.gc();
 		mu.shutDownThread();
 	}
 	

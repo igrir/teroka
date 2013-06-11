@@ -45,6 +45,8 @@ public class StatistikActivity extends GameActivity implements OnTouchListener{
 
 		//set tampilan yang muncul
 		setContentView(gv);
+		
+		mu.startThread();
 	}
 
 	@Override
