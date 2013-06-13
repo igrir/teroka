@@ -1,53 +1,32 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.lib.GameActivity;
-import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.view.*;
-
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
 
-public class MainActivity extends GameActivity implements OnTouchListener{
-	
-	// mesin
+import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.GameActivity;
+import com.tanyoo.teroka.lib.GameView;
+import com.tanyoo.teroka.view.MenuBertarung;
+
+public class BertarungActivity extends GameActivity implements OnTouchListener{
+		// mesin
 	private GameView gv;
 	
 	// views
-	public MenuUtama mu;
-
-	public MainActivity() {
-		//inisiaslisi graphic view
-		
-		
-	}
-	
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		
-		System.out.println("Garbage collector");
-		//jalankan garbage collector
-		System.gc();
-		mu.shutDownThread();
-	}
-	
+	public MenuBertarung mu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		System.out.println("MainActivity create");
-	
+		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		//hilangkan title bar
@@ -55,8 +34,9 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		//hilangkan notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-		//inisialisasi thread
-		mu = new MenuUtama(this);
+		//inisiaslisi graphic view
+		mu = new MenuBertarung(this);
+			
 		gv = mu;
 		
 		//set aksi yang dilakukan oleh touch dilakukan siapa
@@ -65,8 +45,7 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		//set tampilan yang muncul
 		setContentView(gv);
 		
-		//jalankan program
-
+//			mu.startThread();
 	}
 
 	@Override
@@ -76,38 +55,13 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		return true;
 	}
 
-
-	/**
-	 * Tombol about diklik
-	 */
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), HelpActivity.class);
-		startActivity(iAbout);
-	}
-	
-	/**
-	 * Tombol petualangan
-	 */
-	public void tombolPetualangan(){
-		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
-		startActivity(iAbout);
-	}
-	
-	public void tombolBattle(){
-		Intent iBattle = new Intent(getApplicationContext(), BertarungActivity.class);
-		startActivity(iBattle);
-	}
 	
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		
-		// pause thread yang dijalankan
-		System.out.println("PANGGIL ON PAUSE");
-		
 		gv.setReady(false);
-		//jalankan garbage collector
 		System.gc();
 	}
 	
@@ -122,8 +76,6 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 				gv.onDown();
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
-			  	gv.posXMove = event.getX();  
-			  	gv.posYMove = event.getY();
 			   gv.onMove();
 			   break;
 		  case MotionEvent.ACTION_UP:  //diangkat
@@ -139,6 +91,11 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		}
 		gv.invalidate(); //draw ulang
 		return true;
+	}
+	
+	public void tombolClient(){
+		Intent iBattle = new Intent(getApplicationContext(), ListPlayerActivity.class);
+		startActivity(iBattle);
 	}
 
 }
