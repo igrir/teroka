@@ -6,9 +6,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.tanyoo.teroka.activities.StatistikActivity;
+import com.tanyoo.teroka.entities.EBatleLose;
+import com.tanyoo.teroka.entities.EBatleWin;
+import com.tanyoo.teroka.entities.EBintangStatistik;
 import com.tanyoo.teroka.entities.EButtonBack;
-import com.tanyoo.teroka.entities.ELogoInfoStatistik;
+import com.tanyoo.teroka.entities.ECaloriStatistik;
+import com.tanyoo.teroka.entities.ELevelStatistik;
 import com.tanyoo.teroka.entities.EStatistikBar;
+import com.tanyoo.teroka.entities.EStepStatistik;
 import com.tanyoo.teroka.lib.GameView;
 
 public class Statistik extends GameView {
@@ -22,7 +27,12 @@ public class Statistik extends GameView {
 	// entities
 	EButtonBack ebuttonback;
 	EStatistikBar estatistikbar;
-	ELogoInfoStatistik logo1, logo2, logo3, logo4, logo5, logo6;
+	ELevelStatistik elevelstatistik;
+	EBintangStatistik ebintangstatistik;
+	EStepStatistik estepstatistik;
+	ECaloriStatistik ecaloristatistik;
+	EBatleWin ebatlewin;
+	EBatleLose ebatlelose;
 	
 	public Statistik(Context context) {
 		super(context);
@@ -30,21 +40,21 @@ public class Statistik extends GameView {
 		//entities
 		estatistikbar = new EStatistikBar(getResources());
 		ebuttonback = new EButtonBack(getResources());
-		logo1 = new ELogoInfoStatistik(getResources());
-		logo2 = new ELogoInfoStatistik(getResources());
-		logo3 = new ELogoInfoStatistik(getResources());
-		logo4 = new ELogoInfoStatistik(getResources());
-		logo5 = new ELogoInfoStatistik(getResources());
-		logo6 = new ELogoInfoStatistik(getResources());
+		elevelstatistik = new ELevelStatistik(getResources());
+		ebintangstatistik = new EBintangStatistik(getResources());
+		estepstatistik = new EStepStatistik(getResources());
+		ecaloristatistik = new 	ECaloriStatistik(getResources());
+		ebatlewin = new EBatleWin(getResources());
+		ebatlelose = new EBatleLose(getResources());
 		
 		addEntityCollection(estatistikbar,
 							ebuttonback,
-							logo1
-//							logo2,
-//							logo3,
-//							logo4,
-//							logo5,
-//							logo6);
+							elevelstatistik,
+							ebintangstatistik,
+							estepstatistik,
+							ecaloristatistik,
+							ebatlewin,
+							ebatlelose			
 				);
 	}
 
@@ -52,33 +62,26 @@ public class Statistik extends GameView {
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
 		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasWindowFocus);
-		
-		logo1.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-//		logo2.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-//		logo3.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-//		logo4.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-//		logo5.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-//		logo6.createSprites((int)getPercentWidth(16), (int)getPercentHeight(11));
-		
+				
 		// resize gambar
 		ebuttonback.resizeImage((int)getPercentWidth(17), (int)getPercentHeight(13));
 		estatistikbar.resizeImage((int)getPercentWidth(83), (int)getPercentHeight(13));
+		elevelstatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
+		ebintangstatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
+		estepstatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
+		ecaloristatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
+		ebatlewin.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
+		ebatlelose.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
 		
 		// set posisi
 		ebuttonback.setPosition(getPercentWidth(0), getPercentHeight(0));
 		estatistikbar.setPosition(getPercentWidth(17), getPercentHeight(0));
-		logo1.setPosition(getPercentWidth(9), getPercentHeight(16));
-//		logo2.setPosition(getPercentWidth(9), getPercentHeight(30));
-//		logo3.setPosition(getPercentWidth(9), getPercentHeight(44));
-//		logo4.setPosition(getPercentWidth(9), getPercentHeight(58));
-//		logo5.setPosition(getPercentWidth(9), getPercentHeight(72));
-//		logo6.setPosition(getPercentWidth(9), getPercentHeight(86));
-		logo1.setSprite("logo1");
-//		logo2.setSprite("logo2");
-//		logo3.setSprite("logo3");
-//		logo4.setSprite("logo4");
-//		logo5.setSprite("logo5");
-//		logo6.setSprite("logo6");
+		elevelstatistik.setPosition(getPercentWidth(9), getPercentHeight(16));
+		ebintangstatistik.setPosition(getPercentWidth(9), getPercentHeight(30));
+		estepstatistik.setPosition(getPercentWidth(9), getPercentHeight(44));
+		ecaloristatistik.setPosition(getPercentWidth(9), getPercentHeight(58));
+		ebatlewin.setPosition(getPercentWidth(9), getPercentHeight(72));
+		ebatlelose.setPosition(getPercentWidth(9), getPercentHeight(86));
 		
 		ready = true;
 		
