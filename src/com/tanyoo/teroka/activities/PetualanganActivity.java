@@ -28,7 +28,9 @@ import com.tanyoo.teroka.view.Petualangan;
 
 
 public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener, SensorEventListener{
-	SoundGame sound = new SoundGame(this);
+	//sound
+	SoundGame sound = new SoundGame(this); 
+	
 	// mesin
 	private Petualangan gv;
 	
@@ -39,7 +41,6 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	private SensorManager mSensorManager;
 	private Sensor mSensor;
 	private Acel acel;
-	
 	
 	/**
 	 * Properties untuk GPS
@@ -379,12 +380,12 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			ay = event.values[1];
 			az = event.values[2];
 		}
-		
-		
-		
 		//cek attack
 		if (acel.attack(ax)){
-			serangMonster();			
+			if(acel.attackStat==true){ //jika attack 
+				sound.soundAttack(); //aktifkan suara
+				serangMonster();	
+			}					
 		}
 	}
 	
