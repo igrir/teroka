@@ -383,7 +383,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//cek attack
 		if (acel.attack(ax)){
 			if(acel.attackStat==true){ //jika attack 
-				sound.soundAttack(); //aktifkan suara
+				sound.soundAttack(); //aktifkan suara attack
 				serangMonster();	
 			}					
 		}
