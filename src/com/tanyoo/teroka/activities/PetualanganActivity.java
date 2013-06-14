@@ -1,11 +1,8 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.lib.Acel;
-import com.tanyoo.teroka.lib.GameActivity;
-import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.view.*;
-
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,20 +12,23 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
+
+import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.Acel;
+import com.tanyoo.teroka.lib.GameActivity;
+import com.tanyoo.teroka.lib.SoundGame;
+import com.tanyoo.teroka.view.Petualangan;
+
 
 public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener, SensorEventListener{
-	
+	SoundGame sound = new SoundGame(this);
 	// mesin
 	private Petualangan gv;
 	
@@ -382,7 +382,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		//cek attack
 		if (acel.attack(ax)){
-			serangMonster();
+			serangMonster();			
 		}
 	}
 	

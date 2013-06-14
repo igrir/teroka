@@ -7,7 +7,8 @@ public class Acel extends Activity {
 	public double mLastX, mLastY, mLastZ;
 	public boolean mInitialized;
 	public final float NOISE = (float) 1.0;
-	boolean attackStat, defenseStat;
+	public boolean attackStat;
+	public boolean defenseStat;
 	
 	public boolean attack(double ax){		
 		//menyerang

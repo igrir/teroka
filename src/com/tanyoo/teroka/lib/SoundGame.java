@@ -17,7 +17,7 @@ public class SoundGame extends Activity {
 	
 	public void soundAttack(){		
 		//suara
-		MediaPlayer mp = MediaPlayer.create(con, R.raw.sound_button);
+		MediaPlayer mp = MediaPlayer.create(con, R.raw.sword_swing);
 		mp.setLooping(false);
 		mp.setVolume(80, 100);
 		try {
