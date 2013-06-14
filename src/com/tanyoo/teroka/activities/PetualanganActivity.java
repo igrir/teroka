@@ -388,5 +388,4 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			}					
 		}
 	}
-	
 }

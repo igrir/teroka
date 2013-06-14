@@ -1,23 +1,25 @@
 package com.tanyoo.teroka.activities;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.view.WindowManager;
+
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.lib.SoundGame;
-import com.tanyoo.teroka.view.*;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.view.Menu;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.View.OnTouchListener;
+import com.tanyoo.teroka.view.MenuUtama;
 
 public class MainActivity extends GameActivity implements OnTouchListener{	
+	//sound
+	SoundGame sound = new SoundGame(this); 
+		
 	// mesin
 	private GameView gv;
 	
@@ -140,5 +142,14 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		gv.invalidate(); //draw ulang
 		return true;
 	}
+	
+	//saat klik button back, sound berhenti
+	@Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        sound.onStop();
+        this.finish();
+        System.out.println("Game Berhenti");
+    }
 
 }

@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 
 public class SoundGame extends Activity {
 	Context con;
+	MediaPlayer mp;
 	
 	//activity dari main (sincron)
 	public SoundGame(Context context){
@@ -17,7 +18,7 @@ public class SoundGame extends Activity {
 	
 	public void soundAttack(){		
 		//suara
-		MediaPlayer mp = MediaPlayer.create(con, R.raw.sword_swing);
+		mp = MediaPlayer.create(con, R.raw.sword_swing);
 		mp.setLooping(false);
 		mp.setVolume(80, 100);
 		try {
@@ -30,6 +31,17 @@ public class SoundGame extends Activity {
 			e.printStackTrace();
 		}
 		mp.start();		
+	}
+	
+	//untuk menghentikan sound
+	@Override
+	public void onStop(){ 
+		super.onStop();
+		if(mp.isPlaying()){
+			mp.stop();
+		}else{
+		   return;
+		}
 	}
 	
 }
