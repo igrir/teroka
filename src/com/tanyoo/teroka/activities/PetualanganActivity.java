@@ -380,6 +380,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			az = event.values[2];
 		}
 		
+		
+		
 		//cek attack
 		if (acel.attack(ax)){
 			serangMonster();			

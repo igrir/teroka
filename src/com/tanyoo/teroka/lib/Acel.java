@@ -1,6 +1,7 @@
 package com.tanyoo.teroka.lib;
 
 import android.app.Activity;
+import android.util.Log;
 
 public class Acel extends Activity {
 	public double ax=0,ay=0,az=0;
@@ -18,14 +19,15 @@ public class Acel extends Activity {
 //			mLastZ = az;		
 			mInitialized = true;			
 		} else {
-			float deltaX = (float)(Math.abs(mLastX) - Math.abs(ax));
+			float deltaX = (float)Math.abs((Math.abs(mLastX) - Math.abs(ax)));
+			Log.i("ax", String.valueOf(deltaX));
 //			float deltaY = (float)(mLastY - ay);
 //			float deltaZ = (float)(mLastZ - az);
 			if (deltaX < NOISE) deltaX = (float)0.0;
 			mLastX = ax;
 //			mLastY = ay;
 //			mLastZ = az;
-			if (deltaX > 7) {
+			if (deltaX > 5) {
 				attackStat = true;
 			}else{
 				attackStat = false;
