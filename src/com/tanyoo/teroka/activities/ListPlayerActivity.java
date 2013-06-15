@@ -5,10 +5,10 @@ import java.util.Set;
 import java.util.Vector;
 
 import util.DataAdapter;
-import util.DataList;
+import util.DataListSenjata;
 
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.lib.DbTeroka.DataTeroka;
+import com.tanyoo.teroka.lib.DbTeroka.DataPemain;
 import com.tanyoo.teroka.lib.GameActivity;
 
 import android.app.Activity;
@@ -32,9 +32,9 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ListPlayerActivity extends GameActivity {
 	
-	public ArrayList<DataList> alDataLists = new ArrayList<DataList>();
+	public ArrayList<DataListSenjata> alDataLists = new ArrayList<DataListSenjata>();
 	
-	public Vector<DataTeroka> vData;
+	public Vector<DataPemain> vData;
 	
 	DataAdapter adapter;
 	
