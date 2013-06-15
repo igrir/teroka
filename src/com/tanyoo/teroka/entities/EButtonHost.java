@@ -10,7 +10,7 @@ public class EButtonHost extends Entity {
 	public EButtonHost(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.dummy, "logo");
+		addSprite(R.drawable.btn_play, "logo");
 		setSprite("logo");
 	}
 }
