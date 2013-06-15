@@ -18,7 +18,7 @@ import com.tanyoo.teroka.view.MenuUtama;
 
 public class MainActivity extends GameActivity implements OnTouchListener{	
 	//sound
-	SoundGame sound = new SoundGame(this); 
+	SoundGame sound; 
 		
 	// mesin
 	private GameView gv;
@@ -50,6 +50,8 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		super.onCreate(savedInstanceState);
 		System.out.println("MainActivity create");
 	
+		 sound = new SoundGame(this);
+		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		//hilangkan title bar
@@ -147,7 +149,6 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 	@Override
     public void onBackPressed() {
         super.onBackPressed();
-        sound.onStop();
         this.finish();
         System.out.println("Game Berhenti");
     }

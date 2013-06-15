@@ -29,7 +29,7 @@ import com.tanyoo.teroka.view.Petualangan;
 
 public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener, SensorEventListener{
 	//sound
-	SoundGame sound = new SoundGame(this); 
+	SoundGame sound; 
 	
 	// mesin
 	private Petualangan gv;
@@ -112,6 +112,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME);
 			
 		}
+		
+		sound = new SoundGame(this);
+		sound.initSound();
 	}
 
 	
@@ -137,7 +140,6 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		super.onDestroy();
 		mu.recycleEntityCollection();
 		System.out.println("DESTROY THE BITMAPS");
 		System.gc();
@@ -145,6 +147,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//stop concurent
 //		at.cancel(true);
 		mSensorManager.unregisterListener(this);
+		super.onDestroy();
 	}
 	
 	@Override
@@ -384,7 +387,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//cek attack
 		if (acel.attack(ax)){
 			if(acel.attackStat==true){ //jika attack 
-				sound.soundAttack(); //aktifkan suara attack
+				//sound.soundAttack(); //aktifkan suara attack
+				sound.playSound(SoundGame.SOUND_SWING);
 				serangMonster();	
 			}					
 		}
