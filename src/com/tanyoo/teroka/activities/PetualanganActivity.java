@@ -144,6 +144,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		mu.shutDownThread();
 		//stop concurent
 //		at.cancel(true);
+		mSensorManager.unregisterListener(this);
 	}
 	
 	@Override
@@ -264,14 +265,14 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			//random munculnya monster
 			if (petualanganModel.monsterShow == false) {
 				int muncul =(int)(Math.random()*1000)%1000;
-				Log.i("randomMonster", String.valueOf(muncul));
+//				Log.i("randomMonster", String.valueOf(muncul));
 				if (muncul < 50 ) {
 					petualanganModel.monsterShow = true;
 				}
 			}
 			
-			Log.i("battle", String.valueOf(petualanganModel.battle));
-			Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
+//			Log.i("battle", String.valueOf(petualanganModel.battle));
+//			Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
 			
 			//cek kena monster
 			if (gv.emonster.isHit(gv.ekarakter) && petualanganModel.monsterShow == true) {

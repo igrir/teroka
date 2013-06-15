@@ -20,7 +20,6 @@ public class Acel extends Activity {
 			mInitialized = true;			
 		} else {
 			float deltaX = (float)Math.abs((Math.abs(mLastX) - Math.abs(ax)));
-			Log.i("ax", String.valueOf(deltaX));
 //			float deltaY = (float)(mLastY - ay);
 //			float deltaZ = (float)(mLastZ - az);
 			if (deltaX < NOISE) deltaX = (float)0.0;

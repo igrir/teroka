@@ -45,6 +45,8 @@ public abstract class GameView extends SurfaceView implements SurfaceHolder.Call
 	public float posXUp=-1;
 	public float posYUp=-1;
 	
+	public boolean playing = false;
+	
 	public int offset=25;
 	
 	protected GameActivity context;
