@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -51,6 +52,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	LocationManager locMgr;
 	long minTime;
 	float minDistance;
+	
+	Vibrator vibrator;
 
 	/**
 	 * Variabel game
@@ -63,6 +66,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		
+		//vibrator
+		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -147,6 +153,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//stop concurent
 //		at.cancel(true);
 		mSensorManager.unregisterListener(this);
+		
+		vibrator.cancel();
+		
 		super.onDestroy();
 	}
 	
@@ -286,6 +295,12 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			//cek kalau karakter ketemu monster
 			if (petualanganModel.battle == true) {
 				
+			//buat bergetar
+			
+			if (vibrator.hasVibrator()) {
+				vibrator.vibrate(1000);
+			}
+				
 				//cek kalau monster sudah mati 
 				if (petualanganModel.getCurrentMonsterHealth() <= 0) {
 					petualanganModel.battle = false;
@@ -299,6 +314,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				}
 				
 			}else{
+				if (vibrator.hasVibrator()) {
+					vibrator.cancel();
+				}
 				
 				//cek  monster nggak kena
 				if (petualanganModel.battle == false) {
