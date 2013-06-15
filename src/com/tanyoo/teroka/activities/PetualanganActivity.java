@@ -71,6 +71,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		//vibrator
 		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+		vibratePhone(false);
+		vibrator.cancel();
 		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -124,9 +126,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		sound = new SoundGame(this);
 		sound.initSound();
 		
-		vibratePhone(false);
 		
-		vibrateStatus = 0;
 	}
 
 	
