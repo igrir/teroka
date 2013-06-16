@@ -58,7 +58,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	/**
 	 * Variabel game
 	 */
-	public PetualanganModel petualanganModel = new PetualanganModel();
+	public PetualanganModel petualanganModel;
 	public int delay = 20;
 	public int time = 0;
 
@@ -68,6 +68,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		
+		petualanganModel = new PetualanganModel();
 		
 		//vibrator
 		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -241,6 +243,10 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		Intent iToko = new Intent(getApplicationContext(), TokoActivity.class);
 		startActivity(iToko);
 		vibrator.cancel();
+		
+		petualanganModel.setMonsterShow(false);
+		petualanganModel.setPetiShow(false);
+		petualanganModel.battle = false;
 	}
 
 
