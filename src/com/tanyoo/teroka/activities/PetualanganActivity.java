@@ -303,6 +303,16 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 //			Log.i("battle", String.valueOf(petualanganModel.battle));
 //			Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
 			
+			
+			//random munculnya peti
+			if (petualanganModel.petiShow == false) {
+				int muncul =(int)(Math.random()*1000)%1000;
+				if (muncul < 50 ) {
+					petualanganModel.petiShow = true;
+				}
+			}
+						
+			
 			//cek kena monster
 			if (gv.emonster.isHit(gv.ekarakter) && petualanganModel.monsterShow == true) {
 				
@@ -336,12 +346,22 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				
 				//cek  monster nggak kena
 				if (petualanganModel.battle == false) {
-					//untuk testing. Comment walk saat publish. Walk dijalankan saat update
-					((Petualangan)gv).walk(20);
+					
+					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
+					((Petualangan)gv).walk(5);
+					
 					if (petualanganModel.getMonsterShow()) {
 						//kena monster
 						gv.moveMonster(10);
-					}		
+					}
+					
+					if (petualanganModel.getPetiShow()) {
+						gv.movePeti(10);
+					}
+					
+					
+					//!!!!! Akhir testing
+					
 				}
 						
 			}
@@ -386,10 +406,21 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		}
 	}
 	
+	public void serangPeti(){
+		
+		//cek apakah sudah bersentuhan dulu
+		if (gv.ekarakter.isHit(gv.epeti)) {
+			
+			//kena peti, maka dihilangkan
+			petualanganModel.setPetiShow(false);
+		}
+	}
+	
 	public class PetualanganModel{
 		
 		public int currentStep = 0;	//langkah yang diambil
 		public boolean monsterShow = true;
+		public boolean petiShow = false;
 		public boolean battle = false;	//saat encounter monster
 		
 		public int monsterHealth = 100; //Health monster naik 10 setiap selesai nyerang monster lain
@@ -401,6 +432,14 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		public boolean getMonsterShow(){
 			return this.monsterShow;
+		}
+		
+		public void setPetiShow(boolean show){
+			this.petiShow = show;
+		}
+		
+		public boolean getPetiShow(){
+			return this.petiShow;
 		}
 		
 		public void setMonsterHealth(int monsterHealth){
@@ -418,6 +457,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		public int getCurrentMonsterHealth(){
 			return this.currentMonsterHealth;
 		}
+		
 		
 		
 		
@@ -446,7 +486,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			if(acel.attackStat==true){ //jika attack 
 				//sound.soundAttack(); //aktifkan suara attack
 				sound.playSound(SoundGame.SOUND_SWING);
-				serangMonster();	
+				
+				serangMonster();
+				serangPeti();
 			}					
 		}
 	}

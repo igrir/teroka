@@ -22,6 +22,7 @@ import com.tanyoo.teroka.entities.EInfobar;
 import com.tanyoo.teroka.entities.EKarakter;
 import com.tanyoo.teroka.entities.ELevel;
 import com.tanyoo.teroka.entities.EMonster;
+import com.tanyoo.teroka.entities.EPeti;
 import com.tanyoo.teroka.entities.EPotion;
 import com.tanyoo.teroka.entities.EShop;
 import com.tanyoo.teroka.entities.EStars;
@@ -50,11 +51,12 @@ public class Petualangan extends GameView {
 	public EPotion epotion;
 	public ELevel elevel;
 	public ECalore ecalore;
-	public EMonster emonster;
 	public EPlatform eplatform;
 	
 	// Games
 	public EKarakter ekarakter;
+	public EMonster emonster;
+	public EPeti epeti;
 	
 	// Variabel
 	public int txtSteps=0;
@@ -64,6 +66,8 @@ public class Petualangan extends GameView {
 	public int txtStars=0;
 	public float egameViewX = 0;
 	public float emonsterX = 0;
+	public float ePetiX = 0;
+	
 	public PetualanganModel pm;
 	
 	
@@ -87,6 +91,7 @@ public class Petualangan extends GameView {
 		ekarakter = new EKarakter(getResources());
 		emonster = new EMonster(getResources());
 		eplatform = new EPlatform(getResources());
+		epeti = new EPeti(getResources());
 		
 		addEntityCollection(eBackground,
 				  einfo,
@@ -104,6 +109,7 @@ public class Petualangan extends GameView {
 				  elevel,
 				  ecalore,
 				  emonster,
+				  epeti,
 				  ekarakter);
 		
 		pm = ((PetualanganActivity)(this.context)).petualanganModel;
@@ -138,7 +144,10 @@ public class Petualangan extends GameView {
 		
 		//game
 		ekarakter.createSprites((int)getPercentWidth(11),(int)getPercentHeight(9));
+		
 		emonster.resizeImage((int)getPercentWidth(11), (int)getPercentHeight(9));
+		epeti.resizeImage((int)getPercentWidth(11), (int)getPercentHeight(9));
+		
 		
 		// set posisi
 		
@@ -162,8 +171,10 @@ public class Petualangan extends GameView {
 		//game
 		ekarakter.setPosition(getPercentWidth(40), getPercentHeight(22));
 		emonster.setPosition(getPercentWidth(100), getPercentHeight(22));
+		epeti.setPosition(getPercentWidth(100), getPercentHeight(22));
 		
 		emonsterX = getPercentWidth(100);
+		ePetiX = getPercentWidth(100);
 		
 		ready = true;
 	}
@@ -299,6 +310,9 @@ public class Petualangan extends GameView {
 		//monster
 		emonster.x = emonster.x-(emonster.x-emonsterX)/10;
 		
+		//peti
+		epeti.x = epeti.x-(epeti.x-ePetiX)/10;
+		
 	}
 	
 	public void moveMonster(int speed){
@@ -313,6 +327,19 @@ public class Petualangan extends GameView {
 			}
 	}
 	
+	public void movePeti(int speed){
+		if (this.ePetiX > 0) {
+			this.ePetiX -= speed;
+		}else{
+			//peti keluar kiri layar
+			
+			epeti.x = getPercentWidth(100);
+			this.ePetiX = getPercentWidth(100);
+			
+			pm.setPetiShow(false);
+		}
+	}
+	
 	
 	/**
 	 * Animasi yang dilakukan untuk testing
@@ -323,6 +350,12 @@ public class Petualangan extends GameView {
 		if (this.pm.getMonsterShow() == false) {
 			this.emonster.x = getPercentWidth(100);
 			this.emonsterX = getPercentWidth(100);
+		}
+		
+		//keluar peti
+		if (this.pm.getPetiShow() == false) {
+			this.epeti.x = getPercentWidth(100);
+			this.ePetiX = getPercentWidth(100);
 		}
 	}
 	
