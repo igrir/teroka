@@ -5,13 +5,11 @@ import java.util.Set;
 import java.util.Vector;
 
 import util.DataAdapter;
-import util.DataList;
+import util.DataListSenjata;
 
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.lib.DbTeroka.DataTeroka;
+import com.tanyoo.teroka.lib.DbTeroka.DataPemain;
 import com.tanyoo.teroka.lib.GameActivity;
-import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.view.Bertarung;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -20,26 +18,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ListPlayerActivity extends GameActivity {
 	
-	public ArrayList<DataList> alDataLists = new ArrayList<DataList>();
+	public ArrayList<DataListSenjata> alDataLists = new ArrayList<DataListSenjata>();
 	
-	public Vector<DataTeroka> vData;
+	public Vector<DataPemain> vData;
 	
 	DataAdapter adapter;
 	
@@ -57,22 +52,15 @@ public class ListPlayerActivity extends GameActivity {
     
     
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+       
         // Setup the window
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.listplayer);
         // Get local Bluetooth adapter
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         
-        // If the adapter is null, then Bluetooth is not supported
-        if (mBtAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
         // Set result CANCELED in case the user backs out
         setResult(Activity.RESULT_CANCELED);
 
@@ -81,10 +69,9 @@ public class ListPlayerActivity extends GameActivity {
         scanButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 doDiscovery();
-                v.setVisibility(View.GONE);
             }
         });
-
+        doDiscovery();
         // Initialize array adapters. One for already paired devices and
         // one for newly discovered devices
         mPairedDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
@@ -180,7 +167,6 @@ public class ListPlayerActivity extends GameActivity {
             finish();
         }
     };
-
     // The BroadcastReceiver that listens for discovered devices and
     // changes the title when discovery is finished
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {

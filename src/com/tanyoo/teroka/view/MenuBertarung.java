@@ -105,6 +105,9 @@ private Paint cat = new Paint();
 		if (ebuttonclient.isHit(posXDown, posYDown)) {
 			((BertarungActivity)(this.context)).tombolClient();
 		}
+		if (ebuttonhost.isHit(posXDown, posYDown)) {
+			((BertarungActivity)(this.context)).tombolHost();
+		}
 		
 	}
 

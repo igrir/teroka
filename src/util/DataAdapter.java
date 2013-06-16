@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class DataAdapter extends ArrayAdapter<DataList> {
-	private ArrayList<DataList> alData;
+public class DataAdapter extends ArrayAdapter<DataListSenjata> {
+	private ArrayList<DataListSenjata> alData;
 
 	public DataAdapter(Context con, int textViewResourceId,
-			ArrayList<DataList> alData) {
+			ArrayList<DataListSenjata> alData) {
 		super(con, textViewResourceId, alData);
 		this.alData = alData;
 	}
@@ -27,7 +27,7 @@ public class DataAdapter extends ArrayAdapter<DataList> {
 					Context.LAYOUT_INFLATER_SERVICE);
 			v = li.inflate(R.layout.row, null);// gunakan layout row
 		}
-		DataList dl = alData.get(pos);
+		DataListSenjata dl = alData.get(pos);
 		if (dl != null) {
 			TextView tvNama = (TextView) v.findViewById(R.id.tvJudul);
 			TextView tvAtt = (TextView) v.findViewById(R.id.tvKeterangan);

@@ -1,11 +1,8 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.lib.Acel;
-import com.tanyoo.teroka.lib.GameActivity;
-import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.view.*;
-
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,19 +12,25 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
+
+import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.Acel;
+import com.tanyoo.teroka.lib.GameActivity;
+import com.tanyoo.teroka.lib.SoundGame;
+import com.tanyoo.teroka.view.Petualangan;
+
 
 public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener, SensorEventListener{
+	//sound
+	SoundGame sound; 
 	
 	// mesin
 	private Petualangan gv;
@@ -40,7 +43,6 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	private Sensor mSensor;
 	private Acel acel;
 	
-	
 	/**
 	 * Properties untuk GPS
 	 */
@@ -50,6 +52,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	LocationManager locMgr;
 	long minTime;
 	float minDistance;
+	
+	Vibrator vibrator;
 
 	/**
 	 * Variabel game
@@ -57,11 +61,18 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	public PetualanganModel petualanganModel = new PetualanganModel();
 	public int delay = 20;
 	public int time = 0;
+
+	private int vibrateStatus = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		
+		//vibrator
+		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+		vibratePhone(false);
+		vibrator.cancel();
 		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -111,6 +122,11 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME);
 			
 		}
+		
+		sound = new SoundGame(this);
+		sound.initSound();
+		
+		
 	}
 
 	
@@ -136,20 +152,23 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		super.onDestroy();
 		mu.recycleEntityCollection();
 		System.out.println("DESTROY THE BITMAPS");
 		System.gc();
 		mu.shutDownThread();
 		//stop concurent
 //		at.cancel(true);
+		mSensorManager.unregisterListener(this);
+		
+		vibratePhone(false);
+		
+		super.onDestroy();
 	}
 	
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
-		super.onPause();
-		
+
 		//stop concurrent
 //		at.cancel(true);
 		gv.setReady(false);
@@ -160,7 +179,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 //		finish();
 		
+		vibratePhone(false);
 		
+		super.onPause();
 		
 		
 	}
@@ -168,10 +189,17 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		super.onResume();
 		locMgr.requestLocationUpdates(locProvider, minTime, minDistance, this);
+		super.onResume();
 	}
 	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		vibratePhone(false);
+		super.onStop();
+	}
+
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -212,6 +240,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	public void tombolToko(){
 		Intent iToko = new Intent(getApplicationContext(), TokoActivity.class);
 		startActivity(iToko);
+		vibrator.cancel();
 	}
 
 
@@ -251,6 +280,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 	}
 	
+	
 	@Override
 	public void run() {
 		super.run();
@@ -263,23 +293,29 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			//random munculnya monster
 			if (petualanganModel.monsterShow == false) {
 				int muncul =(int)(Math.random()*1000)%1000;
-				Log.i("randomMonster", String.valueOf(muncul));
+//				Log.i("randomMonster", String.valueOf(muncul));
 				if (muncul < 50 ) {
 					petualanganModel.monsterShow = true;
+					//buat bergetar
 				}
 			}
 			
-			Log.i("battle", String.valueOf(petualanganModel.battle));
-			Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
+//			Log.i("battle", String.valueOf(petualanganModel.battle));
+//			Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
 			
 			//cek kena monster
 			if (gv.emonster.isHit(gv.ekarakter) && petualanganModel.monsterShow == true) {
 				
 				petualanganModel.battle = true;
+				
+				//getarkan handphonenya
+				vibratePhone(true);
 			}
 			
 			//cek kalau karakter ketemu monster
 			if (petualanganModel.battle == true) {
+				
+			
 				
 				//cek kalau monster sudah mati 
 				if (petualanganModel.getCurrentMonsterHealth() <= 0) {
@@ -291,9 +327,12 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 					
 					//kembalikan darah monster untuk selanjutnya
 					petualanganModel.setCurrentMonsterHealth(petualanganModel.monsterHealth);
+					
+					vibratePhone(false);
 				}
 				
 			}else{
+				vibratePhone(false);
 				
 				//cek  monster nggak kena
 				if (petualanganModel.battle == false) {
@@ -310,6 +349,29 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		}	
 		
 		((Petualangan)gv).animatePetualangan();
+	}
+	
+	
+	private void vibratePhone(boolean status){
+		
+		if (status) {
+			//buat bergetar
+			if (this.vibrateStatus  == 0) {
+				if (vibrator.hasVibrator()) {
+					long pattern[] = {500l, 1000l};
+					vibrator.vibrate(pattern, 0);
+				}
+				this.vibrateStatus = 1;
+			}
+			
+		}else{
+			if (vibrator.hasVibrator()) {
+				vibrator.cancel();
+				this.vibrateStatus = 0;
+			}
+			
+		}
+
 	}
 	
 	
@@ -379,11 +441,13 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			ay = event.values[1];
 			az = event.values[2];
 		}
-		
 		//cek attack
 		if (acel.attack(ax)){
-			serangMonster();
+			if(acel.attackStat==true){ //jika attack 
+				//sound.soundAttack(); //aktifkan suara attack
+				sound.playSound(SoundGame.SOUND_SWING);
+				serangMonster();	
+			}					
 		}
 	}
-	
 }

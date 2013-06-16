@@ -1,22 +1,57 @@
 package com.tanyoo.teroka.activities;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.BluetoothTerokaService;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.view.MenuBertarung;
 
 public class BertarungActivity extends GameActivity implements OnTouchListener{
-		// mesin
+	// Debugging
+    private static final String TAG = "BluetoothChat";
+    private static final boolean D = true;
+
+    // Message types sent from the BluetoothChatService Handler
+    public static final int MESSAGE_STATE_CHANGE = 1;
+    public static final int MESSAGE_READ = 2;
+    public static final int MESSAGE_WRITE = 3;
+    public static final int MESSAGE_DEVICE_NAME = 4;
+    public static final int MESSAGE_TOAST = 5;
+
+    // Key names received from the BluetoothChatService Handler
+    public static final String DEVICE_NAME = "device_name";
+    public static final String TOAST = "toast";
+
+    // Intent request codes
+    private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
+    private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
+    private static final int REQUEST_ENABLE_BT = 3;
+    
+    // Name of the connected device
+    private String mConnectedDeviceName = null;
+    // Array adapter for the conversation thread
+    private ArrayAdapter<String> mConversationArrayAdapter;
+    // String buffer for outgoing messages
+    private StringBuffer mOutStringBuffer;
+    // Local Bluetooth adapter
+    private BluetoothAdapter mBluetoothAdapter = null;
+	// mesin
+    private BluetoothTerokaService mTerokaService = null;
+    
 	private GameView gv;
 	
 	// views
@@ -44,7 +79,17 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 
 		//set tampilan yang muncul
 		setContentView(gv);
-		
+		// Get local Bluetooth adapter
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        
+        if (!mBluetoothAdapter.isEnabled()) {
+	      	
+	    	Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+	        
+	        startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+	        
+			}
+
 //			mu.startThread();
 	}
 
@@ -92,10 +137,25 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 		gv.invalidate(); //draw ulang
 		return true;
 	}
-	
+	private void ensureDiscoverable() {
+        if(D) Log.d(TAG, "ensure discoverable");
+        if (mBluetoothAdapter.getScanMode() !=
+            BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+            startActivity(discoverableIntent);
+        }
+    }
 	public void tombolClient(){
 		Intent iBattle = new Intent(getApplicationContext(), ListPlayerActivity.class);
 		startActivity(iBattle);
+		
+	}
+
+	public void tombolHost() {
+		// TODO Auto-generated method stub
+		//ensureDiscoverable();
+		//mTerokaService.start();
 	}
 
 }

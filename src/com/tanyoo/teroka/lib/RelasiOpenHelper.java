@@ -7,13 +7,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class RelasiOpenHelper extends SQLiteOpenHelper {
 	
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 3;
 	private static final String DATABASE_NAME = "dbTeroka";
 	private static final String TABLE_CREATE_1 = "CREATE TABLE DATA_PEMAIN (ID INTEGER PRIMARY KEY AUTOINCREMENT," + 
 				"NAMA TEXT, LEVEL TEXT, J_BINTANG INTEGER, J_STEP INTEGER, J_KALORI INTEGER, MAX_STEP INTEGER, NOW_ARMOR INTEGER);";
 	
 	private static final String TABLE_CREATE_2 =  "CREATE TABLE DATA_SENJATA (ID_ARMOR INTEGER PRIMARY KEY AUTOINCREMENT," + 
-			"NAMA_SENJATA TEXT, STATUS TEXT, HARGA INTEGER, SARAT_STEP INTEGER);";
+			"NAMA_SENJATA TEXT, STATUS INTEGER, HARGA INTEGER, SYARAT_STEP INTEGER);";
+	// status 0 = belum beli, 1 = sudah beli
+	
+	public static final String ADD_SENJATA_1 = "INSERT INTO DATA_SENJATA('NAMA_SENJATA', 'STATUS','HARGA','SYARAT_STEP')" +
+											  	"VALUES('Senjata A',0,100,5);";
+	public static final String ADD_SENJATA_2 = "INSERT INTO DATA_SENJATA('NAMA_SENJATA', 'STATUS','HARGA','SYARAT_STEP')" +
+			  									"VALUES('Senjata B',0,200,50);";
+	public static final String ADD_SENJATA_3 = "INSERT INTO DATA_SENJATA('NAMA_SENJATA', 'STATUS','HARGA','SYARAT_STEP')" +
+			  									"VALUES('Senjata C',0,300,500);";
 	
 	public RelasiOpenHelper(Context context, String name, CursorFactory factory, int version){
 		super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -23,7 +31,10 @@ public class RelasiOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(TABLE_CREATE_1);
 		db.execSQL(TABLE_CREATE_2);
-
+		db.execSQL(ADD_SENJATA_1);
+		db.execSQL(ADD_SENJATA_2);
+		db.execSQL(ADD_SENJATA_3);
+		
 	}
 
 	@Override

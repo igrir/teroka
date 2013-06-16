@@ -163,13 +163,14 @@ public class Petualangan extends GameView {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-
 		//run di controller
 		this.context.run();
 		
 		
 		//parallax di game
 		moveTween();
+		
+		
 	}
 
 	@Override
