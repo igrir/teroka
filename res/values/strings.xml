@@ -12,4 +12,8 @@
     <string name="title_paired_devices">Paired Devices</string>
     <string name="title_other_devices">Other Available Devices</string>
     <string name="button_scan">Scan for devices</string>
+    <string name="title_connecting">connecting</string>
+    <string name="title_connected_to">connected to </string>
+    <string name="title_not_connected">not connected</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
 </resources>

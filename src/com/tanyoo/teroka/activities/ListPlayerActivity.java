@@ -30,7 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ListPlayerActivity extends GameActivity {
+public class ListPlayerActivity extends GameActivity{
 	
 	public ArrayList<DataListSenjata> alDataLists = new ArrayList<DataListSenjata>();
 	
@@ -51,7 +51,7 @@ public class ListPlayerActivity extends GameActivity {
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
     
     
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        
@@ -71,7 +71,7 @@ public class ListPlayerActivity extends GameActivity {
                 doDiscovery();
             }
         });
-        doDiscovery();
+        
         // Initialize array adapters. One for already paired devices and
         // one for newly discovered devices
         mPairedDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
