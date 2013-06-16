@@ -4,21 +4,19 @@ import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
 import android.os.Handler;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.UUID;
+
+import com.tanyoo.teroka.activities.BertarungActivity;
 
 import android.annotation.TargetApi;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
@@ -51,7 +49,11 @@ public class BluetoothTerokaService{
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
     
     
-    
+    /**
+     * Constructor. Prepares a new BluetoothChat session.
+     * @param context  The UI Activity Context
+     * @param handler  A Handler to send messages back to the UI Activity
+     */
     @TargetApi(Build.VERSION_CODES.ECLAIR)
 	public BluetoothTerokaService(Context context, Handler handler) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -65,7 +67,7 @@ public class BluetoothTerokaService{
         mState = state;
 
         // Give the new state to the Handler so the UI Activity can update
-        //mHandler.obtainMessage(BluetoothChat.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+        mHandler.obtainMessage(BertarungActivity.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
     //mengembalikan nilai status
@@ -116,11 +118,11 @@ public class BluetoothTerokaService{
     //event handler saat koneksi gagal
     private void connectionFailed() {
         // Send a failure message back to the Activity
-        //Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_TOAST);
+        Message msg = mHandler.obtainMessage(BertarungActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        //bundle.putString(BluetoothChat.TOAST, "Unable to connect device");
-        //msg.setData(bundle);
-        //mHandler.sendMessage(msg);
+        bundle.putString(BertarungActivity.TOAST, "Unable to connect device");
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
 
         // Start the service over to restart listening mode
         BluetoothTerokaService.this.start();
@@ -129,11 +131,11 @@ public class BluetoothTerokaService{
    //eventhadler saat koneksi lost
     private void connectionLost() {
         // Send a failure message back to the Activity
-       // Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_TOAST);
-        //Bundle bundle = new Bundle();
-        //bundle.putString(BluetoothChat.TOAST, "Device connection was lost");
-        //msg.setData(bundle);
-        //mHandler.sendMessage(msg);
+        Message msg = mHandler.obtainMessage(BertarungActivity.MESSAGE_TOAST);
+        Bundle bundle = new Bundle();
+        bundle.putString(BertarungActivity.TOAST, "Device connection was lost");
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
 
         // Start the service over to restart listening mode
         BluetoothTerokaService.this.start();
@@ -202,11 +204,11 @@ public class BluetoothTerokaService{
         mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
-        //Message msg = mHandler.obtainMessage(BluetoothChat.MESSAGE_DEVICE_NAME);
+        Message msg = mHandler.obtainMessage(BertarungActivity.MESSAGE_DEVICE_NAME);
         Bundle bundle = new Bundle();
-        //bundle.putString(BluetoothChat.DEVICE_NAME, device.getName());
-        //msg.setData(bundle);
-        //mHandler.sendMessage(msg);
+        bundle.putString(BertarungActivity.DEVICE_NAME, device.getName());
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
 
         setState(STATE_CONNECTED);
     }
@@ -395,7 +397,7 @@ public class BluetoothTerokaService{
                     bytes = mmInStream.read(buffer);
 
                     // Send the obtained bytes to the UI Activity
-                   // mHandler.obtainMessage(BluetoothChat.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+                    mHandler.obtainMessage(BertarungActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();
@@ -415,7 +417,7 @@ public class BluetoothTerokaService{
                 mmOutStream.write(buffer);
 
                 // Share the sent message back to the UI Activity
-                //mHandler.obtainMessage(BluetoothChat.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
+                mHandler.obtainMessage(BertarungActivity.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);
             }
