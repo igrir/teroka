@@ -116,7 +116,7 @@ public class Petualangan extends GameView {
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ecalore.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
-		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(20));
+		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(20));
 		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		elevel.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
@@ -127,8 +127,8 @@ public class Petualangan extends GameView {
 		
 		
 		//game
-		ekarakter.createSprites((int)getPercentWidth(10),(int)getPercentHeight(10));
-		emonster.resizeImage((int)getPercentWidth(10), (int)getPercentHeight(10));
+		ekarakter.createSprites((int)getPercentWidth(11),(int)getPercentHeight(9));
+		emonster.resizeImage((int)getPercentWidth(10), (int)getPercentHeight(8));
 		
 		// set posisi
 		
@@ -148,8 +148,8 @@ public class Petualangan extends GameView {
 		eshop.setPosition(getPercentWidth(30), getPercentHeight(83));
 		
 		//game
-		ekarakter.setPosition(getPercentWidth(40), getPercentHeight(20));
-		emonster.setPosition(getPercentWidth(100), getPercentHeight(20));
+		ekarakter.setPosition(getPercentWidth(40), getPercentHeight(22));
+		emonster.setPosition(getPercentWidth(100), getPercentHeight(23));
 		
 		emonsterX = getPercentWidth(100);
 		
