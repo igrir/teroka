@@ -10,7 +10,7 @@ public class EPotion extends Entity {
 	public EPotion(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.dummy, "logo");
+		addSprite(R.drawable.potion, "logo");
 		setSprite("logo");
 	}
 

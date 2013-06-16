@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.activities.BertarungActivity;
 import com.tanyoo.teroka.entities.EBarHealth;
 import com.tanyoo.teroka.entities.EButtonClient;
@@ -22,6 +23,7 @@ private Paint cat = new Paint();
 	private int timeElapsed = 0;
 	
 	// entities
+	public EBackground eBackground;
 	ESearchOpponent esearchopponent;
 	EGameView egameview;
 	EBarHealth ebarhealth;
@@ -35,6 +37,7 @@ private Paint cat = new Paint();
 		super(context);
 		
 		//entities
+		eBackground = new EBackground(getResources());
 		esearchopponent = new ESearchOpponent(getResources());
 		egameview = new EGameView(getResources());
 		ebarhealth = new EBarHealth(getResources());
@@ -43,7 +46,8 @@ private Paint cat = new Paint();
 		ebuttonclient = new EButtonClient(getResources());
 		eplatform = new EPlatform(getResources());
 		
-		addEntityCollection(esearchopponent,
+		addEntityCollection(eBackground,
+							esearchopponent,
 							egameview,
 							ebarhealth,
 							ehealthpoint,
@@ -59,8 +63,9 @@ private Paint cat = new Paint();
 		super.onWindowFocusChanged(hasWindowFocus);
 				
 		// resize gambar
+		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
 		esearchopponent.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(10));
-		egameview.resizeImage((int)getPercentWidth(200), (int)getPercentHeight(20));
+		egameview.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(20));
 		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		ebarhealth.resizeImage((int)getPercentWidth(65), (int)getPercentHeight(9));
 		ehealthpoint.resizeImage((int)getPercentWidth(15), (int)getPercentHeight(9));
@@ -68,6 +73,7 @@ private Paint cat = new Paint();
 		ebuttonclient.resizeImage((int)getPercentWidth(42), (int)getPercentHeight(10));
 		
 		// set posisi
+		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
 		esearchopponent.setPosition(getPercentWidth(0), getPercentHeight(0));
 		egameview.setPosition(getPercentWidth(0), getPercentHeight(10));
 		eplatform.setPosition(getPercentWidth(0), getPercentHeight(30));

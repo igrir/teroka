@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import com.tanyoo.teroka.activities.MainActivity;
 import com.tanyoo.teroka.activities.PetualanganActivity;
 import com.tanyoo.teroka.activities.PetualanganActivity.PetualanganModel;
+import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.entities.EBarDistance;
 import com.tanyoo.teroka.entities.EBarHealth;
 import com.tanyoo.teroka.entities.ECalore;
@@ -35,6 +36,8 @@ public class Petualangan extends GameView {
 	private Paint cat = new Paint();
 	
 	// HUD
+	public EBackground eBackground;
+	public EBackground eBackground2;
 	public EInfobar einfo;
 	public EBarDistance ebardistance;
 	public EDistance edistance;
@@ -67,6 +70,8 @@ public class Petualangan extends GameView {
 	public Petualangan(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
+		eBackground = new EBackground(getResources());
+		eBackground2 = new EBackground(getResources());
 		einfo = new EInfobar(getResources());
 		ebardistance = new EBarDistance(getResources());
 		edistance = new EDistance(getResources());
@@ -83,13 +88,15 @@ public class Petualangan extends GameView {
 		emonster = new EMonster(getResources());
 		eplatform = new EPlatform(getResources());
 		
-		addEntityCollection(einfo,
+		addEntityCollection(eBackground,
+				  einfo,
 				  ebardistance,
 				  edistance,
 				  ehealthpoint,
 				  ebarhealth,
 				  egameview,
 				  eplatform,
+				  eBackground2,
 				  estars,
 				  esteps,
 				  eshop,
@@ -111,28 +118,32 @@ public class Petualangan extends GameView {
 		// resize gambar
 		
 		//HUD
+		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
+		eBackground2.EBackground2((int)getPercentWidth(100), (int)getPercentHeight(22));
 		einfo.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		ebardistance.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
-		ecalore.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(20));
 		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
-		elevel.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
-		epotion.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
-		eshop.resizeImage((int)getPercentWidth(40),(int)getPercentHeight(12));
-		estars.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
-		esteps.resizeImage((int)getPercentWidth(20),(int)getPercentHeight(22));
+		elevel.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
+		epotion.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
+		estars.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
+		esteps.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
+		ecalore.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
+		eshop.resizeImage((int)getPercentWidth(41),(int)getPercentHeight(9));
+		
 		
 		
 		//game
 		ekarakter.createSprites((int)getPercentWidth(11),(int)getPercentHeight(9));
-		emonster.resizeImage((int)getPercentWidth(10), (int)getPercentHeight(8));
+		emonster.resizeImage((int)getPercentWidth(11), (int)getPercentHeight(9));
 		
 		// set posisi
 		
 		//HUD
+		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
 		einfo.setPosition(getPercentWidth(0), getPercentHeight(0));
 		egameview.setPosition(getPercentWidth(0), getPercentHeight(10));
 		eplatform.setPosition(getPercentWidth(0), getPercentHeight(30));
@@ -140,16 +151,17 @@ public class Petualangan extends GameView {
 		edistance.setPosition(getPercentWidth(8), getPercentHeight(46));
 		ebarhealth.setPosition(getPercentWidth(27), getPercentHeight(36));
 		ebardistance.setPosition(getPercentWidth(27), getPercentHeight(46));
-		elevel.setPosition(getPercentWidth(0), getPercentHeight(56));
-		estars.setPosition(getPercentWidth(20), getPercentHeight(56));
-		esteps.setPosition(getPercentWidth(40), getPercentHeight(56));
-		epotion.setPosition(getPercentWidth(60), getPercentHeight(56));
-		ecalore.setPosition(getPercentWidth(80), getPercentHeight(56));
+		eBackground2.setPosition(getPercentWidth(0), getPercentHeight(56));
+		elevel.setPosition(getPercentWidth(3), getPercentHeight(58));
+		estars.setPosition(getPercentWidth(23), getPercentHeight(58));
+		esteps.setPosition(getPercentWidth(43), getPercentHeight(58));
+		epotion.setPosition(getPercentWidth(63), getPercentHeight(58));
+		ecalore.setPosition(getPercentWidth(83), getPercentHeight(58));
 		eshop.setPosition(getPercentWidth(30), getPercentHeight(83));
 		
 		//game
 		ekarakter.setPosition(getPercentWidth(40), getPercentHeight(22));
-		emonster.setPosition(getPercentWidth(100), getPercentHeight(23));
+		emonster.setPosition(getPercentWidth(100), getPercentHeight(22));
 		
 		emonsterX = getPercentWidth(100);
 		
@@ -227,34 +239,34 @@ public class Petualangan extends GameView {
 		cat.setColor(Color.BLACK);
 		
 		//level
-		cat.setTextSize(getPercentFontSize(100));
-		c.drawText("Level", elevel.x, elevel.y+getPercentFontSize(100), cat);
-		cat.setTextSize(getPercentFontSize(300));
-		c.drawText(String.valueOf(txtLevel), elevel.x, elevel.y+getPercentFontSize(330), cat);
+		cat.setTextSize(getPercentFontSize(70));
+		c.drawText("Level", elevel.x+getPercentFontSize(50), elevel.y+getPercentFontSize(350), cat);
+		cat.setTextSize(getPercentFontSize(200));
+		c.drawText(String.valueOf(txtLevel), elevel.x+getPercentFontSize(50), elevel.y+getPercentFontSize(530), cat);
 		
 		//calorie
-		cat.setTextSize(getPercentFontSize(100));
-		c.drawText("Calorie", ecalore.x, ecalore.y+getPercentFontSize(100), cat);
-		cat.setTextSize(getPercentFontSize(300));
-		c.drawText(String.valueOf(txtCalorie), ecalore.x, ecalore.y+getPercentFontSize(330), cat);
+		cat.setTextSize(getPercentFontSize(70));
+		c.drawText("Calorie", ecalore.x+getPercentFontSize(50), ecalore.y+getPercentFontSize(350), cat);
+		cat.setTextSize(getPercentFontSize(200));
+		c.drawText(String.valueOf(txtCalorie), ecalore.x+getPercentFontSize(70), ecalore.y+getPercentFontSize(530), cat);
 		
 		//potion
-		cat.setTextSize(getPercentFontSize(100));
-		c.drawText("Potion", epotion.x, epotion.y+getPercentFontSize(100), cat);
-		cat.setTextSize(getPercentFontSize(300));
-		c.drawText(String.valueOf(txtPotion), epotion.x, epotion.y+getPercentFontSize(330), cat);
+		cat.setTextSize(getPercentFontSize(70));
+		c.drawText("Potion", epotion.x+getPercentFontSize(50), epotion.y+getPercentFontSize(350), cat);
+		cat.setTextSize(getPercentFontSize(200));
+		c.drawText(String.valueOf(txtPotion), epotion.x+getPercentFontSize(70), epotion.y+getPercentFontSize(530), cat);
 		
 		//stars
-		cat.setTextSize(getPercentFontSize(100));
-		c.drawText("Stars", estars.x, estars.y+getPercentFontSize(100), cat);
-		cat.setTextSize(getPercentFontSize(300));
-		c.drawText(String.valueOf(txtStars), estars.x, estars.y+getPercentFontSize(330), cat);
+		cat.setTextSize(getPercentFontSize(70));
+		c.drawText("Stars", estars.x+getPercentFontSize(50), estars.y+getPercentFontSize(350), cat);
+		cat.setTextSize(getPercentFontSize(200));
+		c.drawText(String.valueOf(txtStars), estars.x+getPercentFontSize(70), estars.y+getPercentFontSize(530), cat);
 		
 		//step
-		cat.setTextSize(getPercentFontSize(100));
-		c.drawText("Steps", esteps.x, esteps.y+getPercentFontSize(100), cat);
-		cat.setTextSize(getPercentFontSize(300));
-		c.drawText(String.valueOf(txtSteps), esteps.x, esteps.y+getPercentFontSize(330), cat);
+		cat.setTextSize(getPercentFontSize(70));
+		c.drawText("Steps", esteps.x+getPercentFontSize(50), esteps.y+getPercentFontSize(350), cat);
+		cat.setTextSize(getPercentFontSize(200));
+		c.drawText(String.valueOf(txtSteps), esteps.x+getPercentFontSize(70), esteps.y+getPercentFontSize(530), cat);
 		
 	}
 

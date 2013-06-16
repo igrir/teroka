@@ -25,6 +25,8 @@ public class Help extends GameView {
 	EPreviewGame ePreviewGame;
 	public EBackground eBackground;
 	
+	public int txtTanyoo=0;
+	
 	
 	public Help(Context context) {
 		super(context);
@@ -47,13 +49,13 @@ public class Help extends GameView {
 		super.onWindowFocusChanged(hasWindowFocus);
 		
 		// resize gambar
-		elogo.resizeImage((int)getPercentWidth(65), (int)getPercentHeight(19));
+		elogo.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(19));
 		ePreviewGame.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(56));
 		eButtonStatistik.EbuttonStat((int)getPercentWidth(42), (int)getPercentHeight(10));
 		eBackground.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(100));
 		
 		//set posisi
-		elogo.setPosition(getPercentWidth(17), getPercentHeight(2));
+		elogo.setPosition(getPercentWidth(0), getPercentHeight(2));
 		ePreviewGame.setPosition(getPercentWidth(0), getPercentHeight(25));
 		eButtonStatistik.setPosition(getPercentWidth(29), getPercentHeight(88));
 		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
@@ -106,17 +108,12 @@ public class Help extends GameView {
 		// TODO Auto-generated method stub
 		// teks posisi kursor
 				String posisi = "x: " + String.valueOf(posXDown) + " , y:" + String.valueOf(posYDown);
+								
+				drawEntityCollection(c, cat);
 				
 				cat.setColor(Color.BLACK);
-				c.drawText(posisi, 30, 30, cat);
-				c.drawText("Ini help", 30, 50, cat);
-				//draw entities
-//				eBackground.draw(c, cat);
-//				elogo.draw(c, cat);
-//				eButtonStatistik.draw(c,cat);
-//				ePreviewGame.draw(c,cat);
-				
-				drawEntityCollection(c, cat);
+				cat.setTextSize(getPercentFontSize(100));
+				c.drawText("bring your device walk to walk", ePreviewGame.x+getPercentFontSize(200), ePreviewGame.y+getPercentFontSize(200), cat);
 	}
 
 

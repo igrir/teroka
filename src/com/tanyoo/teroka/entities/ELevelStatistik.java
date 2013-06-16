@@ -10,7 +10,7 @@ public class ELevelStatistik extends Entity {
 	public ELevelStatistik(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.dummy, "logo");
+		addSprite(R.drawable.stat_level, "logo");
 		setSprite("logo");
 	}
 

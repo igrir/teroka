@@ -12,5 +12,9 @@ public class EBackground extends Entity{
 		addSprite(R.drawable.bg, "bg");
 		setSprite("bg");
 	}
-	
+
+	public void EBackground2(int width, int height) {
+		addSprite(R.drawable.bginfo, "bg2");
+		setSprite("bg2");
+	}
 }

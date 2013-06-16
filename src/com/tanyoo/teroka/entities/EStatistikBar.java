@@ -9,7 +9,7 @@ public class EStatistikBar extends Entity {
 	
 	public EStatistikBar(Resources res) {
 		super(res);
-		addSprite(R.drawable.btn, "btn");
+		addSprite(R.drawable.infobar, "btn");
 		setSprite("btn");
 	}
 }

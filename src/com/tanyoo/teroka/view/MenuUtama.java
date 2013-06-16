@@ -72,7 +72,7 @@ public class MenuUtama extends GameView {
 		// resize gambar
 		ePlatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(10));
 		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
-		elogo.resizeImage((int)getPercentWidth(80), (int)getPercentHeight(20));
+		elogo.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(20));
 		eButtonPetualangan.EbuttonPlay((int)getPercentWidth(41), (int)getPercentHeight(9));
 		eButtonBertarung.EbuttonBattle((int)getPercentWidth(41), (int)getPercentHeight(9));
 		eButtonAbout.EbuttonAbout((int)getPercentWidth(41), (int)getPercentHeight(9));
@@ -81,7 +81,7 @@ public class MenuUtama extends GameView {
 		// set posisi
 		ePlatform.setPosition(getPercentWidth(0), getPercentHeight(90));
 		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
-		elogo.setPosition(getPercentWidth(8), getPercentHeight(2));
+		elogo.setPosition(getPercentWidth(0), getPercentHeight(2));
 		eButtonPetualangan.setPosition(getPercentWidth(53), getPercentHeight(28));
 		eButtonBertarung.setPosition(getPercentWidth(53), getPercentHeight(39));
 		eButtonAbout.setPosition(getPercentWidth(53), getPercentHeight(50));

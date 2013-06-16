@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.activities.StatistikActivity;
 import com.tanyoo.teroka.entities.EBatleLose;
 import com.tanyoo.teroka.entities.EBatleWin;
@@ -25,6 +26,8 @@ public class Statistik extends GameView {
 	private int timeElapsed = 0;
 	
 	// entities
+	EBackground eBackground;
+	EBackground eBackground2;
 	EButtonBack ebuttonback;
 	EStatistikBar estatistikbar;
 	ELevelStatistik elevelstatistik;
@@ -34,10 +37,19 @@ public class Statistik extends GameView {
 	EBatleWin ebatlewin;
 	EBatleLose ebatlelose;
 	
+	public int txtSteps=0;
+	public int txtLevel=0;
+	public int txtCalorie=0;
+	public int txtStars=0;
+	public int txtWin=0;
+	public int txtLose=0;
+	
 	public Statistik(Context context) {
 		super(context);
 		
 		//entities
+		eBackground = new EBackground(getResources());
+		eBackground2 = new EBackground(getResources());
 		estatistikbar = new EStatistikBar(getResources());
 		ebuttonback = new EButtonBack(getResources());
 		elevelstatistik = new ELevelStatistik(getResources());
@@ -47,8 +59,10 @@ public class Statistik extends GameView {
 		ebatlewin = new EBatleWin(getResources());
 		ebatlelose = new EBatleLose(getResources());
 		
-		addEntityCollection(estatistikbar,
+		addEntityCollection(eBackground,
+							estatistikbar,
 							ebuttonback,
+							eBackground2,
 							elevelstatistik,
 							ebintangstatistik,
 							estepstatistik,
@@ -64,18 +78,22 @@ public class Statistik extends GameView {
 		super.onWindowFocusChanged(hasWindowFocus);
 				
 		// resize gambar
-		ebuttonback.resizeImage((int)getPercentWidth(17), (int)getPercentHeight(13));
-		estatistikbar.resizeImage((int)getPercentWidth(83), (int)getPercentHeight(13));
-		elevelstatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
-		ebintangstatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
-		estepstatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
-		ecaloristatistik.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
-		ebatlewin.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
-		ebatlelose.resizeImage((int)getPercentWidth(16), (int)getPercentHeight(11));
+		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
+		eBackground2.EBackground2((int)getPercentWidth(82), (int)getPercentHeight(200));
+		ebuttonback.resizeImage((int)getPercentWidth(12), (int)getPercentHeight(9));
+		estatistikbar.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(13));
+		elevelstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
+		ebintangstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
+		estepstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
+		ecaloristatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
+		ebatlewin.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
+		ebatlelose.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		
 		// set posisi
-		ebuttonback.setPosition(getPercentWidth(0), getPercentHeight(0));
-		estatistikbar.setPosition(getPercentWidth(17), getPercentHeight(0));
+		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
+		eBackground2.setPosition(getPercentWidth(3), getPercentHeight(15));
+		ebuttonback.setPosition(getPercentWidth(5), getPercentHeight(2));
+		estatistikbar.setPosition(getPercentWidth(0), getPercentHeight(0));
 		elevelstatistik.setPosition(getPercentWidth(9), getPercentHeight(16));
 		ebintangstatistik.setPosition(getPercentWidth(9), getPercentHeight(30));
 		estepstatistik.setPosition(getPercentWidth(9), getPercentHeight(44));
@@ -125,21 +143,54 @@ public class Statistik extends GameView {
 	public void draw(Canvas c, Paint cat) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
-		
-				cat.setColor(Color.WHITE);
-				//buat background
-				c.drawRect(0, 0, c.getWidth(), c.getHeight(), cat);
+
 				
-				//draw entities
-//				ebuttonback.draw(c, cat);
-//				estatistikbar.draw(c, cat);
-//				logo1.draw(c, cat);
-//				logo2.draw(c, cat);
-//				logo3.draw(c, cat);
-//				logo4.draw(c, cat);
-//				logo5.draw(c, cat);
-//				logo6.draw(c, cat);
-				drawEntityCollection(c, cat);
+		//draw entities
+		drawEntityCollection(c, cat);
+		
+		//-------------- Teks-------------- 
+				cat.setColor(Color.BLACK);
+				
+				//INFO BAR
+				cat.setTextSize(getPercentFontSize(200));
+				c.drawText("STATISTICS", estatistikbar.x+getPercentFontSize(600), estatistikbar.y+getPercentFontSize(300), cat);
+				
+				//level
+				cat.setTextSize(getPercentFontSize(70));
+				c.drawText("LEVEL", elevelstatistik.x+getPercentFontSize(500), elevelstatistik.y+getPercentFontSize(100),  cat);
+				cat.setTextSize(getPercentFontSize(150));
+				c.drawText(String.valueOf(txtLevel), elevelstatistik.x+getPercentFontSize(500), elevelstatistik.y+getPercentFontSize(300), cat);
+				
+				//calorie
+				cat.setTextSize(getPercentFontSize(70));
+				c.drawText("TOTAL BURNED CALORIE", ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(100), cat);
+				cat.setTextSize(getPercentFontSize(150));
+				c.drawText(String.valueOf(txtCalorie), ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(300), cat);
+				
+				
+				//stars
+				cat.setTextSize(getPercentFontSize(70));
+				c.drawText("STARS", ebintangstatistik.x+getPercentFontSize(500), ebintangstatistik.y+getPercentFontSize(100), cat);
+				cat.setTextSize(getPercentFontSize(150));
+				c.drawText(String.valueOf(txtStars), ebintangstatistik.x+getPercentFontSize(500), ebintangstatistik.y+getPercentFontSize(3200), cat);
+				
+				//step
+				cat.setTextSize(getPercentFontSize(70));
+				c.drawText("MAX STEPS", estepstatistik.x+getPercentFontSize(500), estepstatistik.y+getPercentFontSize(100), cat);
+				cat.setTextSize(getPercentFontSize(150));
+				c.drawText(String.valueOf(txtSteps), estepstatistik.x+getPercentFontSize(500), estepstatistik.y+getPercentFontSize(300), cat);
+				
+				//win
+				cat.setTextSize(getPercentFontSize(70));
+				c.drawText("BATTLE WIN", ebatlewin.x+getPercentFontSize(500), ebatlewin.y+getPercentFontSize(100), cat);
+				cat.setTextSize(getPercentFontSize(150));
+				c.drawText(String.valueOf(txtWin), ebatlewin.x+getPercentFontSize(500), ebatlewin.y+getPercentFontSize(300), cat);
+				
+				//lose
+				cat.setTextSize(getPercentFontSize(70));
+				c.drawText("BATTLE LOSE", ebatlelose.x+getPercentFontSize(500), ebatlelose.y+getPercentFontSize(100), cat);
+				cat.setTextSize(getPercentFontSize(150));
+				c.drawText(String.valueOf(txtLose), ebatlelose.x+getPercentFontSize(500), ebatlelose.y+getPercentFontSize(300), cat);
 	}
 
 }

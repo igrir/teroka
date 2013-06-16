@@ -10,7 +10,7 @@ public class EBintangStatistik extends Entity {
 	public EBintangStatistik(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.dummy, "logo");
+		addSprite(R.drawable.stat_star, "logo");
 		setSprite("logo");
 	}
 

@@ -10,7 +10,7 @@ public class EBatleLose extends Entity {
 	public EBatleLose(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.dummy, "logo");
+		addSprite(R.drawable.stat_lose, "logo");
 		setSprite("logo");
 	}
 }

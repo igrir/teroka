@@ -10,7 +10,7 @@ public class EStars extends Entity {
 	public EStars(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.dummy, "logo");
+		addSprite(R.drawable.star, "logo");
 		setSprite("logo");
 	}
 

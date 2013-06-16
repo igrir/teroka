@@ -10,8 +10,8 @@ public class EInfobar extends Entity {
 	public EInfobar(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.logo, "logo");
-		setSprite("logo");
+		addSprite(R.drawable.infobar, "infobar");
+		setSprite("infobar");
 	}
 
 }

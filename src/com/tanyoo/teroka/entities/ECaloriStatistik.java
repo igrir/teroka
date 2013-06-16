@@ -10,7 +10,7 @@ public class ECaloriStatistik extends Entity {
 	public ECaloriStatistik(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.dummy, "logo");
+		addSprite(R.drawable.stat_calore, "logo");
 		setSprite("logo");
 	}
 

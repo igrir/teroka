@@ -9,7 +9,7 @@ public class EButtonBack extends Entity{
 	
 	public EButtonBack(Resources res) {
 		super(res);
-		addSprite(R.drawable.btn, "btn");
+		addSprite(R.drawable.btn_back, "btn");
 		setSprite("btn");
 	}
 
