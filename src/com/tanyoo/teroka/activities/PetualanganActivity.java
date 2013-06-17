@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import com.tanyoo.teroka.view.Petualangan;
 
 
 public class PetualanganActivity extends GameActivity implements OnTouchListener, LocationListener, SensorEventListener{
+
 	//sound
 	SoundGame sound; 
 	
@@ -70,6 +72,11 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		super.onCreate(savedInstanceState);
 		
 		petualanganModel = new PetualanganModel();
+		
+		petualanganModel.initPlayerHealth(100);
+		
+		//wake
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
 		//vibrator
 		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -163,7 +170,6 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		mSensorManager.unregisterListener(this);
 		
 		vibratePhone(false);
-		
 		super.onDestroy();
 	}
 	
@@ -183,6 +189,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		vibratePhone(false);
 		
+		
 		super.onPause();
 		
 		
@@ -192,6 +199,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		locMgr.requestLocationUpdates(locProvider, minTime, minDistance, this);
+
 		super.onResume();
 	}
 	
@@ -199,6 +207,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		vibratePhone(false);
+		
 		super.onStop();
 	}
 
@@ -246,7 +255,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		petualanganModel.setMonsterShow(false);
 		petualanganModel.setPetiShow(false);
-		petualanganModel.battle = false;
+		petualanganModel.battle = false; 
 	}
 
 
@@ -291,6 +300,13 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	public void run() {
 		super.run();
 
+		//set tampilan darah pemain
+		float playerHealth = petualanganModel.getPlayerHealth();
+		float playerHealthFull = petualanganModel.getPlayerHealthFull();
+		int percentHealth = (int)Math.ceil(((playerHealth/playerHealthFull)*(float)100)); 
+		Log.i("percentHealth", String.valueOf(percentHealth));
+		gv.setBarHealth(percentHealth);
+		
 		if (this.time < delay) {
 			this.time++;
 		}else{
@@ -331,7 +347,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			//cek kalau karakter ketemu monster
 			if (petualanganModel.battle == true) {
 				
-			
+				//diserang monster
+				serangPlayer();
 				
 				//cek kalau monster sudah mati 
 				if (petualanganModel.getCurrentMonsterHealth() <= 0) {
@@ -412,6 +429,20 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		}
 	}
 	
+	public void serangPlayer(){
+		if (petualanganModel.battle = true) {
+			
+			//random monster menyerang
+			if (Math.random()*100 > 50) {
+				int serangan = (int)(Math.random()*5);	
+				int playerHealth = this.petualanganModel.getPlayerHealth();
+				this.petualanganModel.setPlayerHealth(playerHealth-serangan);
+				
+				Log.i("serangPlayer", String.valueOf(serangan));
+			}
+		}
+	}
+	
 	public void serangPeti(){
 		
 		//cek apakah sudah bersentuhan dulu
@@ -431,6 +462,30 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		public int monsterHealth = 100; //Health monster naik 10 setiap selesai nyerang monster lain
 		public int currentMonsterHealth = 100; //monster yang sedang bertarung sekarang 	
+		
+		public int playerHealth = 100;	//health pemain. bisa diset sesuai level
+		public int playerHealthFull;	//health pemain untuk disimpan biar langsung revive
+		
+		public void initPlayerHealth(int playerHealth){
+			this.playerHealth = playerHealth;
+			this.playerHealthFull = playerHealth;
+		}
+		
+		public void setPlayerHealth(int playerHealth){
+			this.playerHealth = playerHealth;
+		}
+		
+		public void revivePlayerHealth(){
+			this.playerHealth = this.playerHealthFull;
+		}
+		
+		public int getPlayerHealth(){
+			return this.playerHealth;
+		}
+		
+		public int getPlayerHealthFull(){
+			return this.playerHealthFull;
+		}
 		
 		public void setMonsterShow(boolean show){
 			this.monsterShow = show;

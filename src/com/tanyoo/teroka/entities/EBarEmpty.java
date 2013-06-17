@@ -5,13 +5,13 @@ import android.content.res.Resources;
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.Entity;
 
-public class EBarHealth extends Entity {
+public class EBarEmpty extends Entity {
 
-	public EBarHealth(Resources res) {
+	public EBarEmpty(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.bar_health_complete, "bar_health_complete");
-		setSprite("bar_health_complete");
+		addSprite(R.drawable.bar_empty, "bar_empty");
+		setSprite("bar_empty");
 	}
 	
 	public void EBarHealthComplete(Resources res) {

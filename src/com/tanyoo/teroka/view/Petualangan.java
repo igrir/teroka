@@ -13,6 +13,7 @@ import com.tanyoo.teroka.activities.PetualanganActivity;
 import com.tanyoo.teroka.activities.PetualanganActivity.PetualanganModel;
 import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.entities.EBarDistance;
+import com.tanyoo.teroka.entities.EBarEmpty;
 import com.tanyoo.teroka.entities.EBarHealth;
 import com.tanyoo.teroka.entities.ECalore;
 import com.tanyoo.teroka.entities.EDistance;
@@ -52,6 +53,7 @@ public class Petualangan extends GameView {
 	public ELevel elevel;
 	public ECalore ecalore;
 	public EPlatform eplatform;
+	public EBarEmpty ebarempty;
 	
 	// Games
 	public EKarakter ekarakter;
@@ -80,6 +82,7 @@ public class Petualangan extends GameView {
 		ebardistance = new EBarDistance(getResources());
 		edistance = new EDistance(getResources());
 		ehealthpoint = new EHealthPoint(getResources());
+		ebarempty = new EBarEmpty(getResources());
 		ebarhealth = new EBarHealth(getResources());
 		egameview = new EGameView(getResources());
 		estars = new EStars(getResources());
@@ -99,6 +102,7 @@ public class Petualangan extends GameView {
 				  edistance,
 				  ehealthpoint,
 				  ebarhealth,
+				  ebarempty,
 				  egameview,
 				  eplatform,
 				  eBackground2,
@@ -129,6 +133,7 @@ public class Petualangan extends GameView {
 		einfo.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		ebardistance.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
+		ebarempty.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(20));
 		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
@@ -159,6 +164,7 @@ public class Petualangan extends GameView {
 		ehealthpoint.setPosition(getPercentWidth(8), getPercentHeight(36));
 		edistance.setPosition(getPercentWidth(8), getPercentHeight(46));
 		ebarhealth.setPosition(getPercentWidth(27), getPercentHeight(36));
+		ebarempty.setPosition(ebarhealth.x+ebarhealth.width, getPercentHeight(36));
 		ebardistance.setPosition(getPercentWidth(27), getPercentHeight(46));
 		eBackground2.setPosition(getPercentWidth(0), getPercentHeight(56));
 		elevel.setPosition(getPercentWidth(3), getPercentHeight(58));
@@ -340,6 +346,11 @@ public class Petualangan extends GameView {
 		}
 	}
 	
+	
+	public void setBarHealth(int percentHealth){
+		float percentX = ((getPercentWidth(27)+ebarhealth.width)*percentHealth)/100;
+		ebarempty.setX(percentX);
+	}
 	
 	/**
 	 * Animasi yang dilakukan untuk testing
