@@ -22,6 +22,7 @@ import com.tanyoo.teroka.entities.EHealthPoint;
 import com.tanyoo.teroka.entities.EInfobar;
 import com.tanyoo.teroka.entities.EKarakter;
 import com.tanyoo.teroka.entities.ELevel;
+import com.tanyoo.teroka.entities.EMatiCover;
 import com.tanyoo.teroka.entities.EMonster;
 import com.tanyoo.teroka.entities.EPeti;
 import com.tanyoo.teroka.entities.EPotion;
@@ -54,6 +55,7 @@ public class Petualangan extends GameView {
 	public ECalore ecalore;
 	public EPlatform eplatform;
 	public EBarEmpty ebarempty;
+	public EMatiCover ematicover;
 	
 	// Games
 	public EKarakter ekarakter;
@@ -95,6 +97,7 @@ public class Petualangan extends GameView {
 		emonster = new EMonster(getResources());
 		eplatform = new EPlatform(getResources());
 		epeti = new EPeti(getResources());
+		ematicover = new EMatiCover(getResources());
 		
 		addEntityCollection(eBackground,
 				  einfo,
@@ -114,7 +117,8 @@ public class Petualangan extends GameView {
 				  ecalore,
 				  emonster,
 				  epeti,
-				  ekarakter);
+				  ekarakter,
+				  ematicover);
 		
 		pm = ((PetualanganActivity)(this.context)).petualanganModel;
 		Log.i("PM: ", String.valueOf(pm.monsterShow));
@@ -136,6 +140,7 @@ public class Petualangan extends GameView {
 		ebarempty.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(20));
+		ematicover.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(20));
 		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		elevel.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
@@ -144,6 +149,7 @@ public class Petualangan extends GameView {
 		esteps.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
 		ecalore.resizeImage((int)getPercentWidth(14),(int)getPercentHeight(8));
 		eshop.resizeImage((int)getPercentWidth(41),(int)getPercentHeight(9));
+		
 		
 		
 		
@@ -160,6 +166,7 @@ public class Petualangan extends GameView {
 		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
 		einfo.setPosition(getPercentWidth(0), getPercentHeight(0));
 		egameview.setPosition(getPercentWidth(0), getPercentHeight(10));
+		ematicover.setPosition(getPercentWidth(0), getPercentHeight(10));
 		eplatform.setPosition(getPercentWidth(0), getPercentHeight(30));
 		ehealthpoint.setPosition(getPercentWidth(8), getPercentHeight(36));
 		edistance.setPosition(getPercentWidth(8), getPercentHeight(46));
@@ -321,6 +328,18 @@ public class Petualangan extends GameView {
 		
 	}
 	
+	/**
+	 * Tampilkan cover mati
+	 * @param status
+	 */
+	public void setMatiCoverVisible(boolean status){
+		if (status == true) {
+			this.ematicover.setX(getPercentWidth(0));
+		}else{
+			this.ematicover.setX(getPercentWidth(100));
+		}
+	}
+	
 	public void moveMonster(int speed){
 		
 			//monster gerak ke kiri
@@ -347,8 +366,9 @@ public class Petualangan extends GameView {
 	}
 	
 	
-	public void setBarHealth(int percentHealth){
-		float percentX = ((getPercentWidth(27)+ebarhealth.width)*percentHealth)/100;
+	public void setBarHealth(float percentHealth){
+		float fullWidth = (ebarhealth.width);
+		float percentX = getPercentWidth(27) + ebarhealth.width*(percentHealth/100);
 		ebarempty.setX(percentX);
 	}
 	

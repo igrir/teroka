@@ -307,89 +307,100 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		Log.i("percentHealth", String.valueOf(percentHealth));
 		gv.setBarHealth(percentHealth);
 		
-		if (this.time < delay) {
-			this.time++;
+		//cek sudah mati
+		if (petualanganModel.playerHealth <= 0) {
+			gv.setMatiCoverVisible(true);
+			vibratePhone(false);
 		}else{
-			this.time = 0;
+			gv.setMatiCoverVisible(false);
 			
-			//random munculnya monster
-			if (petualanganModel.monsterShow == false) {
-				int muncul =(int)(Math.random()*1000)%1000;
-//				Log.i("randomMonster", String.valueOf(muncul));
-				if (muncul < 50 ) {
-					petualanganModel.monsterShow = true;
-					//buat bergetar
-				}
-			}
-			
-//			Log.i("battle", String.valueOf(petualanganModel.battle));
-//			Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
-			
-			
-			//random munculnya peti
-			if (petualanganModel.petiShow == false) {
-				int muncul =(int)(Math.random()*1000)%1000;
-				if (muncul < 50 ) {
-					petualanganModel.petiShow = true;
-				}
-			}
-						
-			
-			//cek kena monster
-			if (gv.emonster.isHit(gv.ekarakter) && petualanganModel.monsterShow == true) {
-				
-				petualanganModel.battle = true;
-				
-				//getarkan handphonenya
-				vibratePhone(true);
-			}
-			
-			//cek kalau karakter ketemu monster
-			if (petualanganModel.battle == true) {
-				
-				//diserang monster
-				serangPlayer();
-				
-				//cek kalau monster sudah mati 
-				if (petualanganModel.getCurrentMonsterHealth() <= 0) {
-					petualanganModel.battle = false;
-					petualanganModel.monsterShow = false;
-					
-					Log.i("monsterHit", "mati");
-					
-					
-					//kembalikan darah monster untuk selanjutnya
-					petualanganModel.setCurrentMonsterHealth(petualanganModel.monsterHealth);
-					
-					vibratePhone(false);
-				}
-				
+			if (this.time < delay) {
+				this.time++;
 			}else{
-				vibratePhone(false);
+				this.time = 0;
 				
-				//cek  monster nggak kena
-				if (petualanganModel.battle == false) {
-					
-					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
-					((Petualangan)gv).walk(5);
-					
-					if (petualanganModel.getMonsterShow()) {
-						//kena monster
-						gv.moveMonster(10);
+				//random munculnya monster
+				if (petualanganModel.monsterShow == false) {
+					int muncul =(int)(Math.random()*1000)%1000;
+//					Log.i("randomMonster", String.valueOf(muncul));
+					if (muncul < 50 ) {
+						petualanganModel.monsterShow = true;
+						//buat bergetar
 					}
-					
-					if (petualanganModel.getPetiShow()) {
-						gv.movePeti(10);
-					}
-					
-					
-					//!!!!! Akhir testing
-					
 				}
+				
+//				Log.i("battle", String.valueOf(petualanganModel.battle));
+//				Log.i("monsterShow", String.valueOf(petualanganModel.monsterShow));
+				
+				
+				//random munculnya peti
+				if (petualanganModel.petiShow == false) {
+					int muncul =(int)(Math.random()*1000)%1000;
+					if (muncul < 50 ) {
+						petualanganModel.petiShow = true;
+					}
+				}
+							
+				
+				//cek kena monster
+				if (gv.emonster.isHit(gv.ekarakter) && petualanganModel.monsterShow == true) {
+					
+					petualanganModel.battle = true;
+					
+					//getarkan handphonenya
+					vibratePhone(true);
+				}
+				
+				//cek kalau karakter ketemu monster
+				if (petualanganModel.battle == true) {
+					
+					//diserang monster
+					serangPlayer();
+					
+					//cek kalau monster sudah mati 
+					if (petualanganModel.getCurrentMonsterHealth() <= 0) {
+						petualanganModel.battle = false;
+						petualanganModel.monsterShow = false;
 						
+						Log.i("monsterHit", "mati");
+						
+						
+						//kembalikan darah monster untuk selanjutnya
+						petualanganModel.setCurrentMonsterHealth(petualanganModel.monsterHealth);
+						
+						vibratePhone(false);
+					}
+					
+				}else{
+					vibratePhone(false);
+					
+					//cek  monster nggak kena
+					if (petualanganModel.battle == false) {
+						
+						//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
+						((Petualangan)gv).walk(5);
+						
+						if (petualanganModel.getMonsterShow()) {
+							//kena monster
+							gv.moveMonster(10);
+						}
+						
+						if (petualanganModel.getPetiShow()) {
+							gv.movePeti(10);
+						}
+						
+						
+						//!!!!! Akhir testing
+						
+					}
+							
+				}
+				
 			}
 			
-		}	
+		}
+		
+			
 		
 		((Petualangan)gv).animatePetualangan();
 	}
@@ -434,7 +445,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			
 			//random monster menyerang
 			if (Math.random()*100 > 50) {
-				int serangan = (int)(Math.random()*5);	
+				int besarSerangan = 20;
+				int serangan = (int)(Math.random()*besarSerangan);	
 				int playerHealth = this.petualanganModel.getPlayerHealth();
 				this.petualanganModel.setPlayerHealth(playerHealth-serangan);
 				
