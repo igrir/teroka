@@ -28,6 +28,7 @@ public class TokoActivity extends GameActivity {
 	public ArrayList<DataListSenjata> vData;
 	
 	DataAdapter adapter;
+	DataPemain mDataPemain;
 	
 	public TokoActivity() {
 //		alDataLists.add(new DataListSenjata("Senjata 1", "belum", "1000", "10"));
@@ -75,6 +76,8 @@ public class TokoActivity extends GameActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tokoteroka);
 		
+		getDataPemain();
+		
 		updateDataList();
 		
 		ListView lv = (ListView)findViewById(R.id.lvToko);
@@ -97,6 +100,18 @@ public class TokoActivity extends GameActivity {
 			}
 			
 		});
+		
+		//set bintang
+		TextView tvBintang = (TextView) findViewById(R.id.tvBanyakBintang);
+		tvBintang.setText(String.valueOf(mDataPemain.j_bintang));
+		
+	}
+	
+	public void getDataPemain(){
+		DbTeroka db = new DbTeroka(this);
+		db.open();
+		mDataPemain = db.getDataPemain();
+		db.close();
 	}
 	
 	@Override

@@ -11,8 +11,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.DbTeroka;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
+import com.tanyoo.teroka.lib.DbTeroka.DataPemain;
 import com.tanyoo.teroka.view.Statistik;
 
 public class StatistikActivity extends GameActivity implements OnTouchListener{
@@ -23,10 +25,17 @@ public class StatistikActivity extends GameActivity implements OnTouchListener{
 	// views
 	public Statistik mu;
 	
+	private DataPemain mDataPemain;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		
+		DbTeroka db = new DbTeroka(this);
+		db.open();
+		mDataPemain = db.getDataPemain();
+		db.close();
 		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -47,8 +56,23 @@ public class StatistikActivity extends GameActivity implements OnTouchListener{
 		setContentView(gv);
 		
 //		mu.startThread();
+		
+		updateUI();
 	}
 
+	public void updateUI(){
+		
+		int steps = Integer.valueOf(mDataPemain.j_step);
+		int j_bintang = Integer.valueOf("0");
+		int j_lose = Integer.valueOf(mDataPemain.j_lose);
+		int j_win = Integer.valueOf(mDataPemain.j_win);
+		
+		mu.setSteps(steps);
+		mu.setStars(j_bintang);
+		mu.setLose(j_lose);
+		mu.setWin(j_win);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

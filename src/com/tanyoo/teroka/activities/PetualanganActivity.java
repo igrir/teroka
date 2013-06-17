@@ -24,6 +24,8 @@ import android.view.WindowManager;
 
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.Acel;
+import com.tanyoo.teroka.lib.DbTeroka.DataPemain;
+import com.tanyoo.teroka.lib.DbTeroka;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.SoundGame;
 import com.tanyoo.teroka.view.Petualangan;
@@ -64,6 +66,10 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	public int delay = 20;
 	public int time = 0;
 
+	public int gameState = 0; //0 = start, 1 = playing, 2 = on dead, 3 = after dead
+	
+	private DataPemain mDataPemain;
+	
 	private int vibrateStatus = 0;
 	
 	@Override
@@ -74,6 +80,12 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		petualanganModel = new PetualanganModel();
 		
 		petualanganModel.initPlayerHealth(100);
+		
+		//ambil data pemain sebelumnya
+		DbTeroka db = new DbTeroka(this);
+		db.open();
+		this.mDataPemain = db.getDataPemain();
+		db.close();
 		
 		//wake
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -134,6 +146,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		sound = new SoundGame(this);
 		sound.initSound();
+		
+		this.gameState = 1;
 		
 		
 	}
@@ -295,22 +309,86 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 	}
 	
+	/**
+	 * Update tampilan UI di game
+	 */
+	public void updateHUD(){
+		//set tampilan darah pemain
+		float playerHealth = petualanganModel.getPlayerHealth();
+		float playerHealthFull = petualanganModel.getPlayerHealthFull();
+		int percentHealth = (int)Math.ceil(((playerHealth/playerHealthFull)*(float)100)); 
+		gv.setBarHealth(percentHealth);
+		
+		//set tampilan step pemain
+		gv.setCurrentStep(this.petualanganModel.currentStep);
+		
+		//set tampilan star
+		gv.setCurrentStar(this.petualanganModel.currentStar);
+		
+	}
+	
+	
+	public void updateDatabase(){
+		if (this.gameState == 2) {
+			this.gameState = 3;
+			
+			String slevel;
+			String sj_bintang;
+			String sj_step;
+			String smax_step;
+			String snow_armor;
+			
+			//initial
+			int j_step = Integer.valueOf(mDataPemain.j_step) + petualanganModel.getCurrentStep();
+			int j_bintang = Integer.valueOf(mDataPemain.j_bintang) + petualanganModel.getCurrentStar();
+			int level = Integer.valueOf(mDataPemain.level);
+			int max_step = Integer.valueOf(mDataPemain.max_step);
+			int now_armor = Integer.valueOf(mDataPemain.now_armor);
+			
+			if (level < petualanganModel.getCurrentLevel()) {
+				level = petualanganModel.getCurrentLevel();
+			}
+			
+			if (max_step < petualanganModel.getCurrentStep()) {
+				max_step = petualanganModel.getCurrentStep();
+			}
+			
+			slevel = String.valueOf(level);
+			sj_bintang = String.valueOf(j_bintang);
+			sj_step = String.valueOf(j_step);
+			smax_step = String.valueOf(max_step);
+			snow_armor = String.valueOf(now_armor);
+			
+			
+			DbTeroka db = new DbTeroka(this);
+			db.open();
+			db.updateDataPemain(slevel, sj_bintang, sj_step, smax_step, snow_armor);
+			db.close();
+			
+		}
+	}
 	
 	@Override
 	public void run() {
 		super.run();
 
-		//set tampilan darah pemain
-		float playerHealth = petualanganModel.getPlayerHealth();
-		float playerHealthFull = petualanganModel.getPlayerHealthFull();
-		int percentHealth = (int)Math.ceil(((playerHealth/playerHealthFull)*(float)100)); 
-		Log.i("percentHealth", String.valueOf(percentHealth));
-		gv.setBarHealth(percentHealth);
+		updateHUD();
 		
 		//cek sudah mati
 		if (petualanganModel.playerHealth <= 0) {
+			
 			gv.setMatiCoverVisible(true);
 			vibratePhone(false);
+			
+			if(this.gameState == 1){
+				this.gameState = 2;
+			}
+			
+			updateDatabase();
+			
+			
+			
+			
 		}else{
 			gv.setMatiCoverVisible(false);
 			
@@ -364,6 +442,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 						
 						Log.i("monsterHit", "mati");
 						
+						//dapat bintang
+						int banyakBintang = (int)(1+Math.ceil(Math.random()*4));
+						petualanganModel.setCurrentStar(this.petualanganModel.currentStar+banyakBintang);
 						
 						//kembalikan darah monster untuk selanjutnya
 						petualanganModel.setCurrentMonsterHealth(petualanganModel.monsterHealth);
@@ -382,12 +463,14 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 						
 						if (petualanganModel.getMonsterShow()) {
 							//kena monster
-							gv.moveMonster(10);
+							gv.moveMonster(15);
 						}
 						
 						if (petualanganModel.getPetiShow()) {
-							gv.movePeti(10);
+							gv.movePeti(15);
 						}
+						
+						this.petualanganModel.incCurrentStep();
 						
 						
 						//!!!!! Akhir testing
@@ -436,7 +519,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			int attack = 10;
 			Log.i("serang", "atk:"+attack+" monsterHealth:"+monsterHealth);
 			
-			this.petualanganModel.setCurrentMonsterHealth(monsterHealth-attack);		
+			this.petualanganModel.setCurrentMonsterHealth(monsterHealth-attack);
 		}
 	}
 	
@@ -462,12 +545,19 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			
 			//kena peti, maka dihilangkan
 			petualanganModel.setPetiShow(false);
+			
+			//dapat bintang
+			int banyakBintang = (int)(1+Math.ceil(Math.random()*4));
+			petualanganModel.setCurrentStar(this.petualanganModel.currentStar+banyakBintang);
+			
 		}
 	}
 	
 	public class PetualanganModel{
 		
 		public int currentStep = 0;	//langkah yang diambil
+		public int currentStar = 0;
+		public int currentLevel = 0;
 		public boolean monsterShow = true;
 		public boolean petiShow = false;
 		public boolean battle = false;	//saat encounter monster
@@ -477,6 +567,26 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		public int playerHealth = 100;	//health pemain. bisa diset sesuai level
 		public int playerHealthFull;	//health pemain untuk disimpan biar langsung revive
+		
+		public void setCurrentStar(int currentStar){
+			this.currentStar = currentStar;
+		}
+		
+		public void setCurrentLevel(int level){
+			this.currentLevel = level;
+		}
+		
+		public int getCurrentLevel(){
+			return this.currentLevel;
+		}
+		
+		public int getCurrentStep(){
+			return this.currentStep;
+		}
+		
+		public int getCurrentStar(){
+			return this.currentStar;
+		}
 		
 		public void initPlayerHealth(int playerHealth){
 			this.playerHealth = playerHealth;
@@ -529,6 +639,14 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		public int getCurrentMonsterHealth(){
 			return this.currentMonsterHealth;
+		}
+		
+		public void setCurrentStep(int step){
+			this.currentStep = step;
+		}
+		
+		public void incCurrentStep(){
+			this.currentStep += 1;
 		}
 		
 		

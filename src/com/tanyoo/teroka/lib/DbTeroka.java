@@ -23,6 +23,8 @@ public class DbTeroka {
 		public String max_step;
 		public String now_armor;
 		public int id;
+		public String j_win;
+		public String j_lose;
 	}
 
 	//public static class 
@@ -69,11 +71,17 @@ public class DbTeroka {
 		return db.insert("DATA_SENJATA", null, newValues);
 	}
 	
+	
+	/**
+	 * Tidak digunakan, karena pemain cuma ada 1
+	 * @param nama
+	 * @return
+	 */
 	public DataPemain getDataPemainByNama(String nama){
 		Cursor cur = null;
 		DataPemain T = new DataPemain();
 
-		String[] COLS = new String[] {"ID", "NAMA", "LEVEL", "J_BINTANG", "J_STEP", "J_KALORI", "MAX_STEP", "NOW_ARMOR"};
+		String[] COLS = new String[] {"ID", "NAMA", "LEVEL", "J_BINTANG", "J_STEP", "J_KALORI", "MAX_STEP", "NOW_ARMOR", "J_WIN", "J_LOSE"};
 		
 		cur = db.query("DATA_PEMAIN", COLS, "NAMA ='"+nama+"'", null, null, null, null);
 		if(cur.getCount() > 0){
@@ -86,7 +94,33 @@ public class DbTeroka {
 			T.j_kalori = cur.getString(5);
 			T.max_step = cur.getString(6);
 			T.now_armor = cur.getString(7);
+			T.j_win = cur.getString(7);
+			T.j_lose = cur.getString(7);
 		}
+		
+		return T;
+	}
+	
+	public DataPemain getDataPemain(){
+		Cursor cur = null;
+		DataPemain T = new DataPemain();
+
+		String[] COLS = new String[] {"ID","NAMA","LEVEL", "J_BINTANG", "J_STEP", "J_KALORI", "MAX_STEP", "NOW_ARMOR", "J_WIN","J_LOSE"};
+		
+		cur = db.query("DATA_PEMAIN", COLS, null, null, null, null, null);
+		cur.moveToFirst();
+		T.id = cur.getInt(0);
+		T.nama = cur.getString(1);
+		T.level = cur.getString(2);
+		T.j_bintang = cur.getString(3);
+		T.j_step = cur.getString(4);
+		T.j_kalori = cur.getString(5);
+		T.max_step = cur.getString(6);
+		T.now_armor = cur.getString(7);
+		T.j_win = cur.getString(8);
+		T.j_lose = cur.getString(9);
+		cur.close();
+		
 		
 		return T;
 	}
@@ -102,7 +136,27 @@ public class DbTeroka {
 		newValues.put("MAX_STEP", max_step);
 		newValues.put("NOW_ARMOR", now_armor);
 		
-		db.update("DATA_PEMAIN", newValues, "ID = " +id, null);
+		db.update("DATA_PEMAIN", newValues, "ID = 1", null);
+	}
+	
+	public void updateDataPemain(String level, String j_bintang,  String j_step,  String max_step,  String now_armor){
+		ContentValues newValues = new ContentValues();
+		newValues.put("LEVEL", level);
+		newValues.put("J_BINTANG", j_bintang);
+		newValues.put("J_STEP", j_step);
+		newValues.put("MAX_STEP", max_step);
+		newValues.put("NOW_ARMOR", now_armor);
+		
+		db.update("DATA_PEMAIN", newValues, "ID = 1", null);
+	}
+	
+	public void updateDataPemain(String j_bintang, String j_win, String j_lose){
+		ContentValues newValues = new ContentValues();
+		newValues.put("J_BINTANG", j_bintang);
+		newValues.put("J_WIN", j_win);
+		newValues.put("J_LOSE", j_lose);
+		
+		db.update("DATA_PEMAIN", newValues, "ID = 1", null);
 	}
 	
 	public void deleteDataPemain(int id){

@@ -33,7 +33,7 @@ public class Statistik extends GameView {
 	ELevelStatistik elevelstatistik;
 	EBintangStatistik ebintangstatistik;
 	EStepStatistik estepstatistik;
-	ECaloriStatistik ecaloristatistik;
+//	ECaloriStatistik ecaloristatistik;
 	EBatleWin ebatlewin;
 	EBatleLose ebatlelose;
 	
@@ -43,6 +43,30 @@ public class Statistik extends GameView {
 	public int txtStars=0;
 	public int txtWin=0;
 	public int txtLose=0;
+	
+	public void setSteps(int steps){
+		this.txtSteps = steps;
+	}
+	
+	public void setLevel(int level){
+		this.txtLevel = level;
+	}
+	
+	public void setCalorie(int calorie){
+		this.txtCalorie = calorie;
+	}
+	
+	public void setStars(int stars){
+		this.txtStars = stars;
+	}
+	
+	public void setWin(int win){
+		this.txtWin = win;
+	}
+	
+	public void setLose(int lose){
+		this.txtLose = lose;
+	}
 	
 	public Statistik(Context context) {
 		super(context);
@@ -55,7 +79,7 @@ public class Statistik extends GameView {
 		elevelstatistik = new ELevelStatistik(getResources());
 		ebintangstatistik = new EBintangStatistik(getResources());
 		estepstatistik = new EStepStatistik(getResources());
-		ecaloristatistik = new 	ECaloriStatistik(getResources());
+//		ecaloristatistik = new 	ECaloriStatistik(getResources());
 		ebatlewin = new EBatleWin(getResources());
 		ebatlelose = new EBatleLose(getResources());
 		
@@ -66,7 +90,7 @@ public class Statistik extends GameView {
 							elevelstatistik,
 							ebintangstatistik,
 							estepstatistik,
-							ecaloristatistik,
+//							ecaloristatistik,
 							ebatlewin,
 							ebatlelose			
 				);
@@ -85,7 +109,7 @@ public class Statistik extends GameView {
 		elevelstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		ebintangstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		estepstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
-		ecaloristatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
+//		ecaloristatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		ebatlewin.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		ebatlelose.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		
@@ -97,7 +121,7 @@ public class Statistik extends GameView {
 		elevelstatistik.setPosition(getPercentWidth(9), getPercentHeight(16));
 		ebintangstatistik.setPosition(getPercentWidth(9), getPercentHeight(30));
 		estepstatistik.setPosition(getPercentWidth(9), getPercentHeight(44));
-		ecaloristatistik.setPosition(getPercentWidth(9), getPercentHeight(58));
+//		ecaloristatistik.setPosition(getPercentWidth(9), getPercentHeight(58));
 		ebatlewin.setPosition(getPercentWidth(9), getPercentHeight(72));
 		ebatlelose.setPosition(getPercentWidth(9), getPercentHeight(86));
 		
@@ -162,17 +186,17 @@ public class Statistik extends GameView {
 				c.drawText(String.valueOf(txtLevel), elevelstatistik.x+getPercentFontSize(500), elevelstatistik.y+getPercentFontSize(300), cat);
 				
 				//calorie
-				cat.setTextSize(getPercentFontSize(70));
-				c.drawText("TOTAL BURNED CALORIE", ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(100), cat);
-				cat.setTextSize(getPercentFontSize(150));
-				c.drawText(String.valueOf(txtCalorie), ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(300), cat);
+//				cat.setTextSize(getPercentFontSize(70));
+//				c.drawText("TOTAL BURNED CALORIE", ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(100), cat);
+//				cat.setTextSize(getPercentFontSize(150));
+//				c.drawText(String.valueOf(txtCalorie), ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(300), cat);
 				
 				
 				//stars
 				cat.setTextSize(getPercentFontSize(70));
 				c.drawText("STARS", ebintangstatistik.x+getPercentFontSize(500), ebintangstatistik.y+getPercentFontSize(100), cat);
 				cat.setTextSize(getPercentFontSize(150));
-				c.drawText(String.valueOf(txtStars), ebintangstatistik.x+getPercentFontSize(500), ebintangstatistik.y+getPercentFontSize(3200), cat);
+				c.drawText(String.valueOf(txtStars), ebintangstatistik.x+getPercentFontSize(500), ebintangstatistik.y+getPercentFontSize(300), cat);
 				
 				//step
 				cat.setTextSize(getPercentFontSize(70));

@@ -24,4 +24,12 @@
         android:layout_alignLeft="@+id/lvToko"
         android:text="Bintang: " />
 
+    <TextView
+        android:id="@+id/tvBanyakBintang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lvToko"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="0" />
+
 </RelativeLayout>
