@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.Acel;
 import com.tanyoo.teroka.lib.DbTeroka.DataPemain;
@@ -215,7 +214,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		locMgr.requestLocationUpdates(locProvider, minTime, minDistance, this);
-
+		
 		super.onResume();
 	}
 	
@@ -279,8 +278,16 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	
 	
 	public void tombolToko(){
+		
+		//update potion dipakai
+		DbTeroka db = new DbTeroka(this);
+		db.open();
+		db.updateDPPotion(String.valueOf(petualanganModel.getCurrentPotion()));
+		db.close();
+		
 		Intent iToko = new Intent(getApplicationContext(), TokoActivity.class);
-		startActivity(iToko);
+		//startActivity(iToko);
+		startActivityForResult(iToko, 98);
 		vibrator.cancel();
 		
 		petualanganModel.setMonsterShow(false);
@@ -710,4 +717,24 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			}					
 		}
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		Log.i("activity result",String.valueOf(requestCode));
+		if ((requestCode == 98) && (resultCode == RESULT_OK)) {
+			
+			String kirimanJPotion = data.getStringExtra("kirim_jPotion");
+			
+			this.petualanganModel.setCurrentPotion(Integer.valueOf(kirimanJPotion));
+			
+			
+			Log.i("JumlahPotion", kirimanJPotion);
+		//add
+		}
+		
+		
+		
+	}
+	
 }

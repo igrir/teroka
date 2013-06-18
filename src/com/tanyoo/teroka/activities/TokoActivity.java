@@ -12,6 +12,7 @@ import com.tanyoo.teroka.lib.DbTeroka;
 import com.tanyoo.teroka.lib.GameActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -210,6 +211,20 @@ public class TokoActivity extends GameActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		
+		
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		
+		Intent i = getIntent();
+		i.putExtra("kirim_jPotion", mDataPemain.j_potion);
+		setResult(RESULT_OK, i);
+		
+		finish();
+		//super.onBackPressed();
 	}
 
 }

@@ -174,6 +174,13 @@ public class DbTeroka {
 		
 		db.update("DATA_PEMAIN", newValues, "ID = 1", null);
 	}
+	
+	public void updateDPPotion(String j_potion){
+		ContentValues newValues = new ContentValues();
+		newValues.put("J_POTION", j_potion);
+		
+		db.update("DATA_PEMAIN", newValues, "ID = 1", null);
+	}
 
 	/**
 	 * Update buat bertarung
