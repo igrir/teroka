@@ -228,6 +228,10 @@ public class Petualangan extends GameView {
 		if (eshop.isHit(posXUp, posYUp)) {
 			((PetualanganActivity)(this.context)).tombolToko();
 		}
+		
+		if (epotion.isHit(posXUp, posYUp)) {
+			((PetualanganActivity)(this.context)).tombolPotion();
+		}
 	}
 	@Override
 	public void draw(Canvas c, Paint cat) {
@@ -358,6 +362,10 @@ public class Petualangan extends GameView {
 	
 	public void setCurrentStar(int star){
 		this.txtStars = star;
+	}
+	
+	public void setCurrentPotion(int potion){
+		this.txtPotion = potion;
 	}
 	
 	public void setBarHealth(float percentHealth){

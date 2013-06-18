@@ -76,16 +76,17 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
-		petualanganModel = new PetualanganModel();
-		
-		petualanganModel.initPlayerHealth(100);
+	
 		
 		//ambil data pemain sebelumnya
 		DbTeroka db = new DbTeroka(this);
 		db.open();
 		this.mDataPemain = db.getDataPemain();
 		db.close();
+		
+		petualanganModel = new PetualanganModel();
+		petualanganModel.initPlayerHealth(100);
+		petualanganModel.setCurrentPotion(Integer.valueOf(mDataPemain.j_potion));
 		
 		//wake
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -238,7 +239,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				
 				//hapus ini saat publis. Contoh serang monster dengan touch
 				//harusnya nanti di accelerometer
-				serangMonster();
+				//serangMonster();
 				
 				break;
 		  case MotionEvent.ACTION_MOVE:  //bergerak
@@ -259,6 +260,20 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		}
 		gv.invalidate(); //draw ulang
 		return true;
+	}
+	
+	public void tombolPotion(){
+		
+		int jumlahPotion = this.petualanganModel.getCurrentPotion();
+		
+		if (jumlahPotion>0) {
+			jumlahPotion--;
+			this.petualanganModel.setCurrentPotion(jumlahPotion);
+			this.petualanganModel.revivePlayerHealth();
+		}
+		
+		Log.i("Potion", String.valueOf(jumlahPotion));
+		
 	}
 	
 	
@@ -325,6 +340,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//set tampilan star
 		gv.setCurrentStar(this.petualanganModel.currentStar);
 		
+		//set tampilan potion
+		gv.setCurrentPotion(this.petualanganModel.currentPotion);
+		
 	}
 	
 	
@@ -337,6 +355,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			String sj_step;
 			String smax_step;
 			String snow_armor;
+			String sj_potion;
 			
 			//initial
 			int j_step = Integer.valueOf(mDataPemain.j_step) + petualanganModel.getCurrentStep();
@@ -344,6 +363,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			int level = Integer.valueOf(mDataPemain.level);
 			int max_step = Integer.valueOf(mDataPemain.max_step);
 			int now_armor = Integer.valueOf(mDataPemain.now_armor);
+			int j_potion = petualanganModel.currentPotion;
 			
 			if (level < petualanganModel.getCurrentLevel()) {
 				level = petualanganModel.getCurrentLevel();
@@ -358,11 +378,11 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			sj_step = String.valueOf(j_step);
 			smax_step = String.valueOf(max_step);
 			snow_armor = String.valueOf(now_armor);
-			
+			sj_potion = String.valueOf(j_potion);
 			
 			DbTeroka db = new DbTeroka(this);
 			db.open();
-			db.updateDataPemain(slevel, sj_bintang, sj_step, smax_step, snow_armor);
+			db.updateDataPemain(slevel, sj_bintang, sj_step, smax_step, snow_armor, sj_potion);
 			db.close();
 			
 		}
@@ -558,6 +578,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		public int currentStep = 0;	//langkah yang diambil
 		public int currentStar = 0;
 		public int currentLevel = 0;
+		public int currentPotion = 0;
 		public boolean monsterShow = true;
 		public boolean petiShow = false;
 		public boolean battle = false;	//saat encounter monster
@@ -570,6 +591,14 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		public void setCurrentStar(int currentStar){
 			this.currentStar = currentStar;
+		}
+		
+		public void setCurrentPotion(int potion){
+			this.currentPotion = potion;
+		}
+		
+		public int getCurrentPotion(){
+			return this.currentPotion;
 		}
 		
 		public void setCurrentLevel(int level){

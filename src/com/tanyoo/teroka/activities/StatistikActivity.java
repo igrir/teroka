@@ -63,7 +63,7 @@ public class StatistikActivity extends GameActivity implements OnTouchListener{
 	public void updateUI(){
 		
 		int steps = Integer.valueOf(mDataPemain.j_step);
-		int j_bintang = Integer.valueOf("0");
+		int j_bintang = Integer.valueOf(mDataPemain.j_bintang);
 		int j_lose = Integer.valueOf(mDataPemain.j_lose);
 		int j_win = Integer.valueOf(mDataPemain.j_win);
 		

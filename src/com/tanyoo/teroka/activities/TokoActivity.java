@@ -95,7 +95,36 @@ public class TokoActivity extends GameActivity {
 				TextView tvJudul = (TextView) viewRow.findViewById(R.id.tvJudul);
 				tvJudul.setTextColor(Color.BLACK);
 				
+				DataListSenjata dataTerpilih = alDataLists.get(posisi);
 				
+				int bintangPemain = Integer.valueOf(mDataPemain.j_bintang);
+				int maxStepPemain = Integer.valueOf(mDataPemain.max_step);
+				int hargaSenjata  = Integer.valueOf(dataTerpilih.harga);
+				int syaratStep    = Integer.valueOf(dataTerpilih.syarat_step);
+				
+				if (bintangPemain-hargaSenjata >= 0 &&
+						maxStepPemain >= syaratStep) {
+					
+					//jika beli potion
+					if (dataTerpilih.nama.equalsIgnoreCase("Potion")) {
+						int j_bintang = Integer.valueOf(mDataPemain.j_bintang);
+						int j_potion  = Integer.valueOf(mDataPemain.j_potion);
+						j_bintang -= hargaSenjata;
+						j_potion++;
+						mDataPemain.j_bintang = String.valueOf(j_bintang);
+						mDataPemain.j_potion= String.valueOf(j_potion);
+						Log.i("senjata", dataTerpilih.nama);
+					}
+					
+				}
+				
+				System.out.println("bintangPemain:" + bintangPemain + 
+								   ",hargaSenjata:" + hargaSenjata +
+								   ",syaratStep:" + syaratStep +
+								   ",maxStep:" +maxStepPemain);
+				
+				
+				updateDatabase();
 				
 			}
 			
@@ -111,6 +140,13 @@ public class TokoActivity extends GameActivity {
 		DbTeroka db = new DbTeroka(this);
 		db.open();
 		mDataPemain = db.getDataPemain();
+		db.close();
+	}
+	
+	public void updateDatabase(){
+		DbTeroka db = new DbTeroka(this);
+		db.open();
+		db.updateDataPemain(mDataPemain.level, mDataPemain.j_bintang, mDataPemain.j_step, mDataPemain.max_step, mDataPemain.now_armor, mDataPemain.j_potion);
 		db.close();
 	}
 	

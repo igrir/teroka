@@ -25,6 +25,7 @@ public class DbTeroka {
 		public int id;
 		public String j_win;
 		public String j_lose;
+		public String j_potion;
 	}
 
 	//public static class 
@@ -105,7 +106,7 @@ public class DbTeroka {
 		Cursor cur = null;
 		DataPemain T = new DataPemain();
 
-		String[] COLS = new String[] {"ID","NAMA","LEVEL", "J_BINTANG", "J_STEP", "J_KALORI", "MAX_STEP", "NOW_ARMOR", "J_WIN","J_LOSE"};
+		String[] COLS = new String[] {"ID","NAMA","LEVEL", "J_BINTANG", "J_STEP", "J_KALORI", "MAX_STEP", "NOW_ARMOR", "J_WIN","J_LOSE","J_POTION"};
 		
 		cur = db.query("DATA_PEMAIN", COLS, null, null, null, null, null);
 		cur.moveToFirst();
@@ -119,13 +120,26 @@ public class DbTeroka {
 		T.now_armor = cur.getString(7);
 		T.j_win = cur.getString(8);
 		T.j_lose = cur.getString(9);
+		T.j_potion = cur.getString(10);
 		cur.close();
 		
 		
 		return T;
 	}
 	
-	public void updateDataPemain(int id,String nama, String level, String j_bintang,  String j_step,  String j_kalori,  String max_step,  String now_armor){
+	/**
+	 * Update full
+	 * @param id
+	 * @param nama
+	 * @param level
+	 * @param j_bintang
+	 * @param j_step
+	 * @param j_kalori
+	 * @param max_step
+	 * @param now_armor
+	 * @param j_potion
+	 */
+	public void updateDataPemain(int id,String nama, String level, String j_bintang,  String j_step,  String j_kalori,  String max_step,  String now_armor, String j_potion){
 		ContentValues newValues = new ContentValues();
 		newValues.put("ID", id);
 		newValues.put("NAMA", nama);
@@ -135,21 +149,38 @@ public class DbTeroka {
 		newValues.put("J_KALORI", j_kalori);
 		newValues.put("MAX_STEP", max_step);
 		newValues.put("NOW_ARMOR", now_armor);
+		newValues.put("J_POTION", j_potion);
 		
 		db.update("DATA_PEMAIN", newValues, "ID = 1", null);
 	}
 	
-	public void updateDataPemain(String level, String j_bintang,  String j_step,  String max_step,  String now_armor){
+	/**
+	 * Update buat petualangan
+	 * @param level
+	 * @param j_bintang
+	 * @param j_step
+	 * @param max_step
+	 * @param now_armor
+	 * @param j_potion
+	 */
+	public void updateDataPemain(String level, String j_bintang,  String j_step,  String max_step,  String now_armor, String j_potion){
 		ContentValues newValues = new ContentValues();
 		newValues.put("LEVEL", level);
 		newValues.put("J_BINTANG", j_bintang);
 		newValues.put("J_STEP", j_step);
 		newValues.put("MAX_STEP", max_step);
 		newValues.put("NOW_ARMOR", now_armor);
+		newValues.put("J_POTION", j_potion);
 		
 		db.update("DATA_PEMAIN", newValues, "ID = 1", null);
 	}
-	
+
+	/**
+	 * Update buat bertarung
+	 * @param j_bintang
+	 * @param j_win
+	 * @param j_lose
+	 */
 	public void updateDataPemain(String j_bintang, String j_win, String j_lose){
 		ContentValues newValues = new ContentValues();
 		newValues.put("J_BINTANG", j_bintang);
