@@ -12,13 +12,13 @@
         android:id="@+id/lvToko"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/tvStatusBeli"
         android:layout_centerHorizontal="true" >
 
     </ListView>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvStatusBeli"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/lvToko"
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/lvToko"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/tvStatusBeli"
         android:text="0" />
 
 </RelativeLayout>

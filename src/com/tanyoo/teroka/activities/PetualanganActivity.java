@@ -185,6 +185,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		mSensorManager.unregisterListener(this);
 		
 		vibratePhone(false);
+		updateDatabase();
 		super.onDestroy();
 	}
 	
@@ -475,10 +476,11 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				}else{
 					vibratePhone(false);
 					
+					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
 					//cek  monster nggak kena
 					if (petualanganModel.battle == false) {
 						
-						//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
+						
 						((Petualangan)gv).walk(5);
 						
 						if (petualanganModel.getMonsterShow()) {
@@ -490,13 +492,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 							gv.movePeti(15);
 						}
 						
-						this.petualanganModel.incCurrentStep();
-						
-						
-						//!!!!! Akhir testing
-						
+						this.petualanganModel.incCurrentStep();						
 					}
-							
+					//!!!!! Akhir testing	
 				}
 				
 			}
@@ -567,7 +565,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			petualanganModel.setPetiShow(false);
 			
 			//dapat bintang
-			int banyakBintang = (int)(1+Math.ceil(Math.random()*4));
+			int banyakBintang = (int)(1+Math.ceil(Math.random()*100));
 			petualanganModel.setCurrentStar(this.petualanganModel.currentStar+banyakBintang);
 			
 		}

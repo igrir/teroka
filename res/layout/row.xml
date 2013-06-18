@@ -16,7 +16,13 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="0.65"
             android:orientation="vertical" >
 
             <TextView
@@ -26,8 +32,47 @@
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Harga"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvKeterangan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
             <TextView
-                android:id="@+id/tvKeterangan"
+                android:id="@+id/tvStatusBeli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sudah Beli" />
+
+            <TextView
+                android:id="@+id/keteranganMaxStep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max Step"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvInfoMaxText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />

@@ -13,6 +13,7 @@ import com.tanyoo.teroka.entities.EBintangStatistik;
 import com.tanyoo.teroka.entities.EButtonBack;
 import com.tanyoo.teroka.entities.ECaloriStatistik;
 import com.tanyoo.teroka.entities.ELevelStatistik;
+import com.tanyoo.teroka.entities.EMaxSteps;
 import com.tanyoo.teroka.entities.EStatistikBar;
 import com.tanyoo.teroka.entities.EStepStatistik;
 import com.tanyoo.teroka.lib.GameView;
@@ -33,6 +34,7 @@ public class Statistik extends GameView {
 	ELevelStatistik elevelstatistik;
 	EBintangStatistik ebintangstatistik;
 	EStepStatistik estepstatistik;
+	EMaxSteps eMaxSteps;
 //	ECaloriStatistik ecaloristatistik;
 	EBatleWin ebatlewin;
 	EBatleLose ebatlelose;
@@ -43,9 +45,14 @@ public class Statistik extends GameView {
 	public int txtStars=0;
 	public int txtWin=0;
 	public int txtLose=0;
+	public int txtMaxSteps=0;
 	
 	public void setSteps(int steps){
 		this.txtSteps = steps;
+	}
+	
+	public void setMaxSteps(int maxSteps){
+		this.txtMaxSteps = maxSteps;
 	}
 	
 	public void setLevel(int level){
@@ -82,6 +89,7 @@ public class Statistik extends GameView {
 //		ecaloristatistik = new 	ECaloriStatistik(getResources());
 		ebatlewin = new EBatleWin(getResources());
 		ebatlelose = new EBatleLose(getResources());
+		eMaxSteps = new EMaxSteps(getResources());
 		
 		addEntityCollection(eBackground,
 							estatistikbar,
@@ -90,6 +98,7 @@ public class Statistik extends GameView {
 							elevelstatistik,
 							ebintangstatistik,
 							estepstatistik,
+							eMaxSteps,
 //							ecaloristatistik,
 							ebatlewin,
 							ebatlelose			
@@ -109,6 +118,7 @@ public class Statistik extends GameView {
 		elevelstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		ebintangstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		estepstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
+		eMaxSteps.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 //		ecaloristatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		ebatlewin.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
 		ebatlelose.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));
@@ -121,6 +131,7 @@ public class Statistik extends GameView {
 		elevelstatistik.setPosition(getPercentWidth(9), getPercentHeight(16));
 		ebintangstatistik.setPosition(getPercentWidth(9), getPercentHeight(30));
 		estepstatistik.setPosition(getPercentWidth(9), getPercentHeight(44));
+		eMaxSteps.setPosition(getPercentWidth(9), getPercentHeight(58));
 //		ecaloristatistik.setPosition(getPercentWidth(9), getPercentHeight(58));
 		ebatlewin.setPosition(getPercentWidth(9), getPercentHeight(72));
 		ebatlelose.setPosition(getPercentWidth(9), getPercentHeight(86));
@@ -185,11 +196,11 @@ public class Statistik extends GameView {
 				cat.setTextSize(getPercentFontSize(150));
 				c.drawText(String.valueOf(txtLevel), elevelstatistik.x+getPercentFontSize(500), elevelstatistik.y+getPercentFontSize(300), cat);
 				
-				//calorie
-//				cat.setTextSize(getPercentFontSize(70));
-//				c.drawText("TOTAL BURNED CALORIE", ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(100), cat);
-//				cat.setTextSize(getPercentFontSize(150));
-//				c.drawText(String.valueOf(txtCalorie), ecaloristatistik.x+getPercentFontSize(500), ecaloristatistik.y+getPercentFontSize(300), cat);
+				//max steps
+				cat.setTextSize(getPercentFontSize(70));
+				c.drawText("Max steps", eMaxSteps.x+getPercentFontSize(500), eMaxSteps.y+getPercentFontSize(100), cat);
+				cat.setTextSize(getPercentFontSize(150));
+				c.drawText(String.valueOf(txtMaxSteps), eMaxSteps.x+getPercentFontSize(500), eMaxSteps.y+getPercentFontSize(300), cat);
 				
 				
 				//stars
@@ -200,7 +211,7 @@ public class Statistik extends GameView {
 				
 				//step
 				cat.setTextSize(getPercentFontSize(70));
-				c.drawText("MAX STEPS", estepstatistik.x+getPercentFontSize(500), estepstatistik.y+getPercentFontSize(100), cat);
+				c.drawText("STEPS", estepstatistik.x+getPercentFontSize(500), estepstatistik.y+getPercentFontSize(100), cat);
 				cat.setTextSize(getPercentFontSize(150));
 				c.drawText(String.valueOf(txtSteps), estepstatistik.x+getPercentFontSize(500), estepstatistik.y+getPercentFontSize(300), cat);
 				

@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TokoActivity extends GameActivity {
 	
@@ -80,9 +81,13 @@ public class TokoActivity extends GameActivity {
 		
 		updateDataList();
 		
+		//set bintang
+		TextView tvBintang = (TextView) findViewById(R.id.tvBanyakBintang);
+		tvBintang.setText(String.valueOf(mDataPemain.j_bintang));
+		
 		ListView lv = (ListView)findViewById(R.id.lvToko);
 		
-		adapter = new DataAdapter(this, R.layout.row, alDataLists);
+		adapter = new DataAdapter(this, R.layout.row, alDataLists, Integer.valueOf(mDataPemain.now_armor));
 		
 		lv.setAdapter(adapter);
 		lv.setClickable(true);
@@ -101,9 +106,11 @@ public class TokoActivity extends GameActivity {
 				int maxStepPemain = Integer.valueOf(mDataPemain.max_step);
 				int hargaSenjata  = Integer.valueOf(dataTerpilih.harga);
 				int syaratStep    = Integer.valueOf(dataTerpilih.syarat_step);
+				int sudahDibeli   = Integer.valueOf(dataTerpilih.status);
 				
 				if (bintangPemain-hargaSenjata >= 0 &&
-						maxStepPemain >= syaratStep) {
+						maxStepPemain >= syaratStep &&
+						sudahDibeli != 1) {
 					
 					//jika beli potion
 					if (dataTerpilih.nama.equalsIgnoreCase("Potion")) {
@@ -114,8 +121,44 @@ public class TokoActivity extends GameActivity {
 						mDataPemain.j_bintang = String.valueOf(j_bintang);
 						mDataPemain.j_potion= String.valueOf(j_potion);
 						Log.i("senjata", dataTerpilih.nama);
+					}else{
+					//jika beli senjata
+						int j_bintang = Integer.valueOf(mDataPemain.j_bintang);
+						String now_armor  = mDataPemain.now_armor;
+						String nama_armor = dataTerpilih.nama;
+						j_bintang -= hargaSenjata;
+						now_armor = dataTerpilih.id;
+						mDataPemain.j_bintang = String.valueOf(j_bintang);
+						mDataPemain.now_armor = now_armor;
+						Log.i("senjata", dataTerpilih.nama);
+						
+						//update senjata telah dibeli
+						DbTeroka db = new DbTeroka(getApplicationContext());
+						db.open();
+						db.updateSenjata(Integer.valueOf(dataTerpilih.id), 1);
+						db.close();
+						
+						Toast t = Toast.makeText(getApplicationContext(), "Senjata " + nama_armor + " telah dibeli!", Toast.LENGTH_SHORT);
+						t.show();
 					}
 					
+				}else if (sudahDibeli == 1){
+					//jika pilih senjata sudah dibeli
+					String now_armor  = mDataPemain.now_armor;
+					now_armor = dataTerpilih.id;
+					String nama_armor = dataTerpilih.nama;
+					mDataPemain.now_armor = now_armor;
+					Log.i("senjata", dataTerpilih.nama);
+					
+					Toast t = Toast.makeText(getApplicationContext(), "Senjata " + nama_armor + " telah dipilih", Toast.LENGTH_SHORT);
+					t.show();
+					
+				}else if (bintangPemain-hargaSenjata < 0) {
+					Toast t = Toast.makeText(getApplicationContext(), "Bintang kamu tidak cukup", Toast.LENGTH_SHORT);
+					t.show();
+				}else if (maxStepPemain < syaratStep ) {
+					Toast t = Toast.makeText(getApplicationContext(), "Maksimum step kamu kurang jauh. Berpetualanglah lebih jauh!", Toast.LENGTH_SHORT);
+					t.show();
 				}
 				
 				System.out.println("bintangPemain:" + bintangPemain + 
@@ -125,15 +168,28 @@ public class TokoActivity extends GameActivity {
 				
 				
 				updateDatabase();
+				updateTampilan();
 				
 			}
 			
 		});
 		
+		
+		
+	}
+	
+	public void updateTampilan(){
+		getDataPemain();
+		updateDataList();
 		//set bintang
 		TextView tvBintang = (TextView) findViewById(R.id.tvBanyakBintang);
 		tvBintang.setText(String.valueOf(mDataPemain.j_bintang));
 		
+		ListView lv = (ListView)findViewById(R.id.lvToko);
+		
+		adapter.setNowArmor(Integer.valueOf(mDataPemain.now_armor));
+		
+		lv.setAdapter(adapter);
 	}
 	
 	public void getDataPemain(){

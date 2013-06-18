@@ -203,6 +203,14 @@ public class DbTeroka {
 		db.execSQL(RelasiOpenHelper.ADD_SENJATA_3);
 	}
 	
+	
+	public long updateSenjata(int id, int status){
+		ContentValues updateValues = new ContentValues();
+		updateValues.put("STATUS", status);
+		return db.update("DATA_SENJATA", updateValues, "ID_ARMOR = '"+id+"'", null);
+		
+	}
+	
 	public ArrayList<DataListSenjata> getAllSenjata(){
 		
 		Cursor cur = null;
@@ -218,7 +226,7 @@ public class DbTeroka {
 				data.setNama(cur.getString(1));
 				data.setStatus(cur.getString(2));
 				data.setHarga(cur.getString(3));
-				data.setSaratStep(cur.getString(4));
+				data.setSyaratStep(cur.getString(4));
 				list.add(data);
 			}while(cur.moveToNext());
 		}

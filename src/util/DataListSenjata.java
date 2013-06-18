@@ -59,11 +59,11 @@ public class DataListSenjata implements Serializable{
 		this.harga = harga;
 	}
 	
-	public String getSaratStep(){
-		return syarat_step;
+	public String getSyaratStep(){
+		return this.syarat_step;
 	}
 	
-	public void setSaratStep(String sarat_step){
+	public void setSyaratStep(String sarat_step){
 		this.syarat_step= sarat_step;
 	}
 	
