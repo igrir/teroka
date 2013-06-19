@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.tanyoo.teroka.entities.EBarDistance;
 import com.tanyoo.teroka.entities.EBarHealth;
@@ -91,6 +92,7 @@ public class Bertarung extends GameView {
 	@Override
 	public void onDraw(Canvas c)
 	{		
+		Log.i("viewBertarung", "Tampilkan bertarung");
 		super.onDraw(c);
 	}
 	@Override

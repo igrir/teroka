@@ -515,24 +515,24 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	
 	
 	private void vibratePhone(boolean status){
-		
-		if (status) {
-			//buat bergetar
-			if (this.vibrateStatus  == 0) {
-				if (vibrator.hasVibrator()) {
-					long pattern[] = {500l, 1000l};
-					vibrator.vibrate(pattern, 0);
-				}
-				this.vibrateStatus = 1;
-			}
-			
-		}else{
-			if (vibrator.hasVibrator()) {
-				vibrator.cancel();
-				this.vibrateStatus = 0;
-			}
-			
-		}
+//		
+//		if (status) {
+//			//buat bergetar
+//			if (this.vibrateStatus  == 0) {
+//				if (vibrator.hasVibrator()) {
+//					long pattern[] = {500l, 1000l};
+//					vibrator.vibrate(pattern, 0);
+//				}
+//				this.vibrateStatus = 1;
+//			}
+//			
+//		}else{
+//			if (vibrator.hasVibrator()) {
+//				vibrator.cancel();
+//				this.vibrateStatus = 0;
+//			}
+//			
+//		}
 
 	}
 	

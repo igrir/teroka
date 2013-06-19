@@ -17,10 +17,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
+
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.BluetoothTerokaService;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
+import com.tanyoo.teroka.view.Bertarung;
 import com.tanyoo.teroka.view.MenuBertarung;
 
 public class BertarungActivity extends GameActivity implements OnTouchListener{
@@ -59,6 +62,9 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 	
 	// views
 	public MenuBertarung mu;
+	public Bertarung b;
+	
+	ViewFlipper vf;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +80,15 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 		
 		//inisiaslisi graphic view
 		mu = new MenuBertarung(this);
-			
+		
+		
 		gv = mu;
 		
 		//set aksi yang dilakukan oleh touch dilakukan siapa
 		gv.setOnTouchListener(this);
 
+		
+		
 		//set tampilan yang muncul
 		setContentView(gv);
 		// Get local Bluetooth adapter
@@ -157,6 +166,14 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
         if(D) Log.e(TAG, "--- ON DESTROY ---");
     }
 
+    @Override
+    public void run() {
+    	// TODO Auto-generated method stub
+    	super.run();
+    	
+    	
+    }
+    
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		//passing posisi ke graphicsview
@@ -222,19 +239,24 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
                 byte[] writeBuf = (byte[]) msg.obj;
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
-                mConversationArrayAdapter.add("Me:  " + writeMessage);
+                Toast.makeText(getApplicationContext(),writeMessage, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_READ:
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
-                mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
+                Toast.makeText(getApplicationContext(),readMessage, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
                 mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
                 Toast.makeText(getApplicationContext(), "Connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                BertarungActivity.this.sendMessage("1000");
+                
+                gv.shutDownThread();
+                setContentView(b);
+                
                 break;
             case MESSAGE_TOAST:
                 Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
@@ -296,7 +318,30 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 		ensureDiscoverable();
 		//mTerokaService.connect();
 		Toast.makeText(getApplicationContext(), "WAITING FOR BLUETHOOT", Toast.LENGTH_LONG).show();
-		mTerokaService.start();
+		//mTerokaService.start();
+		
+		
+		//mengubah tampilan menjadi bertarung
+		//setContentView(b);
 	}
+	/**
+     * Sends a message.
+     * @param message  A string of text to send.
+     */
+    private void sendMessage(String message) {
+        // Check that we're actually connected before trying anything
+        if (mTerokaService.getState() != BluetoothTerokaService.STATE_CONNECTED) {
+            Toast.makeText(this, "Teu Konek", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check that there's actually something to send
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothChatService to write
+            byte[] send = message.getBytes();
+            mTerokaService.write(send);
+
+        }
+    }
 
 }
