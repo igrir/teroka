@@ -61,8 +61,8 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 	private GameView gv;
 	
 	// views
-	public MenuBertarung mu;
-	public Bertarung b;
+	//public MenuBertarung mu;
+	public Bertarung mu;
 	
 	ViewFlipper vf;
 	
@@ -79,8 +79,8 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		//inisiaslisi graphic view
-		mu = new MenuBertarung(this);
-		
+		//mu = new MenuBertarung(this);
+		mu = new Bertarung(this);
 		
 		gv = mu;
 		
@@ -170,7 +170,12 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
     public void run() {
     	// TODO Auto-generated method stub
     	super.run();
-    	
+    	if(mTerokaService.getState()== BluetoothTerokaService.STATE_CONNECTED){
+    		
+    		
+    		
+    		
+    	}
     	
     }
     
@@ -254,8 +259,6 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 BertarungActivity.this.sendMessage("1000");
                 
-                gv.shutDownThread();
-                setContentView(b);
                 
                 break;
             case MESSAGE_TOAST:
@@ -343,5 +346,4 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 
         }
     }
-
 }
