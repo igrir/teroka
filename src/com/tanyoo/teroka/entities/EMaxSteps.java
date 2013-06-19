@@ -10,7 +10,7 @@ public class EMaxSteps extends Entity {
 	public EMaxSteps(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.steps, "logo");
+		addSprite(R.drawable.maxsteps, "logo");
 		setSprite("logo");
 	}
 
