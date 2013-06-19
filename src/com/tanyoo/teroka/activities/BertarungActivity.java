@@ -3,8 +3,14 @@ package com.tanyoo.teroka.activities;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,13 +26,15 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.Acel;
 import com.tanyoo.teroka.lib.BluetoothTerokaService;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
+import com.tanyoo.teroka.lib.SoundGame;
 import com.tanyoo.teroka.view.Bertarung;
 import com.tanyoo.teroka.view.MenuBertarung;
 
-public class BertarungActivity extends GameActivity implements OnTouchListener{
+public class BertarungActivity extends GameActivity  implements OnTouchListener, SensorEventListener{
 	// Debugging
     private static final String TAG = "BluetoothChat";
     private static final boolean D = true;
@@ -64,7 +72,13 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 	//public MenuBertarung mu;
 	public Bertarung mu;
 	
-	ViewFlipper vf;
+	// kontrol accelerometer 
+	private SensorManager mSensorManager;
+	private Sensor mSensor;
+	private Acel acel;
+	
+	//sound
+		SoundGame sound; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +116,16 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
         }
 
 //			mu.startThread();
+        
+      //Sensor
+		this.acel = new Acel();
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+			mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+			mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME);
+			
+		}
+		
 	}
 	@Override
     public void onStart() {
@@ -346,4 +370,48 @@ public class BertarungActivity extends GameActivity implements OnTouchListener{
 
         }
     }
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		// TODO Auto-generated method stub
+		
+		double ax=0,ay=0,az=0;
+		
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+			ax = event.values[0];
+			ay = event.values[1];
+			az = event.values[2];
+		}
+		//cek attack
+		if (acel.attack(ax)){
+			if(acel.attackStat==true){ //jika attack 
+				//sound.soundAttack(); //aktifkan suara attack
+				sound.playSound(SoundGame.SOUND_SWING);
+				playerAttack();
+			}					
+		}else if (acel.defense(az)) {
+			sound.playSound(SoundGame.SOUND_DEFENSE);
+			playerDefense();
+		}
+	}
+	
+	/**
+	 * Kirim data player menyerang
+	 */
+	public void playerAttack(){
+		
+	}
+	
+	/**
+	 * Kirim data player bertahan
+	 */
+	public void playerDefense(){
+		
+	}
+	
+	
 }

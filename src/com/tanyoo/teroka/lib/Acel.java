@@ -36,7 +36,7 @@ public class Acel extends Activity {
 	}
 	
 	public boolean defense (double az){
-		if(az < 0){
+		if(az < -5){
 			defenseStat = true;
 		}else{
 			defenseStat = false;

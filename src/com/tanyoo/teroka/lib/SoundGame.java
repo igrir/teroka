@@ -17,6 +17,8 @@ public class SoundGame {
 	MediaPlayer mp;
 	
 	public static final int SOUND_SWING = 1;
+	public static final int SOUND_DEFENSE = 2;
+	public static final int SOUND_MONSTER = 3;
 	
 	private SoundPool soundPool;
 	private HashMap<Integer, Integer> soundPoolMap;
@@ -30,6 +32,8 @@ public class SoundGame {
 		soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
 		soundPoolMap = new HashMap<Integer, Integer>();
 		soundPoolMap.put(SOUND_SWING, soundPool.load(this.con, R.raw.sword_swing, 1));
+		soundPoolMap.put(SOUND_DEFENSE, soundPool.load(this.con, R.raw.sound_defense, 1));
+		soundPoolMap.put(SOUND_MONSTER, soundPool.load(this.con, R.raw.sound_monster, 1));
 	}
 	
 //	public void soundAttack(){		

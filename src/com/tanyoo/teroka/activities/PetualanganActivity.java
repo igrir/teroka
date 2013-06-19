@@ -460,8 +460,10 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				//cek kalau karakter ketemu monster
 				if (petualanganModel.battle == true) {
 					
-					//diserang monster
-					serangPlayer();
+					if (this.petualanganModel.getDefenseStatus()==false) {
+						//diserang monster
+						serangPlayer();
+					}
 					
 					//cek kalau monster sudah mati 
 					if (petualanganModel.getCurrentMonsterHealth() <= 0) {
@@ -558,6 +560,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				int playerHealth = this.petualanganModel.getPlayerHealth();
 				this.petualanganModel.setPlayerHealth(playerHealth-serangan);
 				
+				sound.playSound(SoundGame.SOUND_MONSTER);
+				
 				Log.i("serangPlayer", String.valueOf(serangan));
 			}
 		}
@@ -593,6 +597,16 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		public int playerHealth = 100;	//health pemain. bisa diset sesuai level
 		public int playerHealthFull;	//health pemain untuk disimpan biar langsung revive
+		
+		public boolean defenseStatus = false;
+		
+		public void setDefenseStatus(boolean def){
+			this.defenseStatus = def;
+		}
+		
+		public boolean getDefenseStatus(){
+			return this.defenseStatus;
+		}
 		
 		public void setCurrentStar(int currentStar){
 			this.currentStar = currentStar;
@@ -708,15 +722,23 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		}
 		//cek attack
 		if (acel.attack(ax)){
-			if(acel.attackStat==true){ //jika attack 
+//			if(acel.attackStat==true){ //jika attack 
 				//sound.soundAttack(); //aktifkan suara attack
 				sound.playSound(SoundGame.SOUND_SWING);
 				
 				serangMonster();
 				serangPeti();
-			}					
+//			}					
+		}else if (acel.defense(az)) {
+			sound.playSound(SoundGame.SOUND_DEFENSE);
+			this.petualanganModel.setDefenseStatus(true);
+		}else{
+			this.petualanganModel.setDefenseStatus(false);
 		}
 	}
+	
+	
+	
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
