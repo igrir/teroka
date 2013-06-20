@@ -1,27 +1,24 @@
 package com.tanyoo.teroka.view;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
-import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.activities.BertarungActivity;
-import com.tanyoo.teroka.entities.EBarDistance;
 import com.tanyoo.teroka.entities.EBarEmpty;
 import com.tanyoo.teroka.entities.EBarHealth;
 import com.tanyoo.teroka.entities.EBarHealthMusuh;
 import com.tanyoo.teroka.entities.EButtonClient;
 import com.tanyoo.teroka.entities.EButtonHost;
-import com.tanyoo.teroka.entities.EDistance;
 import com.tanyoo.teroka.entities.EGameView;
 import com.tanyoo.teroka.entities.EHealthMusuh;
 import com.tanyoo.teroka.entities.EHealthPoint;
 import com.tanyoo.teroka.entities.EInfobar;
 import com.tanyoo.teroka.entities.EKarakter;
 import com.tanyoo.teroka.entities.ELose;
+import com.tanyoo.teroka.entities.EPlatform;
 import com.tanyoo.teroka.entities.EWin;
 import com.tanyoo.teroka.lib.GameView;
 
@@ -42,6 +39,7 @@ public class Bertarung extends GameView {
 	public EButtonClient ebuttonclient;
 	public EWin ewin;
 	public ELose elose;
+	public EPlatform eplatform;
 	
 	
 	public EBarEmpty ebaremptyMusuh;
@@ -72,6 +70,7 @@ public class Bertarung extends GameView {
 		ebaremptyPlayer = new EBarEmpty(getResources());
 		ewin = new EWin(getResources());
 		elose = new ELose(getResources());
+		eplatform = new EPlatform(getResources());
 		
 		addEntityCollection(einfo,
 				  ehealthpoint,
@@ -86,7 +85,8 @@ public class Bertarung extends GameView {
 				  ebaremptyMusuh,
 				  ebaremptyPlayer,
 				  ewin,
-				  elose);
+				  elose,
+				  eplatform);
 	}
 	
 	
@@ -108,6 +108,7 @@ public class Bertarung extends GameView {
 		ebuttonclient.resizeImage((int)getPercentWidth(42), (int)getPercentHeight(10));
 		ewin.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(25));
 		elose.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(25));
+		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		
 		//posisi
 		einfo.setPosition(getPercentWidth(0), getPercentHeight(0));
@@ -118,12 +119,13 @@ public class Bertarung extends GameView {
 		ebarhealthmusuh.setPosition(getPercentWidth(27), getPercentHeight(46));
 		ebaremptyPlayer.setPosition(ebarhealth.x+ebarhealth.width, getPercentHeight(36));
 		ebaremptyMusuh.setPosition(ebarhealthmusuh.x+ebarhealthmusuh.width, getPercentHeight(46));
-		ekarakter1.setPosition(getPercentWidth(40), getPercentHeight(20));
-		ekarakter2.setPosition(getPercentWidth(60), getPercentHeight(20));
+		ekarakter1.setPosition(getPercentWidth(40), getPercentHeight(21));
+		ekarakter2.setPosition(getPercentWidth(60), getPercentHeight(21));
 		ebuttonhost.setPosition(getPercentWidth(29), getPercentHeight(70));
 		ebuttonclient.setPosition(getPercentWidth(29), getPercentHeight(85));
 		ewin.setPosition(getPercentWidth(100), getPercentHeight(10));
 		elose.setPosition(getPercentWidth(100), getPercentHeight(10));
+		eplatform.setPosition(getPercentWidth(0), getPercentHeight(30));
 		
 		ready = true;
 	}

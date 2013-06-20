@@ -10,7 +10,7 @@ public class EBarHealthMusuh extends Entity {
 	public EBarHealthMusuh(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.bar_health_complete, "logo");
+		addSprite(R.drawable.bar_health_complete2, "logo");
 		setSprite("logo");
 	}
 
