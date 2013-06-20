@@ -19,6 +19,9 @@ public class SoundGame {
 	public static final int SOUND_SWING = 1;
 	public static final int SOUND_DEFENSE = 2;
 	public static final int SOUND_MONSTER = 3;
+	public static final int SOUND_WIN = 4;
+	public static final int SOUND_LOSE = 5;
+	public static final int SOUND_BACKSOUND = 6;
 	
 	private SoundPool soundPool;
 	private HashMap<Integer, Integer> soundPoolMap;
@@ -34,6 +37,10 @@ public class SoundGame {
 		soundPoolMap.put(SOUND_SWING, soundPool.load(this.con, R.raw.sword_swing, 1));
 		soundPoolMap.put(SOUND_DEFENSE, soundPool.load(this.con, R.raw.sound_defense, 1));
 		soundPoolMap.put(SOUND_MONSTER, soundPool.load(this.con, R.raw.sound_monster, 1));
+		soundPoolMap.put(SOUND_WIN, soundPool.load(this.con, R.raw.win_2, 1));
+		soundPoolMap.put(SOUND_LOSE, soundPool.load(this.con, R.raw.lose_1, 1));
+		soundPoolMap.put(SOUND_BACKSOUND, soundPool.load(this.con, R.raw.backsound, 1));
+	
 	}
 	
 //	public void soundAttack(){		
