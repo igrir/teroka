@@ -6,13 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-import com.tanyoo.teroka.activities.Help2Activity;
-//import com.tanyoo.teroka.activities.HelpActivity;
-import com.tanyoo.teroka.entities.EBackHelp;
+import com.tanyoo.teroka.activities.HelpActivity;
 import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.entities.ELogo;
-import com.tanyoo.teroka.entities.ENextHelp;
 import com.tanyoo.teroka.entities.EPreviewGame1;
 import com.tanyoo.teroka.entities.EPreviewGame2;
 import com.tanyoo.teroka.entities.EPreviewGame3;
