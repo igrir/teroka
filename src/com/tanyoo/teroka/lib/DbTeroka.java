@@ -73,6 +73,21 @@ public class DbTeroka {
 	}
 	
 	
+	public String getHargaArmorByIdArmor(int id_armor){
+		String hargaArmor = "";
+		
+		Cursor cur = null;
+		String[] COLS = new String[] {"ID_ARMOR", "HARGA"};
+		
+		cur = db.query("DATA_SENJATA", COLS, "ID_ARMOR = '"+id_armor + "'", null, null, null, null);
+		if (cur.getCount() > 0) {
+			cur.moveToFirst();
+			hargaArmor = cur.getString(1);
+		}
+		
+		return hargaArmor;
+	}
+	
 	/**
 	 * Tidak digunakan, karena pemain cuma ada 1
 	 * @param nama

@@ -26,7 +26,8 @@ public class Acel extends Activity {
 			mLastX = ax;
 //			mLastY = ay;
 //			mLastZ = az;
-			if (deltaX > 8) {
+			
+			if (deltaX > 4) {
 				attackStat = true;
 			}else{
 				attackStat = false;

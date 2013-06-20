@@ -64,13 +64,13 @@ public class HelpActivity extends GameActivity implements OnTouchListener{
 	}
 	
 	public void tombolNext(){
-		Intent iA = new Intent(getApplicationContext(), Help2Activity.class);
-		startActivity(iA);
+//		Intent iA = new Intent(getApplicationContext(), Help2Activity.class);
+//		startActivity(iA);
 	}
 	
 	public void tombolBack(){
-		Intent i = new Intent(getApplicationContext(), MainActivity.class);
-		startActivity(i);
+//		Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//		startActivity(i);
 	}
 	
 	/**

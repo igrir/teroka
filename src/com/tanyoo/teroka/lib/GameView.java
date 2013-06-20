@@ -210,7 +210,7 @@ public abstract class GameView extends SurfaceView implements SurfaceHolder.Call
 	public boolean getReady(){
 		return ready;
 	}
-	
+		
 	public void setReady(boolean b){
 		this.ready = b;
 	}

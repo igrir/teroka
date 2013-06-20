@@ -238,9 +238,9 @@ public class Bertarung extends GameView {
 						   "serangan: "+this.serangan+
 						   "health: "+this.health;
 		
-		cat.setTextSize(getPercentFontSize(80));
-		c.drawText(str_musuh , getPercentHeight(0), getPercentWidth(50), cat);
-		c.drawText(str_kita , getPercentHeight(0), getPercentWidth(80), cat);
+//		cat.setTextSize(getPercentFontSize(80));
+//		c.drawText(str_musuh , getPercentHeight(0), getPercentWidth(50), cat);
+//		c.drawText(str_kita , getPercentHeight(0), getPercentWidth(80), cat);
 	}
 	
 	public void setMusuh(String berdiri, String serangan, String health){

@@ -32,6 +32,8 @@ public class TokoActivity extends GameActivity {
 	DataAdapter adapter;
 	DataPemain mDataPemain;
 	
+	public String nowArmor;
+	
 	public TokoActivity() {
 //		alDataLists.add(new DataListSenjata("Senjata 1", "belum", "1000", "10"));
 //		alDataLists.add(new DataListSenjata("Senjata 1", "belum", "1000", "10"));
@@ -122,6 +124,9 @@ public class TokoActivity extends GameActivity {
 						mDataPemain.j_bintang = String.valueOf(j_bintang);
 						mDataPemain.j_potion= String.valueOf(j_potion);
 						Log.i("senjata", dataTerpilih.nama);
+						
+						Toast t = Toast.makeText(getApplicationContext(), "Potion telah dibeli!", Toast.LENGTH_SHORT);
+						t.show();
 					}else{
 					//jika beli senjata
 						int j_bintang = Integer.valueOf(mDataPemain.j_bintang);
@@ -141,6 +146,8 @@ public class TokoActivity extends GameActivity {
 						
 						Toast t = Toast.makeText(getApplicationContext(), "Senjata " + nama_armor + " telah dibeli!", Toast.LENGTH_SHORT);
 						t.show();
+						
+						nowArmor = dataTerpilih.id;
 					}
 					
 				}else if (sudahDibeli == 1){
@@ -153,6 +160,8 @@ public class TokoActivity extends GameActivity {
 					
 					Toast t = Toast.makeText(getApplicationContext(), "Senjata " + nama_armor + " telah dipilih", Toast.LENGTH_SHORT);
 					t.show();
+					
+					nowArmor = dataTerpilih.id;
 					
 				}else if (bintangPemain-hargaSenjata < 0) {
 					Toast t = Toast.makeText(getApplicationContext(), "Bintang kamu tidak cukup", Toast.LENGTH_SHORT);
@@ -198,6 +207,9 @@ public class TokoActivity extends GameActivity {
 		db.open();
 		mDataPemain = db.getDataPemain();
 		db.close();
+		
+		nowArmor = mDataPemain.now_armor;
+		
 	}
 	
 	public void updateDatabase(){
@@ -221,6 +233,7 @@ public class TokoActivity extends GameActivity {
 		
 		Intent i = getIntent();
 		i.putExtra("kirim_jPotion", mDataPemain.j_potion);
+		i.putExtra("kirim_currentArmor", nowArmor);
 		setResult(RESULT_OK, i);
 		
 		finish();

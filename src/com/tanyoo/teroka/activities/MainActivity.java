@@ -106,7 +106,6 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 	 */
 	public void tombolPetualangan(){
 		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
-		
 		startActivity(iAbout);
 	}
 	
