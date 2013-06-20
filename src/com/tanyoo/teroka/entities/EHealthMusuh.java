@@ -9,7 +9,7 @@ public class EHealthMusuh extends Entity{
 	public EHealthMusuh(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.logo, "logo");
+		addSprite(R.drawable.ic_health, "logo");
 		setSprite("logo");
 	}
 }

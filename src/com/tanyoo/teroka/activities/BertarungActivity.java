@@ -32,9 +32,19 @@ import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
 import com.tanyoo.teroka.lib.SoundGame;
 import com.tanyoo.teroka.view.Bertarung;
-import com.tanyoo.teroka.view.MenuBertarung;
 
 public class BertarungActivity extends GameActivity  implements OnTouchListener, SensorEventListener{
+
+	public int health;
+	public int musuhHealth;
+	public int healthFull;
+	public int statusMusuhBerdiri;
+	public int statusBerdiri;
+	public int attackMusuh;
+	public int attack;
+	
+	
+	
 	// Debugging
     private static final String TAG = "BluetoothChat";
     private static final boolean D = true;
@@ -66,7 +76,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 	// mesin
     private BluetoothTerokaService mTerokaService = null;
     
-	private GameView gv;
+	private Bertarung gv;
 	
 	// views
 	//public MenuBertarung mu;
@@ -78,12 +88,19 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 	private Acel acel;
 	
 	//sound
-		SoundGame sound; 
+	SoundGame sound;
+	
+	public int statusDefense;
+		
+	public boolean statusBTConnected = false;
+	public int statusGame; 	//0 = mulai, 1 = bermain, 2 = game over
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		
+		this.statusBTConnected = false;
 		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -125,6 +142,9 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 			mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_GAME);
 			
 		}
+		
+		sound = new SoundGame(this);
+		sound.initSound();
 		
 	}
 	@Override
@@ -184,17 +204,48 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        
         // Stop the Bluetooth chat services
         if (mTerokaService!= null) mTerokaService.stop();
         if(D) Log.e(TAG, "--- ON DESTROY ---");
+        mSensorManager.unregisterListener(this);
+        
+        mu.recycleEntityCollection();
+		System.out.println("DESTROY THE BITMAPS");
+		System.gc();
+		mu.shutDownThread();
+		
+		super.onDestroy();
     }
 
     @Override
     public void run() {
     	// TODO Auto-generated method stub
     	super.run();
-    	if(mTerokaService.getState()== BluetoothTerokaService.STATE_CONNECTED){
+    	
+    	if (this.statusBTConnected == true) {    		
+    		if (this.statusGame == 0) {
+    			updateHUD();
+    			gv.setMusuh(String.valueOf(this.statusMusuhBerdiri), String.valueOf(this.attackMusuh), String.valueOf(this.musuhHealth));
+            	gv.setKita(String.valueOf(this.statusBerdiri), String.valueOf(this.attack), String.valueOf(this.health));
+            	
+            	//kalau musuh menyerang dan kita tidak bertahan
+            	if (this.attackMusuh > 0 && this.statusBerdiri == 1) {
+            		this.health -= attackMusuh;
+            	}
+            	
+            	if (this.health <= 0 || this.musuhHealth <= 0) {
+            		this.statusGame = 2;
+            	}
+    		}else{
+    			//jika player menang
+        		if (this.health <= 0 && this.musuhHealth > 0) {
+        			gv.showELose(true);
+        		}
+        		if (this.health > 0 && this.musuhHealth <= 0){
+        			gv.showEWin(true);
+        		}
+    		}
     		
     		
     		
@@ -202,6 +253,22 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
     	}
     	
     }
+    
+    public void updateHUD(){
+    	float playerHealth = this.health;
+		float playerHealthFull = this.healthFull;	//maksimum health
+		int percentHealth = (int)Math.ceil(((playerHealth/playerHealthFull)*(float)100)); 
+		gv.setBarHealthPlayer(percentHealth);
+		
+		float musuhHealth = this.musuhHealth;
+		float musuhHealthFull = this.healthFull;	//maksimum health
+		int percentHealthMusuh = (int)Math.ceil(((musuhHealth/musuhHealthFull)*(float)100)); 
+		gv.setBarHealthMusuh(percentHealthMusuh);
+		
+		gv.showELose(false);
+		gv.showEWin(false);
+    }
+    
     
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -249,6 +316,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
                 case BluetoothTerokaService.STATE_CONNECTED:
                 	Toast.makeText(getApplicationContext(),getString(R.string.title_connected_to, mConnectedDeviceName) ,Toast.LENGTH_SHORT).show();
                     ;
+                    statusBTConnected = true;
                     break;
                 case BluetoothTerokaService.STATE_CONNECTING:
                 	Toast.makeText(getApplicationContext(),getString(R.string.title_connecting) ,Toast.LENGTH_SHORT).show();
@@ -268,30 +336,47 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
                 byte[] writeBuf = (byte[]) msg.obj;
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
-                Toast.makeText(getApplicationContext(),writeMessage, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),writeMessage, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_READ:
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
-                Toast.makeText(getApplicationContext(),readMessage, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),readMessage, Toast.LENGTH_SHORT).show();
+                
+                readMessage(readMessage);
+                
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
                 mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
                 Toast.makeText(getApplicationContext(), "Connected to "
                                + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
-                BertarungActivity.this.sendMessage("1000");
                 
+                //BertarungActivity.this.sendMessage("1000");
+                
+                startBertarung();
                 
                 break;
             case MESSAGE_TOAST:
-                Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
-                               Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
+//                               Toast.LENGTH_SHORT).show();
                 break;
             }
         }
     };
+    
+    public void startBertarung(){
+    	gv.hideMenu();
+    	
+    	//inisialisasi health musuh dan player
+    	this.health = 1000;
+    	this.musuhHealth = 1000;
+    	
+    	this.healthFull = this.health;
+    	this.statusDefense = 0;
+    	this.statusGame = 0;
+    }
     
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(D) Log.d(TAG, "onActivityResult " + resultCode);
@@ -386,17 +471,29 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 			ay = event.values[1];
 			az = event.values[2];
 		}
-		//cek attack
-		if (acel.attack(ax)){
-			if(acel.attackStat==true){ //jika attack 
-				//sound.soundAttack(); //aktifkan suara attack
-				sound.playSound(SoundGame.SOUND_SWING);
-				playerAttack();
-			}					
-		}else if (acel.defense(az)) {
-			sound.playSound(SoundGame.SOUND_DEFENSE);
-			playerDefense();
+		
+		if (this.statusBTConnected == true) {
+			//cek attack
+			if (acel.attack(ax)){
+				if(acel.attackStat==true){ //jika attack 
+					//sound.soundAttack(); //aktifkan suara attack
+					sound.playSound(SoundGame.SOUND_SWING);
+					playerAttack();
+					this.statusDefense = 0;
+				}					
+			}else if (acel.defense(az)) {
+				if (this.statusDefense == 0) {
+					sound.playSound(SoundGame.SOUND_DEFENSE);
+					this.statusDefense = 1;
+				}
+				
+				playerDefense();
+			}else{
+				this.statusDefense = 0;
+				playerIdle();
+			}
 		}
+		
 	}
 	
 	/**
@@ -404,13 +501,52 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 	 */
 	public void playerAttack(){
 		
+		//status_berdiri serangan health
+		//status_berdiri 1 = terbuka, 2 = defense
+		
+		
+		int randomSerangan = (int)(Math.random()*8);
+		this.statusBerdiri = 1;
+    	sendMessage(this.statusBerdiri+ "#"+String.valueOf(randomSerangan)+ "#" + this.health);
+	}
+	
+	public void playerIdle(){
+		this.statusBerdiri = 1;
+		BertarungActivity.this.sendMessage("1#0#"+this.health);
+	}
+	
+	public void readMessage(String message){
+		
+		String parsedMessage[] = parseSend(message);
+		int m_status_berdiri = Integer.valueOf(parsedMessage[0]);
+		int m_serangan = Integer.valueOf(parsedMessage[1]);
+		int m_health = Integer.valueOf(parsedMessage[2]);
+		
+		this.musuhHealth = m_health;
+		this.statusMusuhBerdiri = m_status_berdiri;
+		this.attackMusuh = m_serangan;
+		
+		//kita kena serangan
+		if (m_serangan > 0 && this.statusBerdiri == 1) {
+			this.health -= m_serangan;
+		}
+		
+		
+		
 	}
 	
 	/**
 	 * Kirim data player bertahan
 	 */
 	public void playerDefense(){
-		
+		this.statusBerdiri = 2;
+		sendMessage("2#0#"+this.health);
+	}
+	
+	public String[] parseSend(String pesan){
+		String[] hasil = pesan.split("#");
+		System.out.println(hasil[0] + " "+ hasil[1] + " "+ hasil[2]);
+		return hasil;
 	}
 	
 	

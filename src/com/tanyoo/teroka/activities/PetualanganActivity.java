@@ -309,6 +309,26 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//comment saat debug, uncomment saat publish
 		//((Petualangan)gv).walk(10);
 		
+		//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
+		//cek  monster nggak kena
+		if (petualanganModel.battle == false) {
+			
+			
+			((Petualangan)gv).walk(5);
+			
+			if (petualanganModel.getMonsterShow()) {
+				//kena monster
+				gv.moveMonster(15);
+			}
+			
+			if (petualanganModel.getPetiShow()) {
+				gv.movePeti(15);
+			}
+			
+			this.petualanganModel.incCurrentStep();						
+		}
+		//!!!!! Akhir testing
+		
 	}
 
 
@@ -414,9 +434,6 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			
 			updateDatabase();
 			
-			
-			
-			
 		}else{
 			gv.setMatiCoverVisible(false);
 			
@@ -485,25 +502,25 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				}else{
 					vibratePhone(false);
 					
-					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
-					//cek  monster nggak kena
-					if (petualanganModel.battle == false) {
-						
-						
-						((Petualangan)gv).walk(5);
-						
-						if (petualanganModel.getMonsterShow()) {
-							//kena monster
-							gv.moveMonster(15);
-						}
-						
-						if (petualanganModel.getPetiShow()) {
-							gv.movePeti(15);
-						}
-						
-						this.petualanganModel.incCurrentStep();						
-					}
-					//!!!!! Akhir testing	
+//					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
+//					//cek  monster nggak kena
+//					if (petualanganModel.battle == false) {
+//						
+//						
+//						((Petualangan)gv).walk(5);
+//						
+//						if (petualanganModel.getMonsterShow()) {
+//							//kena monster
+//							gv.moveMonster(15);
+//						}
+//						
+//						if (petualanganModel.getPetiShow()) {
+//							gv.movePeti(15);
+//						}
+//						
+//						this.petualanganModel.incCurrentStep();						
+//					}
+//					//!!!!! Akhir testing	
 				}
 				
 			}
