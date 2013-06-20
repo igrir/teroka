@@ -383,10 +383,14 @@ public class Petualangan extends GameView {
 		ebarempty.setX(percentX);
 	}
 	
-	public void setBarDistance(float percentHealth){
+	public void setBarDistance(float percentDistance){
 		float fullWidth = (ebardistance.width);
-		float percentX = getPercentWidth(27) + ebardistance.width*(percentHealth/100);
+		float percentX = getPercentWidth(27) + ebardistance.width*(percentDistance/100);
 		edistanceempty.setX(percentX);
+	}
+	
+	public void setLevel(int level){
+		this.txtLevel = level;
 	}
 	
 	/**

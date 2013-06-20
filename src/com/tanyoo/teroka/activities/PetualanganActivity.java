@@ -64,7 +64,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	public PetualanganModel petualanganModel;
 	public int delay = 20;
 	public int time = 0;
-
+	public int naikLevel = 1000;
+	
 	public int gameState = 0; //0 = start, 1 = playing, 2 = on dead, 3 = after dead
 	
 	private DataPemain mDataPemain;
@@ -86,10 +87,15 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		petualanganModel = new PetualanganModel();
 		petualanganModel.initPlayerHealth(100);
 		petualanganModel.setCurrentPotion(Integer.valueOf(mDataPemain.j_potion));
+		petualanganModel.setTotalStep(Integer.valueOf(mDataPemain.j_step));
+		
+		
+		int level = (petualanganModel.getTotalStep()+petualanganModel.getCurrentStep())/this.naikLevel;
+		petualanganModel.setCurrentLevel(level);
 		
 		setMaxAttackFromIdArmor(Integer.valueOf(mDataPemain.now_armor));
 		
-		
+				
 		
 		//wake
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -224,7 +230,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		locMgr.requestLocationUpdates(locProvider, minTime, minDistance, this);
-		
+		int level = (petualanganModel.getTotalStep()+petualanganModel.getCurrentStep())/this.naikLevel;
+		petualanganModel.setCurrentLevel(level);
 		
 		super.onResume();
 	}
@@ -402,12 +409,32 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		//set tampilan potion
 		gv.setCurrentPotion(this.petualanganModel.currentPotion);
 		
+		//set tampilan level
+		int level = (petualanganModel.getTotalStep()+petualanganModel.getCurrentStep())/this.naikLevel;
+		gv.setLevel(level);
+		petualanganModel.setCurrentLevel(level);
+		
+		
+		
+		//set tampilan bar distance
+		float currentDistance = (petualanganModel.getTotalStep()+petualanganModel.getCurrentStep())%this.naikLevel;
+		float distanceFull = (float)this.naikLevel;
+		int percentDistance = (int)Math.ceil(((currentDistance/distanceFull)*(float)100));
+		gv.setBarDistance(percentDistance);
+		
+		//reset naik level jika sudah mencapai batas level
+		if (percentDistance == 100) {
+			petualanganModel.setTotalStep(petualanganModel.getTotalStep()+petualanganModel.getCurrentStep());
+			Log.i("totalStep", petualanganModel.getTotalStep()+"");
+		}
+		
+		
+		
 	}
+
 	
 	
 	public void updateDatabase(){
-		if (this.gameState == 2) {
-			this.gameState = 3;
 			
 			String slevel;
 			String sj_bintang;
@@ -419,14 +446,18 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			//initial
 			int j_step = Integer.valueOf(mDataPemain.j_step) + petualanganModel.getCurrentStep();
 			int j_bintang = Integer.valueOf(mDataPemain.j_bintang) + petualanganModel.getCurrentStar();
-			int level = Integer.valueOf(mDataPemain.level);
+			int level = Integer.valueOf(petualanganModel.getCurrentLevel());
 			int max_step = Integer.valueOf(mDataPemain.max_step);
 			int now_armor = Integer.valueOf(mDataPemain.now_armor);
 			int j_potion = petualanganModel.currentPotion;
 			
-			if (level < petualanganModel.getCurrentLevel()) {
-				level = petualanganModel.getCurrentLevel();
-			}
+			//langkah yang diambil harus 1000 dan kelipatannya
+//			level = j_step/this.naikLevel;
+//			if (level < petualanganModel.getCurrentLevel()) {
+//				level = petualanganModel.getCurrentLevel();
+//			}
+			
+			Log.i("saveLevel", level+"");
 			
 			if (max_step < petualanganModel.getCurrentStep()) {
 				max_step = petualanganModel.getCurrentStep();
@@ -443,8 +474,6 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			db.open();
 			db.updateDataPemain(slevel, sj_bintang, sj_step, smax_step, snow_armor, sj_potion);
 			db.close();
-			
-		}
 	}
 	
 	@Override
@@ -461,9 +490,11 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 			
 			if(this.gameState == 1){
 				this.gameState = 2;
+				
+				updateDatabase();
 			}
 			
-			updateDatabase();
+			
 			
 		}else{
 			gv.setMatiCoverVisible(false);
@@ -478,7 +509,10 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 					int muncul =(int)(Math.random()*1000)%1000;
 //					Log.i("randomMonster", String.valueOf(muncul));
 					if (muncul < 50 ) {
+						
 						petualanganModel.monsterShow = true;
+						
+						
 						//buat bergetar
 					}
 				}
@@ -542,7 +576,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 						
 						if (petualanganModel.getMonsterShow()) {
 							//kena monster
-							gv.moveMonster(15);
+//							gv.moveMonster(15);
 						}
 						
 						if (petualanganModel.getPetiShow()) {
@@ -633,12 +667,12 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	}
 	
 	public class PetualanganModel{
-		
+		public int totalStep = 0;
 		public int currentStep = 0;	//langkah yang diambil
 		public int currentStar = 0;
 		public int currentLevel = 0;
 		public int currentPotion = 0;
-		public boolean monsterShow = true;
+		public boolean monsterShow = false;
 		public boolean petiShow = false;
 		public boolean battle = false;	//saat encounter monster
 		public int maxAttackPower = 0; //besarnya attack power yang dimiliki pemain
@@ -650,6 +684,14 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		public int playerHealthFull;	//health pemain untuk disimpan biar langsung revive
 		
 		public boolean defenseStatus = false;
+		
+		public void setTotalStep(int total){
+			this.totalStep = total;
+		}
+		
+		public int getTotalStep(){
+			return this.totalStep;
+		}
 		
 		public int getMaxAttackPower(){
 			return this.maxAttackPower;

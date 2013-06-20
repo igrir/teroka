@@ -67,12 +67,14 @@ public class StatistikActivity extends GameActivity implements OnTouchListener{
 		int j_lose = Integer.valueOf(mDataPemain.j_lose);
 		int j_win = Integer.valueOf(mDataPemain.j_win);
 		int maxSteps = Integer.valueOf(mDataPemain.max_step);
+		int level = Integer.valueOf(mDataPemain.level);
 		
 		mu.setSteps(steps);
 		mu.setStars(j_bintang);
 		mu.setLose(j_lose);
 		mu.setWin(j_win);
 		mu.setMaxSteps(maxSteps);	
+		mu.setLevel(level);
 	}
 	
 	@Override
