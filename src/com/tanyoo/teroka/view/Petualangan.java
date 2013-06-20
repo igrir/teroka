@@ -141,7 +141,7 @@ public class Petualangan extends GameView {
 		
 		//HUD
 		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
-		eBackground2.EBackground2((int)getPercentWidth(700), (int)getPercentHeight(100));
+		eBackground2.EBackground2((int)getPercentWidth(200), (int)getPercentHeight(50));
 		einfo.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		egpsAcquire.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		ebardistance.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
