@@ -54,7 +54,7 @@
         <activity android:name="com.tanyoo.teroka.activities.TokoActivity"
             		android:label="petualangan activity">
         </activity>
-        
+     
     </application>
 
 </manifest>

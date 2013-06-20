@@ -1,14 +1,17 @@
 package com.tanyoo.teroka.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.GameActivity;
@@ -86,20 +89,31 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 	 */
 	public void tombolAbout(){
 		Intent iAbout = new Intent(getApplicationContext(), HelpActivity.class);
+		
 		startActivity(iAbout);
 	}
-	
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		String TAG = "Activity";
+		Log.i(TAG,"Result");
+		switch (requestCode) {
+        case 1:
+            mu.setReady(true);
+            break;
+        }
+    }
 	/**
 	 * Tombol petualangan
 	 */
 	public void tombolPetualangan(){
 		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
+		
 		startActivity(iAbout);
 	}
 	
 	public void tombolBattle(){
 		Intent iBattle = new Intent(getApplicationContext(), BertarungActivity.class);
-		startActivity(iBattle);
+		mu.setReady(false);
+		startActivityForResult(iBattle, 0);
 	}
 	
 	@Override

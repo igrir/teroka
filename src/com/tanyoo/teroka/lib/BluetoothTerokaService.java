@@ -125,7 +125,7 @@ public class BluetoothTerokaService{
         mHandler.sendMessage(msg);
 
         // Start the service over to restart listening mode
-        BluetoothTerokaService.this.start();
+        //BluetoothTerokaService.this.start();
     }
 
    //eventhadler saat koneksi lost
@@ -138,7 +138,7 @@ public class BluetoothTerokaService{
         mHandler.sendMessage(msg);
 
         // Start the service over to restart listening mode
-        BluetoothTerokaService.this.start();
+        //BluetoothTerokaService.this.start();
     }
 
     //mengeset status menjadi none, atau menutup semua koneksi
