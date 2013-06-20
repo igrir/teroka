@@ -1,28 +1,27 @@
 package com.tanyoo.teroka.activities;
 
-import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.lib.GameActivity;
-import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.view.*;
-
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnTouchListener;
 
-public class HelpActivity extends GameActivity implements OnTouchListener{
+import com.tanyoo.teroka.R;
+import com.tanyoo.teroka.lib.GameActivity;
+import com.tanyoo.teroka.lib.GameView;
+import com.tanyoo.teroka.view.Help3;
+
+public class Help3Activity extends GameActivity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public Help1 mu;
+	public Help3 mu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class HelpActivity extends GameActivity implements OnTouchListener{
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		//inisiaslisi graphic view
-		mu = new Help1(this);
+		mu = new Help3(this);
 			
 		gv = mu;
 		
@@ -63,14 +62,9 @@ public class HelpActivity extends GameActivity implements OnTouchListener{
 		startActivity(iAbout);
 	}
 	
-	public void tombolNext(){
-		Intent iA = new Intent(getApplicationContext(), Help2Activity.class);
-		startActivity(iA);
-	}
-	
 	public void tombolBack(){
-		Intent i = new Intent(getApplicationContext(), MainActivity.class);
-		startActivity(i);
+		Intent iBackHelp1 = new Intent(getApplicationContext(), Help2Activity.class);
+		startActivity(iBackHelp1);
 	}
 	
 	/**

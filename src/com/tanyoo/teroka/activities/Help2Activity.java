@@ -16,13 +16,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
-public class HelpActivity extends GameActivity implements OnTouchListener{
+public class Help2Activity extends GameActivity implements OnTouchListener{
 	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public Help1 mu;
+	public Help2 mu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class HelpActivity extends GameActivity implements OnTouchListener{
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		//inisiaslisi graphic view
-		mu = new Help1(this);
+		mu = new Help2(this);
 			
 		gv = mu;
 		
@@ -63,14 +63,14 @@ public class HelpActivity extends GameActivity implements OnTouchListener{
 		startActivity(iAbout);
 	}
 	
-	public void tombolNext(){
-		Intent iA = new Intent(getApplicationContext(), Help2Activity.class);
-		startActivity(iA);
+	public void tombolBack(){
+		Intent iBackHelp1 = new Intent(getApplicationContext(), HelpActivity.class);
+		startActivity(iBackHelp1);
 	}
 	
-	public void tombolBack(){
-		Intent i = new Intent(getApplicationContext(), MainActivity.class);
-		startActivity(i);
+	public void tombolNext(){
+		Intent iA = new Intent(getApplicationContext(), Help3Activity.class);
+		startActivity(iA);
 	}
 	
 	/**

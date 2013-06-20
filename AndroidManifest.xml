@@ -45,6 +45,12 @@
         <activity android:name="com.tanyoo.teroka.activities.HelpActivity"
             		android:label="help activity">
 		 </activity>
+		 <activity android:name="com.tanyoo.teroka.activities.Help2Activity"
+            		android:label="help activity">
+		 </activity>
+		 <activity android:name="com.tanyoo.teroka.activities.Help3Activity"
+            		android:label="help activity">
+		 </activity>
         <activity android:name="com.tanyoo.teroka.activities.PetualanganActivity"
             		android:label="petualangan activity">
         </activity>
