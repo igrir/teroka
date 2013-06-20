@@ -87,6 +87,10 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		petualanganModel.initPlayerHealth(100);
 		petualanganModel.setCurrentPotion(Integer.valueOf(mDataPemain.j_potion));
 		
+		setMaxAttackFromIdArmor(Integer.valueOf(mDataPemain.now_armor));
+		
+		
+		
 		//wake
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
@@ -184,7 +188,6 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		mSensorManager.unregisterListener(this);
 		
 		vibratePhone(false);
-		updateDatabase();
 		super.onDestroy();
 	}
 	
@@ -211,18 +214,46 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	}
 	
 	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		
+		super.onStart();
+	}
+	
+	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		locMgr.requestLocationUpdates(locProvider, minTime, minDistance, this);
 		
+		
 		super.onResume();
+	}
+	
+	public void setMaxAttackFromIdArmor(int nowArmor){
+		DbTeroka db = new DbTeroka(this);
+		
+		//max besar attack
+//		int nowArmor = Integer.valueOf(mDataPemain.now_armor);
+		
+		if (nowArmor > 0) {
+			db.open();
+			float harga_armor = Float.valueOf(db.getHargaArmorByIdArmor(nowArmor));
+			db.close();
+			Log.i("hargaArmor", String.valueOf(harga_armor));
+			int maxPower = (int)(harga_armor*0.1);	//max power adalah 10% dari harga senjata
+			Log.i("setMaxPower", " "+maxPower);
+			petualanganModel.setMaxAttackPower(maxPower);
+		}else{
+			petualanganModel.setMaxAttackPower(5);
+			Log.i("setMaxPower", " "+5);
+		}
 	}
 	
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		vibratePhone(false);
-		
+		updateDatabase();
 		super.onStop();
 	}
 
@@ -502,25 +533,25 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				}else{
 					vibratePhone(false);
 					
-//					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
-//					//cek  monster nggak kena
-//					if (petualanganModel.battle == false) {
-//						
-//						
-//						((Petualangan)gv).walk(5);
-//						
-//						if (petualanganModel.getMonsterShow()) {
-//							//kena monster
-//							gv.moveMonster(15);
-//						}
-//						
-//						if (petualanganModel.getPetiShow()) {
-//							gv.movePeti(15);
-//						}
-//						
-//						this.petualanganModel.incCurrentStep();						
-//					}
-//					//!!!!! Akhir testing	
+					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
+					//cek  monster nggak kena
+					if (petualanganModel.battle == false) {
+						
+						
+						((Petualangan)gv).walk(5);
+						
+						if (petualanganModel.getMonsterShow()) {
+							//kena monster
+							gv.moveMonster(15);
+						}
+						
+						if (petualanganModel.getPetiShow()) {
+							gv.movePeti(15);
+						}
+						
+						this.petualanganModel.incCurrentStep();						
+					}
+					//!!!!! Akhir testing	
 				}
 				
 			}
@@ -560,7 +591,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		if (petualanganModel.battle == true) {
 			int monsterHealth = this.petualanganModel.getCurrentMonsterHealth();
-			int attack = 10;
+			int maxAttack = this.petualanganModel.getMaxAttackPower();
+			int attack = (int)Math.ceil((Math.random()*(float)maxAttack));
+			Log.i("serang", "maxAttack:"+maxAttack);
 			Log.i("serang", "atk:"+attack+" monsterHealth:"+monsterHealth);
 			
 			this.petualanganModel.setCurrentMonsterHealth(monsterHealth-attack);
@@ -608,6 +641,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		public boolean monsterShow = true;
 		public boolean petiShow = false;
 		public boolean battle = false;	//saat encounter monster
+		public int maxAttackPower = 0; //besarnya attack power yang dimiliki pemain
 		
 		public int monsterHealth = 100; //Health monster naik 10 setiap selesai nyerang monster lain
 		public int currentMonsterHealth = 100; //monster yang sedang bertarung sekarang 	
@@ -616,6 +650,14 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		public int playerHealthFull;	//health pemain untuk disimpan biar langsung revive
 		
 		public boolean defenseStatus = false;
+		
+		public int getMaxAttackPower(){
+			return this.maxAttackPower;
+		}
+		
+		public void setMaxAttackPower(int cap){
+			this.maxAttackPower = cap;
+		}
 		
 		public void setDefenseStatus(boolean def){
 			this.defenseStatus = def;
@@ -747,7 +789,9 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				serangPeti();
 //			}					
 		}else if (acel.defense(az)) {
-			sound.playSound(SoundGame.SOUND_DEFENSE);
+			if (this.petualanganModel.getDefenseStatus() == false) {
+				sound.playSound(SoundGame.SOUND_DEFENSE);
+			}
 			this.petualanganModel.setDefenseStatus(true);
 		}else{
 			this.petualanganModel.setDefenseStatus(false);
@@ -764,9 +808,11 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		if ((requestCode == 98) && (resultCode == RESULT_OK)) {
 			
 			String kirimanJPotion = data.getStringExtra("kirim_jPotion");
+			String kirimanCurrentArmor = data.getStringExtra("kirim_currentArmor");
 			
 			this.petualanganModel.setCurrentPotion(Integer.valueOf(kirimanJPotion));
 			
+			setMaxAttackFromIdArmor(Integer.valueOf(kirimanCurrentArmor));
 			
 			Log.i("JumlahPotion", kirimanJPotion);
 		//add
