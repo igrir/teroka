@@ -93,6 +93,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 	public int statusDefense;
 		
 	public boolean statusBTConnected = false;
+	public boolean disconnectBT = false;
 	public int statusGame; 	//0 = mulai, 1 = bermain, 2 = game over
 	
 	@Override
@@ -101,6 +102,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 		super.onCreate(savedInstanceState);
 		
 		this.statusBTConnected = false;
+		this.disconnectBT = false;
 		
 		//orientasi
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -158,7 +160,6 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
         	Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-        // Otherwise, setup the chat session
         } else {
             if (mTerokaService == null){
             	// Initialize the BluetoothChatService to perform bluetooth connections
@@ -171,22 +172,22 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
         }
     }
 	
-	   @Override
-	    public synchronized void onResume() {
-	        super.onResume();
-	        if(D) Log.e(TAG, "+ ON RESUME +");
+    @Override
+     public synchronized void onResume() {
+        super.onResume();
+        if(D) Log.e(TAG, "+ ON RESUME +");
 
-	        // Performing this check in onResume() covers the case in which BT was
-	        // not enabled during onStart(), so we were paused to enable it...
-	        // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
-	        if (mTerokaService!= null) {
-	            // Only if the state is STATE_NONE, do we know that we haven't started already
-	            if (mTerokaService.getState() == BluetoothTerokaService.STATE_NONE) {
-	              // Start the Bluetooth chat services
-	              mTerokaService.start();
-	            }
-	        }
-	    }
+        // Performing this check in onResume() covers the case in which BT was
+        // not enabled during onStart(), so we were paused to enable it...
+        // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
+        if (mTerokaService!= null) {
+            // Only if the state is STATE_NONE, do we know that we haven't started already
+            if (mTerokaService.getState() == BluetoothTerokaService.STATE_NONE) {
+              // Start the Bluetooth chat services
+              mTerokaService.start();
+            }
+        }
+    }
 	
 	@Override
 	protected void onPause() {
@@ -205,16 +206,17 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
     @Override
     public void onDestroy() {
         
+    	mu.recycleEntityCollection();
+    	
         // Stop the Bluetooth chat services
         if (mTerokaService!= null) mTerokaService.stop();
         if(D) Log.e(TAG, "--- ON DESTROY ---");
         mSensorManager.unregisterListener(this);
         
-        mu.recycleEntityCollection();
 		System.out.println("DESTROY THE BITMAPS");
 		System.gc();
 		mu.shutDownThread();
-		
+		setResult(1);
 		super.onDestroy();
     }
 
@@ -222,7 +224,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
     public void run() {
     	// TODO Auto-generated method stub
     	super.run();
-    	
+
     	if (this.statusBTConnected == true) {    		
     		if (this.statusGame == 0) {
     			updateHUD();
@@ -246,10 +248,19 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
         			gv.showEWin(true);
         		}
     		}
+    		//cek koneksi blue
+    		if(mTerokaService.getState()!=BluetoothTerokaService.STATE_CONNECTED)
+        	{
+        		
+        		this.statusBTConnected = false;  
+        		this.disconnectBT = true;
+        	}
     		
-    		
-    		
-    		
+    	}
+    	if(this.disconnectBT == true)
+    	{
+    			finish();
+    			this.disconnectBT = false;
     	}
     	
     }
@@ -384,15 +395,13 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
         case REQUEST_CONNECT_DEVICE_SECURE:
             // When DeviceListActivity returns with a device to connect
             if (resultCode == Activity.RESULT_OK) {
-            	Toast.makeText(this, "Cokelan", Toast.LENGTH_SHORT).show();
-                connectDevice(data, true);
+            	connectDevice(data, true);
             }
             break;
         case REQUEST_CONNECT_DEVICE_INSECURE:
             // When DeviceListActivity returns with a device to connect
             if (resultCode == Activity.RESULT_OK) {
-            	Toast.makeText(this, "Cokelan", Toast.LENGTH_SHORT).show();
-                connectDevice(data, false);
+            	 connectDevice(data, false);
             }
             break;
         case REQUEST_ENABLE_BT:
@@ -443,8 +452,8 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
     private void sendMessage(String message) {
         // Check that we're actually connected before trying anything
         if (mTerokaService.getState() != BluetoothTerokaService.STATE_CONNECTED) {
-            Toast.makeText(this, "Teu Konek", Toast.LENGTH_SHORT).show();
-            return;
+           finish();
+        	return;
         }
 
         // Check that there's actually something to send
@@ -548,6 +557,5 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 		System.out.println(hasil[0] + " "+ hasil[1] + " "+ hasil[2]);
 		return hasil;
 	}
-	
 	
 }

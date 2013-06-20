@@ -5,9 +5,9 @@ import com.tanyoo.teroka.R;
 
 import com.tanyoo.teroka.lib.Entity;
 
-public class EPreviewGame extends Entity{
+public class EPreviewGame1 extends Entity{
 
-	public EPreviewGame(Resources res) {
+	public EPreviewGame1(Resources res) {
 		//tentukan apa namanya
 		super(res);
 		addSprite(R.drawable.about_1, "previewbg");

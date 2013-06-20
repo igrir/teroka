@@ -1,11 +1,13 @@
 package com.tanyoo.teroka.view;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.activities.BertarungActivity;
 import com.tanyoo.teroka.entities.EBarDistance;
 import com.tanyoo.teroka.entities.EBarEmpty;
@@ -224,6 +226,7 @@ public class Bertarung extends GameView {
 		//		ecalore.draw(c, cat);
 		//		epotion.draw(c, cat);
 		//		elevel.draw(c, cat);
+		
 		drawEntityCollection(c, cat);
 		
 		

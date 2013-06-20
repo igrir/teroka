@@ -1,69 +1,43 @@
 package com.tanyoo.teroka.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.tanyoo.teroka.R;
 import com.tanyoo.teroka.lib.GameActivity;
 import com.tanyoo.teroka.lib.GameView;
-import com.tanyoo.teroka.lib.SoundGame;
-import com.tanyoo.teroka.view.MenuUtama;
+import com.tanyoo.teroka.view.Help3;
 
-public class MainActivity extends GameActivity implements OnTouchListener{	
-	//sound
-	SoundGame sound; 
-		
+public class Help3Activity extends GameActivity implements OnTouchListener{
+	
 	// mesin
 	private GameView gv;
 	
 	// views
-	public MenuUtama mu;
-
-	public MainActivity() {
-		//inisiaslisi graphic view
-		
-		
-	}
-	
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		
-		System.out.println("Garbage collector");
-		//jalankan garbage collector
-		System.gc();
-		mu.shutDownThread();
-	}
-	
+	public Help3 mu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		System.out.println("MainActivity create");
-	
-		 sound = new SoundGame(this);
 		
 		//orientasi
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);		
 		//hilangkan title bar
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//hilangkan notification bar
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-		//inisialisasi thread
-		mu = new MenuUtama(this);
+
+		//inisiaslisi graphic view
+		mu = new Help3(this);
+			
 		gv = mu;
 		
 		//set aksi yang dilakukan oleh touch dilakukan siapa
@@ -72,8 +46,8 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		//set tampilan yang muncul
 		setContentView(gv);
 		
-		//jalankan program
-
+		mu.startThread();
+		
 	}
 
 	@Override
@@ -82,38 +56,22 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
-
-	/**
-	 * Tombol about diklik
-	 */
-	public void tombolAbout(){
-		Intent iAbout = new Intent(getApplicationContext(), HelpActivity.class);
-		
-		startActivity(iAbout);
-	}
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		String TAG = "Activity";
-		Log.i(TAG,"Result");
-		switch (requestCode) {
-        case 1:
-            mu.setReady(true);
-            break;
-        }
-    }
-	/**
-	 * Tombol petualangan
-	 */
-	public void tombolPetualangan(){
-		Intent iAbout = new Intent(getApplicationContext(), PetualanganActivity.class);
-		
+	
+	public void tombolStatistik(){
+		Intent iAbout = new Intent(getApplicationContext(), StatistikActivity.class);
 		startActivity(iAbout);
 	}
 	
-	public void tombolBattle(){
-		Intent iBattle = new Intent(getApplicationContext(), BertarungActivity.class);
-		mu.setReady(false);
-		startActivityForResult(iBattle, 0);
+	public void tombolBack(){
+		Intent iBackHelp1 = new Intent(getApplicationContext(), Help2Activity.class);
+		startActivity(iBackHelp1);
+	}
+	
+	/**
+	 * Tombol kembali diklik
+	 */
+	public void tombolKembali(){
+		finish();
 	}
 	
 	@Override
@@ -121,12 +79,25 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		// TODO Auto-generated method stub
 		super.onPause();
 		
-		// pause thread yang dijalankan
-		System.out.println("PANGGIL ON PAUSE");
-		
 		gv.setReady(false);
-		//jalankan garbage collector
-		System.gc();
+		
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		mu.recycleEntityCollection();
+		System.out.println("DESTROY THE BITMAPS");
+//		System.gc();
+		mu.shutDownThread();
 	}
 	
 	@Override
@@ -158,13 +129,4 @@ public class MainActivity extends GameActivity implements OnTouchListener{
 		gv.invalidate(); //draw ulang
 		return true;
 	}
-	
-	//saat klik button back, sound berhenti
-	@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
-        System.out.println("Game Berhenti");
-    }
-
 }

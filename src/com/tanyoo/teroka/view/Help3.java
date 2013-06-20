@@ -1,45 +1,46 @@
 package com.tanyoo.teroka.view;
 
-import com.tanyoo.teroka.activities.HelpActivity;
-import com.tanyoo.teroka.activities.MainActivity;
-import com.tanyoo.teroka.entities.EButton;
-import com.tanyoo.teroka.entities.EKarakter;
-import com.tanyoo.teroka.entities.ELogo;
-import com.tanyoo.teroka.entities.EPreviewGame;
-import com.tanyoo.teroka.entities.EBackground;
-import com.tanyoo.teroka.lib.GameView;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.SurfaceHolder;
 
-public class Help extends GameView {
+import com.tanyoo.teroka.activities.Help3Activity;
+import com.tanyoo.teroka.entities.EBackHelp;
+import com.tanyoo.teroka.entities.EBackground;
+import com.tanyoo.teroka.entities.EButton;
+import com.tanyoo.teroka.entities.ELogo;
+import com.tanyoo.teroka.entities.EPreviewGame3;
+import com.tanyoo.teroka.lib.GameView;
+
+public class Help3 extends GameView {
 
 	private Paint cat = new Paint();
 	
 	// entities
 	ELogo elogo;
 	EButton eButtonStatistik;
-	EPreviewGame ePreviewGame;
+	EPreviewGame3 ePreviewGame3;
+	EBackHelp ebackhelp;
 	public EBackground eBackground;
 	
 	public int txtTanyoo=0;
 	
 	
-	public Help(Context context) {
+	public Help3(Context context) {
 		super(context);
 		
 		//entities
 		elogo = new ELogo(getResources());
 		eButtonStatistik = new EButton(getResources());
-		ePreviewGame = new EPreviewGame(getResources());
+		ePreviewGame3 = new EPreviewGame3(getResources());
+		ebackhelp = new EBackHelp(getResources());
 		eBackground = new EBackground(getResources());
 		addEntityCollection(eBackground,
 				elogo,
 				eButtonStatistik,
-				ePreviewGame);
+				ePreviewGame3,
+				ebackhelp);
 		
 	}
 
@@ -50,14 +51,16 @@ public class Help extends GameView {
 		
 		// resize gambar
 		elogo.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(19));
-		ePreviewGame.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(56));
+		ePreviewGame3.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(56));
 		eButtonStatistik.EbuttonStat((int)getPercentWidth(42), (int)getPercentHeight(10));
+		ebackhelp.resizeImage((int)getPercentWidth(20), (int)getPercentHeight(10));
 		eBackground.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(100));
 		
 		//set posisi
 		elogo.setPosition(getPercentWidth(0), getPercentHeight(2));
-		ePreviewGame.setPosition(getPercentWidth(0), getPercentHeight(25));
+		ePreviewGame3.setPosition(getPercentWidth(0), getPercentHeight(25));
 		eButtonStatistik.setPosition(getPercentWidth(29), getPercentHeight(88));
+		ebackhelp.setPosition(getPercentWidth(0), getPercentHeight(88));
 		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
 		
 		ready = true;
@@ -93,7 +96,10 @@ public class Help extends GameView {
 	public void onDown() {
 		// TODO Auto-generated method stub
 		if (eButtonStatistik.isHit(posXDown, posYDown)) {
-			((HelpActivity)(this.context)).tombolStatistik();
+			((Help3Activity)(this.context)).tombolStatistik();
+		}
+		if(ebackhelp.isHit(posXDown, posYDown)){
+			((Help3Activity)(this.context)).tombolBack();
 		}
 	}
 
@@ -113,7 +119,7 @@ public class Help extends GameView {
 				
 				cat.setColor(Color.BLACK);
 				cat.setTextSize(getPercentFontSize(100));
-				c.drawText("bring your device walk to walk", ePreviewGame.x+getPercentFontSize(200), ePreviewGame.y+getPercentFontSize(200), cat);
+				c.drawText("bring your device walk to walk", ePreviewGame3.x+getPercentFontSize(200), ePreviewGame3.y+getPercentFontSize(200), cat);
 	}
 
 
