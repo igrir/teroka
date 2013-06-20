@@ -56,6 +56,7 @@ public class Petualangan extends GameView {
 	public EPlatform eplatform;
 	public EBarEmpty ebarempty;
 	public EMatiCover ematicover;
+	public EBarEmpty edistanceempty;
 	
 	// Games
 	public EKarakter ekarakter;
@@ -98,11 +99,13 @@ public class Petualangan extends GameView {
 		eplatform = new EPlatform(getResources());
 		epeti = new EPeti(getResources());
 		ematicover = new EMatiCover(getResources());
+		edistanceempty =new EBarEmpty(getResources()); 
 		
 		addEntityCollection(eBackground,
 				  einfo,
 				  ebardistance,
 				  edistance,
+				  edistanceempty,
 				  ehealthpoint,
 				  ebarhealth,
 				  ebarempty,
@@ -118,7 +121,8 @@ public class Petualangan extends GameView {
 				  emonster,
 				  epeti,
 				  ekarakter,
-				  ematicover);
+				  ematicover
+				  );
 		
 		pm = ((PetualanganActivity)(this.context)).petualanganModel;
 		Log.i("PM: ", String.valueOf(pm.monsterShow));
@@ -138,6 +142,7 @@ public class Petualangan extends GameView {
 		ebardistance.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ebarempty.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
+		edistanceempty.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(20));
 		ematicover.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(20));
@@ -170,9 +175,13 @@ public class Petualangan extends GameView {
 		eplatform.setPosition(getPercentWidth(0), getPercentHeight(30));
 		ehealthpoint.setPosition(getPercentWidth(8), getPercentHeight(36));
 		edistance.setPosition(getPercentWidth(8), getPercentHeight(46));
+		
 		ebarhealth.setPosition(getPercentWidth(27), getPercentHeight(36));
 		ebarempty.setPosition(ebarhealth.x+ebarhealth.width, getPercentHeight(36));
+		
 		ebardistance.setPosition(getPercentWidth(27), getPercentHeight(46));
+		edistanceempty.setPosition(ebardistance.x+ebardistance.width, getPercentHeight(46));
+		
 		eBackground2.setPosition(getPercentWidth(0), getPercentHeight(56));
 		elevel.setPosition(getPercentWidth(3), getPercentHeight(58));
 		estars.setPosition(getPercentWidth(23), getPercentHeight(58));
@@ -372,6 +381,12 @@ public class Petualangan extends GameView {
 		float fullWidth = (ebarhealth.width);
 		float percentX = getPercentWidth(27) + ebarhealth.width*(percentHealth/100);
 		ebarempty.setX(percentX);
+	}
+	
+	public void setBarDistance(float percentHealth){
+		float fullWidth = (ebardistance.width);
+		float percentX = getPercentWidth(27) + ebardistance.width*(percentHealth/100);
+		edistanceempty.setX(percentX);
 	}
 	
 	/**
