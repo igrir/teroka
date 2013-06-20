@@ -1,14 +1,8 @@
 package com.tanyoo.teroka.activities;
 
-import java.util.ArrayList;
 import java.util.Set;
-import java.util.Vector;
-
-import util.DataAdapter;
-import util.DataListSenjata;
 
 import com.tanyoo.teroka.R;
-import com.tanyoo.teroka.lib.DbTeroka.DataPemain;
 import com.tanyoo.teroka.lib.GameActivity;
 
 import android.app.Activity;
@@ -29,15 +23,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class ListPlayerActivity extends GameActivity{
-	
-	public ArrayList<DataListSenjata> alDataLists = new ArrayList<DataListSenjata>();
-	
-	public Vector<DataPemain> vData;
-	
-	DataAdapter adapter;
-	
+		
 	// Debugging
     private static final String TAG = "DeviceListActivity";
     private static final boolean D = true;
@@ -58,8 +47,6 @@ public class ListPlayerActivity extends GameActivity{
         // Setup the window
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.listplayer);
-        // Get local Bluetooth adapter
-        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         
         // Set result CANCELED in case the user backs out
         setResult(Activity.RESULT_CANCELED);
@@ -69,6 +56,7 @@ public class ListPlayerActivity extends GameActivity{
         scanButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 doDiscovery();
+                v.setVisibility(View.GONE);
             }
         });
         
@@ -157,7 +145,7 @@ public class ListPlayerActivity extends GameActivity{
             // Get the device MAC address, which is the last 17 chars in the View
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
-
+            Toast.makeText(getApplicationContext(), address, Toast.LENGTH_SHORT).show();
             // Create the result Intent and include the MAC address
             Intent intent = new Intent();
             intent.putExtra(EXTRA_DEVICE_ADDRESS, address);

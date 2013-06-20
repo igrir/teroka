@@ -160,17 +160,23 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
         	Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+            
         } else {
-            if (mTerokaService == null){
+            if (mTerokaService == null && this.statusBTConnected==false){
             	// Initialize the BluetoothChatService to perform bluetooth connections
-                mTerokaService= new BluetoothTerokaService(this, mHandler);
-
-                // Initialize the buffer for outgoing messages
-                mOutStringBuffer = new StringBuffer("");
-                
+                setup();
             }
         }
     }
+	public void setup()
+	{
+		if(D) Log.e(TAG, "++ ON START ++");
+		mTerokaService= new BluetoothTerokaService(this, mHandler);
+
+        // Initialize the buffer for outgoing messages
+        mOutStringBuffer = new StringBuffer("");
+        
+	}
 	
     @Override
      public synchronized void onResume() {
@@ -180,13 +186,14 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
         // Performing this check in onResume() covers the case in which BT was
         // not enabled during onStart(), so we were paused to enable it...
         // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
+	     
         if (mTerokaService!= null) {
-            // Only if the state is STATE_NONE, do we know that we haven't started already
-            if (mTerokaService.getState() == BluetoothTerokaService.STATE_NONE) {
-              // Start the Bluetooth chat services
-              mTerokaService.start();
-            }
-        }
+	            // Only if the state is STATE_NONE, do we know that we haven't started already
+	            if (mTerokaService.getState() == BluetoothTerokaService.STATE_NONE) {
+	              // Start the Bluetooth chat services
+	              mTerokaService.start();
+	            }
+	        }
     }
 	
 	@Override
@@ -197,6 +204,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 		gv.setReady(false);
 		System.gc();
 	}
+	
 	@Override
     public void onStop() {
         super.onStop();
@@ -225,7 +233,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
     	// TODO Auto-generated method stub
     	super.run();
 
-    	if (this.statusBTConnected == true) {    		
+    	if (this.statusBTConnected == true && this.disconnectBT==false) {    		
     		if (this.statusGame == 0) {
     			updateHUD();
     			gv.setMusuh(String.valueOf(this.statusMusuhBerdiri), String.valueOf(this.attackMusuh), String.valueOf(this.musuhHealth));
@@ -260,7 +268,6 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
     	if(this.disconnectBT == true)
     	{
     			finish();
-    			this.disconnectBT = false;
     	}
     	
     }
@@ -344,10 +351,19 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
                 }
                 break;
             case MESSAGE_WRITE:
+            	if(mTerokaService.getState()==BluetoothTerokaService.STATE_CONNECTED)
+            	{
+            	
+            	
                 byte[] writeBuf = (byte[]) msg.obj;
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
                 //Toast.makeText(getApplicationContext(),writeMessage, Toast.LENGTH_SHORT).show();
+            	}
+            	else
+            	{
+            		finish();
+            	}
                 break;
             case MESSAGE_READ:
                 byte[] readBuf = (byte[]) msg.obj;
@@ -407,8 +423,9 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
         case REQUEST_ENABLE_BT:
             // When the request to enable Bluetooth returns
             if (resultCode == Activity.RESULT_OK) {
-                // Bluetooth is now enabled, so set up a chat session
-                //setupChat();
+            	setup();
+            	Log.d(TAG, "BT enabled");
+                
             } else {
                 // User did not enable Bluetooth or an error occurred
                 Log.d(TAG, "BT not enabled");
@@ -431,7 +448,7 @@ public class BertarungActivity extends GameActivity  implements OnTouchListener,
 	public void tombolClient(){
 		
 		Intent iBattle = new Intent(this, ListPlayerActivity.class);
-		startActivityForResult(iBattle, REQUEST_CONNECT_DEVICE_SECURE);
+		startActivityForResult(iBattle,REQUEST_CONNECT_DEVICE_SECURE);
 	}
 
 	public void tombolHost() {

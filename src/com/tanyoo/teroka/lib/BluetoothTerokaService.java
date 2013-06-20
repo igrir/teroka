@@ -136,9 +136,8 @@ public class BluetoothTerokaService{
         bundle.putString(BertarungActivity.TOAST, "Device connection was lost");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-
+        
         // Start the service over to restart listening mode
-        //BluetoothTerokaService.this.start();
     }
 
     //mengeset status menjadi none, atau menutup semua koneksi
@@ -402,7 +401,8 @@ public class BluetoothTerokaService{
                     Log.e(TAG, "disconnected", e);
                     connectionLost();
                     // Start the service over to restart listening mode
-                    BluetoothTerokaService.this.start();
+                    BluetoothTerokaService.this.stop();
+                    
                     break;
                 }
             }

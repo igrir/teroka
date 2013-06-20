@@ -64,8 +64,8 @@ public class Help2Activity extends GameActivity implements OnTouchListener{
 	}
 	
 	public void tombolBack(){
-		Intent iBackHelp1 = new Intent(getApplicationContext(), HelpActivity.class);
-		startActivity(iBackHelp1);
+		//Intent iBackHelp1 = new Intent(getApplicationContext(), HelpActivity.class);
+		//startActivity(iBackHelp1);
 	}
 	
 	public void tombolNext(){
