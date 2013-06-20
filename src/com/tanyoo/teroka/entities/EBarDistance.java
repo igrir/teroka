@@ -10,7 +10,7 @@ public class EBarDistance extends Entity {
 	public EBarDistance(Resources res) {
 		super(res);
 		// TODO Auto-generated constructor stub
-		addSprite(R.drawable.bar_empty, "bar_empty");
+		addSprite(R.drawable.bar_distance_complete, "bar_empty");
 		setSprite("bar_empty");
 	}
 	

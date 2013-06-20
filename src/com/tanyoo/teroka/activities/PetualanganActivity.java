@@ -75,6 +75,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
+		
+		
 		super.onCreate(savedInstanceState);
 	
 		
@@ -232,6 +234,7 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		locMgr.requestLocationUpdates(locProvider, minTime, minDistance, this);
 		int level = (petualanganModel.getTotalStep()+petualanganModel.getCurrentStep())/this.naikLevel;
 		petualanganModel.setCurrentLevel(level);
+		gv.setGPSAcquireVisible(true);
 		
 		super.onResume();
 	}
@@ -342,6 +345,8 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 		
 		lat = location.getLatitude();
 		lng = location.getLongitude();
+		
+		gv.setGPSAcquireVisible(false);
 		
 		//cek perubahan untuk maju
 		//comment saat debug, uncomment saat publish
@@ -567,25 +572,25 @@ public class PetualanganActivity extends GameActivity implements OnTouchListener
 				}else{
 					vibratePhone(false);
 					
-					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
-					//cek  monster nggak kena
-					if (petualanganModel.battle == false) {
-						
-						
-						((Petualangan)gv).walk(5);
-						
-						if (petualanganModel.getMonsterShow()) {
-							//kena monster
-//							gv.moveMonster(15);
-						}
-						
-						if (petualanganModel.getPetiShow()) {
-							gv.movePeti(15);
-						}
-						
-						this.petualanganModel.incCurrentStep();						
-					}
-					//!!!!! Akhir testing	
+//					//!!!!! untuk testing. Comment walk saat publish. Walk dijalankan saat update
+//					//cek  monster nggak kena
+//					if (petualanganModel.battle == false) {
+//						
+//						
+//						((Petualangan)gv).walk(5);
+//						
+//						if (petualanganModel.getMonsterShow()) {
+//							//kena monster
+////							gv.moveMonster(15);
+//						}
+//						
+//						if (petualanganModel.getPetiShow()) {
+//							gv.movePeti(15);
+//						}
+//						
+//						this.petualanganModel.incCurrentStep();						
+//					}
+//					//!!!!! Akhir testing	
 				}
 				
 			}
