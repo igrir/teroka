@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.activities.BertarungActivity;
 import com.tanyoo.teroka.entities.EBarEmpty;
 import com.tanyoo.teroka.entities.EBarHealth;
@@ -29,7 +30,7 @@ public class Bertarung extends GameView {
 	public EKarakter ekarakter1, ekarakter2;
 	
 	public EInfobar einfo;
-	
+	public EBackground eBackground;
 	public EHealthPoint ehealthpoint;
 	public EBarHealth ebarhealth;
 	public EGameView egameview;
@@ -56,6 +57,7 @@ public class Bertarung extends GameView {
 	public Bertarung(Context context) {
 		super(context);
 		
+		eBackground = new EBackground(getResources());
 		einfo = new EInfobar(getResources());
 		ehealthpoint = new EHealthPoint(getResources());
 		ebarhealth = new EBarHealth(getResources());
@@ -72,7 +74,8 @@ public class Bertarung extends GameView {
 		elose = new ELose(getResources());
 		eplatform = new EPlatform(getResources());
 		
-		addEntityCollection(einfo,
+		addEntityCollection(eBackground,
+				einfo,
 				  ehealthpoint,
 				  ebarhealth,
 				  egameview,
@@ -93,11 +96,11 @@ public class Bertarung extends GameView {
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
 		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasWindowFocus);
-		
+		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
 		einfo.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		ebarhealth.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ebaremptyPlayer.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
-		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(25));
+		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(20));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
 		ebarhealthmusuh.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		ebaremptyMusuh.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
@@ -111,6 +114,7 @@ public class Bertarung extends GameView {
 		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		
 		//posisi
+		eBackground.setPosition(getPercentWidth(0), getPercentHeight(0));
 		einfo.setPosition(getPercentWidth(0), getPercentHeight(0));
 		egameview.setPosition(getPercentWidth(0), getPercentHeight(10));
 		ehealthpoint.setPosition(getPercentWidth(8), getPercentHeight(36));

@@ -6,14 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-<<<<<<< HEAD
+
 import com.tanyoo.teroka.activities.Help2Activity;
 import com.tanyoo.teroka.activities.HelpActivity;
 //import com.tanyoo.teroka.activities.HelpActivity;
 import com.tanyoo.teroka.entities.EBackHelp;
-=======
 import com.tanyoo.teroka.activities.HelpActivity;
->>>>>>> 406e4e3128e1b57cb581c51b17da07839fdb5d43
 import com.tanyoo.teroka.entities.EBackground;
 import com.tanyoo.teroka.entities.EButton;
 import com.tanyoo.teroka.entities.ELogo;
@@ -214,14 +212,18 @@ public class Help1 extends GameView {
 		cat.setTextSize(getPercentFontSize(100));
 		c.drawText("Turn on GPS, then bring your device walk", ePreviewGame1.x+getPercentFontSize(50), ePreviewGame1.y+getPercentFontSize(80), cat);
 		c.drawText("to start journey", ePreviewGame1.x+getPercentFontSize(50), ePreviewGame1.y+getPercentFontSize(180), cat);
+		c.drawText("Tanyoo Production 2013", ePreviewGame1.x+getPercentFontSize(400), ePreviewGame1.y+getPercentFontSize(1680), cat);
+		
+		
 		
 		c.drawText("Slash your device to slash monsters", ePreviewGame2.x+getPercentFontSize(50), ePreviewGame2.y+getPercentFontSize(80), cat);
 		c.drawText("and chests on the road", ePreviewGame2.x+getPercentFontSize(50), ePreviewGame2.y+getPercentFontSize(180), cat);
+		c.drawText("Tanyoo Production 2013", ePreviewGame2.x+getPercentFontSize(400), ePreviewGame2.y+getPercentFontSize(1680), cat);
 		
 		c.drawText("You can also play multiplayer with", ePreviewGame3.x+getPercentFontSize(50), ePreviewGame3.y+getPercentFontSize(80), cat);
 		c.drawText("bluetooth slash your device to attack,", ePreviewGame3.x+getPercentFontSize(50), ePreviewGame3.y+getPercentFontSize(180), cat);
 		c.drawText("bring it upside down to defense.", ePreviewGame3.x+getPercentFontSize(50), ePreviewGame3.y+getPercentFontSize(280), cat);
-				
+		c.drawText("Tanyoo Production 2013", ePreviewGame3.x+getPercentFontSize(400), ePreviewGame3.y+getPercentFontSize(1680), cat);		
 		
 		if (statusUp == true) {
 			float xTarget = ((currentPage)*ePreviewGame1.width);

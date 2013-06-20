@@ -94,7 +94,6 @@ public class Statistik extends GameView {
 		addEntityCollection(eBackground,
 							estatistikbar,
 							ebuttonback,
-							eBackground2,
 							elevelstatistik,
 							ebintangstatistik,
 							estepstatistik,
@@ -112,7 +111,7 @@ public class Statistik extends GameView {
 				
 		// resize gambar
 		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
-		eBackground2.EBackground2((int)getPercentWidth(82), (int)getPercentHeight(200));
+		eBackground2.EBackground2((int)getPercentWidth(82), (int)getPercentHeight(400));
 		ebuttonback.resizeImage((int)getPercentWidth(12), (int)getPercentHeight(9));
 		estatistikbar.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(13));
 		elevelstatistik.resizeImage((int)getPercentWidth(18), (int)getPercentHeight(11));

@@ -114,7 +114,6 @@ public class Petualangan extends GameView {
 				  ebarempty,
 				  egameview,
 				  eplatform,
-				  eBackground2,
 				  estars,
 				  esteps,
 				  eshop,
@@ -141,7 +140,7 @@ public class Petualangan extends GameView {
 		
 		//HUD
 		eBackground.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(100));
-		eBackground2.EBackground2((int)getPercentWidth(200), (int)getPercentHeight(50));
+		eBackground2.EBackground2((int)getPercentWidth(200), (int)getPercentHeight(30));
 		einfo.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		egpsAcquire.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(10));
 		ebardistance.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
@@ -149,7 +148,7 @@ public class Petualangan extends GameView {
 		ebarempty.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		edistanceempty.resizeImage((int)getPercentWidth(65),(int)getPercentHeight(9));
 		edistance.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
-		egameview.resizeImage((int)getPercentWidth(100),(int)getPercentHeight(20));
+		egameview.resizeImage((int)getPercentWidth(200),(int)getPercentHeight(20));
 		ematicover.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(20));
 		eplatform.resizeImage((int)getPercentWidth(100), (int)getPercentHeight(5));
 		ehealthpoint.resizeImage((int)getPercentWidth(15),(int)getPercentHeight(9));
@@ -189,11 +188,12 @@ public class Petualangan extends GameView {
 		edistanceempty.setPosition(ebardistance.x+ebardistance.width, getPercentHeight(46));
 		
 		eBackground2.setPosition(getPercentWidth(0), getPercentHeight(56));
-		elevel.setPosition(getPercentWidth(3), getPercentHeight(58));
-		estars.setPosition(getPercentWidth(23), getPercentHeight(58));
-		esteps.setPosition(getPercentWidth(43), getPercentHeight(58));
-		epotion.setPosition(getPercentWidth(63), getPercentHeight(58));
-//		ecalore.setPosition(getPercentWidth(83), getPercentHeight(58));
+		
+		elevel.setPosition(getPercentWidth(8), getPercentHeight(58));
+		estars.setPosition(getPercentWidth(28), getPercentHeight(58));
+		esteps.setPosition(getPercentWidth(48), getPercentHeight(58));
+		epotion.setPosition(getPercentWidth(68), getPercentHeight(58));
+		
 		eshop.setPosition(getPercentWidth(30), getPercentHeight(83));
 		
 		//game
